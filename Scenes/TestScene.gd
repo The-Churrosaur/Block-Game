@@ -5,16 +5,23 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
+const test_block = preload("res://TestBlock.tscn")
+onready var test_grid = $TestGrid
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$TestGrid.add_block(Vector2(-1,0),$TestGrid/BlockBase)
-	$TestGrid.add_block(Vector2(1,0),$TestGrid/BlockBase2)
-	$TestGrid.add_block(Vector2(0,0),$TestGrid/BlockBase3)
-	$TestGrid.position_blocks()
+	test_grid.add_block($TestGrid/BlockBase,[Vector2(-1,0)])
+	test_grid.add_block($TestGrid/BlockBase2,[Vector2(1,0)])
+	test_grid.add_block($TestGrid/BlockBase3,[Vector2(0,0)])
+	test_grid.position_all_blocks()
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if (Input.is_action_just_pressed("ui_lclick")):
+		
+		var block = test_block.instance()
+		test_grid.add_block_at_point(block, get_global_mouse_position())
+		
+	pass
