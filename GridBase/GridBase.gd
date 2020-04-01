@@ -32,8 +32,6 @@ func add_block_at_point(block : Block, point : Vector2):
 	
 	var coord = get_gridFromPoint(point)
 	var coord_ary = []
-	#coord_ary.resize(block.size_grid.size())
-	# removed since we're appending to the array per point
 	
 	for vec in block.size_grid:
 		coord_ary.append(coord + vec * grid_spacing)
@@ -57,10 +55,12 @@ func position_block(pos : Vector2):
 		block.position = pos as Vector2 * grid_spacing
 
 func get_gridFromPoint(point : Vector2):
+	
+	# relative vector decomposes to give offset along each axis
+	
 	var relativeVec = point - position
-	var x = relativeVec.x / grid_spacing
-	var y = relativeVec.y / grid_spacing
-	var grid_coord = Vector2(x,y).round()
+	var grid_coord = relativeVec.rotated(-global_rotation) # relative to grid
+	grid_coord = (grid_coord / grid_spacing).round()
 	#print("getting grid coordinate ", grid_coord)
 	return grid_coord
 
