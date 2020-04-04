@@ -1,11 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ShipBase/ShipBase.gd" type="Script" id=1]
+[ext_resource path="res://ShipBase/GridBody.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ShipBase/GridBase/GridBase.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-
-[node name="ShipBase" type="RigidBody2D"]
+[node name="ShipBase" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="MainCollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+[node name="GridBody" parent="." instance=ExtResource( 2 )]
+
+[node name="GridBase" parent="GridBody" instance=ExtResource( 3 )]

@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "Block",
 "language": "GDScript",
-"path": "res://GridBase/block.gd"
+"path": "res://ShipBase/GridBase/block.gd"
 }, {
 "base": "GunBase",
 "class": "DefaultGun",
@@ -22,7 +22,12 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Grid",
 "language": "GDScript",
-"path": "res://GridBase/GridBase.gd"
+"path": "res://ShipBase/GridBase/GridBase.gd"
+}, {
+"base": "RigidBody2D",
+"class": "GridBody",
+"language": "GDScript",
+"path": "res://ShipBase/GridBody.gd"
 }, {
 "base": "Node2D",
 "class": "GunBase",
@@ -38,14 +43,21 @@ _global_script_classes=[ {
 "class": "Projectile",
 "language": "GDScript",
 "path": "res://WeaponBase/ProjectileBase.gd"
+}, {
+"base": "Node2D",
+"class": "ShipBase",
+"language": "GDScript",
+"path": "res://ShipBase/ShipBase.gd"
 } ]
 _global_script_class_icons={
 "Block": "",
 "DefaultGun": "",
 "Grid": "",
+"GridBody": "",
 "GunBase": "",
 "GunBlock": "",
-"Projectile": ""
+"Projectile": "",
+"ShipBase": ""
 }
 
 [application]

@@ -1,20 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://GridBase/GridBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/TestScene.gd" type="Script" id=2]
-[ext_resource path="res://GridBase/Block.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ShipBase/ShipBase.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
-
-[node name="TestGrid" parent="." instance=ExtResource( 1 )]
-position = Vector2( 868.816, 547.393 )
-
-[node name="BlockBase" parent="TestGrid" instance=ExtResource( 3 )]
-
-[node name="BlockBase2" parent="TestGrid" instance=ExtResource( 3 )]
-
-[node name="BlockBase3" parent="TestGrid" instance=ExtResource( 3 )]
 
 [node name="Label" type="Label" parent="."]
 margin_right = 40.0
@@ -23,3 +13,5 @@ text = "test"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ShipBase" parent="." instance=ExtResource( 4 )]

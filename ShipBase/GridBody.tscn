@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/GridBody.gd" type="Script" id=1]
+
+[node name="GridBody" type="RigidBody2D"]
+collision_mask = 2
+mass = 1000.0
+script = ExtResource( 1 )

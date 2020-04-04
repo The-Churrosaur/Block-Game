@@ -1,9 +1,13 @@
-extends RigidBody2D
+# wrapper for a ship grid
+
+class_name ShipBase
+extends Node2D
+
+
+const grid_size = 64 # pixels
+onready var grid = $GridBody/GridBase
+onready var body = $GridBody
+
 
 func _ready():
-	var shape_owners = get_shape_owners()
-	print(shape_owners)
-	var shape = RectangleShape2D.new()
-	shape.set_extents(Vector2(500,100))
-	shape_owner_add_shape(0, shape)
 	pass

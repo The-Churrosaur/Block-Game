@@ -9,7 +9,7 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# launch test scene
-	get_tree().change_scene("res://Scenes/Shape_CollisionTest.tscn")
+	get_tree().change_scene("res://Scenes/TestScene.tscn")
 	pass # Replace with function body.
 
 
