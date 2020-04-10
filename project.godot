@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "Node2D",
 "class": "Block",
 "language": "GDScript",
 "path": "res://ShipBase/GridBase/block.gd"
@@ -20,14 +20,9 @@ _global_script_classes=[ {
 "path": "res://Weapons/DefaultGun.gd"
 }, {
 "base": "Node2D",
-"class": "Grid",
+"class": "GridBase",
 "language": "GDScript",
 "path": "res://ShipBase/GridBase/GridBase.gd"
-}, {
-"base": "RigidBody2D",
-"class": "GridBody",
-"language": "GDScript",
-"path": "res://ShipBase/GridBody.gd"
 }, {
 "base": "Node2D",
 "class": "GunBase",
@@ -39,25 +34,42 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Blocks/GunBlock.gd"
 }, {
+"base": "Block",
+"class": "PinBlock",
+"language": "GDScript",
+"path": "res://Blocks/PinBlock.gd"
+}, {
 "base": "RigidBody2D",
 "class": "Projectile",
 "language": "GDScript",
 "path": "res://WeaponBase/ProjectileBase.gd"
 }, {
-"base": "Node2D",
-"class": "ShipBase",
+"base": "RigidBody2D",
+"class": "ShipBody",
 "language": "GDScript",
-"path": "res://ShipBase/ShipBase.gd"
+"path": "res://ShipBase/ShipBody.gd"
+}, {
+"base": "Node2D",
+"class": "ShipInfo",
+"language": "GDScript",
+"path": "res://ShipBase/ShipInfo.gd"
+}, {
+"base": "Block",
+"class": "ThrusterBlock",
+"language": "GDScript",
+"path": "res://Blocks/ThrusterBlock.gd"
 } ]
 _global_script_class_icons={
 "Block": "",
 "DefaultGun": "",
-"Grid": "",
-"GridBody": "",
+"GridBase": "",
 "GunBase": "",
 "GunBlock": "",
+"PinBlock": "",
 "Projectile": "",
-"ShipBase": ""
+"ShipBody": "",
+"ShipInfo": "",
+"ThrusterBlock": ""
 }
 
 [application]
@@ -76,6 +88,16 @@ window/size/height=1080
 ui_lclick={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+ui_rclick={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+ui_mclick={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 
