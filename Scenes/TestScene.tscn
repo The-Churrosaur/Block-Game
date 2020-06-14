@@ -19,6 +19,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ShipBody1" parent="." instance=ExtResource( 4 )]
+
+[node name="Camera2D" type="Camera2D" parent="ShipBody1"]
+position = Vector2( 963.051, 536.836 )
+current = true
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 10.0
 margin_top = 10.0
@@ -65,5 +71,3 @@ button_mask = 2
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 7 )
-
-[node name="ShipBody" parent="." instance=ExtResource( 4 )]

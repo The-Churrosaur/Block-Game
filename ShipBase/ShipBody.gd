@@ -13,9 +13,24 @@ var block_collision_dict = {}
 # for deletion once the block has gone cronch
 # TODO this feels inelegant af.
 
+signal on_clicked(shipBody)
+
 func _ready():
 	grid.connect("block_added", self, "on_grid_block_added")
 	grid.connect("block_removed", self, "on_grid_block_removed")
+	input_pickable = true
+	pass
+
+func _unhandled_input(event):
+
+	# when clicked, emits signal that has been clicked
+	
+	if event.is_action("ui_mclick"):
+		print("ship: input mclick ", name)
+		emit_signal("on_clicked", self)
+		#get_tree().set_input_as_handled()
+		
+	
 	pass
 
 func on_grid_block_added(coord, block, grid):
@@ -26,8 +41,8 @@ func on_grid_block_added(coord, block, grid):
 		var collider = CollisionShape2D.new()
 		add_child(collider)
 		collider.shape = block_collider.shape
-		# TODO preserve collider position relative to block
-		collider.position = coord * grid.grid_size
+		# preserves collider position relative to block
+		collider.position = block.position + block_collider.position
 		print(collider.position)
 		block_collision_dict[collider] = block
 		block_collision_dict[block] = collider

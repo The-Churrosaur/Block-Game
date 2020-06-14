@@ -4,12 +4,22 @@ extends Node2D
 var test_block = null
 var display_block = null
 var block_template = null
-onready var test_grid = $ShipBody.grid
+onready var test_ship = $ShipBody1
+onready var test_grid = test_ship.grid
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	test_ship.connect("on_clicked", self, "on_ship_clicked")
 	pass # Replace with function body.
+
+func on_ship_clicked(shipBody):
+	print("scene: shipclicked")
+	if shipBody is ShipBody:
+		test_ship = shipBody
+		test_grid = shipBody.grid
+	else:
+		print("ship clicked: no shipbody returned")
 
 func on_block_select_button_pressed(block):
 	if block is PackedScene:
@@ -34,6 +44,4 @@ func _process(delta):
 		
 		test_grid.remove_block_at_point(get_global_mouse_position())
 	
-	if (Input.is_action_just_pressed("ui_mclick")):
-		pass
 	pass

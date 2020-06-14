@@ -5,7 +5,7 @@ extends Node2D
 const size_grid = [Vector2(0,0)] 
 # ie. a 1x2 spire would be [0,0 , 0,1]
 
-# array of collisionshapes, populated on load
+# public array of collisionshapes, populated on load
 var hitbox_collision_shapes = [] 
 export var hitbox_names_string = "Hitbox"
 
