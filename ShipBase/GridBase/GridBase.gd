@@ -46,6 +46,7 @@ func add_block(block, center_coord, coord_ary = []):
 		block_dict[pos] = block
 	
 	add_child(block) # for cleanliness
+	block.owner = shipBody
 	position_block(center_coord)
 	
 	# a surprise tool that will help us later

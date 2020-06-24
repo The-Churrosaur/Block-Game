@@ -44,4 +44,8 @@ func _process(delta):
 		
 		test_grid.remove_block_at_point(get_global_mouse_position())
 	
+	if (Input.is_action_just_pressed("ui_cancel")):
+		print("saving")
+		test_ship.save("saveTest")
+	
 	pass
