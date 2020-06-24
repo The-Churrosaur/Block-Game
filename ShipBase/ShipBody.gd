@@ -112,7 +112,7 @@ func on_grid_block_removed(coord, block, grid):
 	
 	pass
 
-func on_force_requested(pos, magnitude, central):
+func on_force_requested(pos, magnitude, central = false):
 	print("force requested")
 	if central:
 		add_central_force(magnitude)

@@ -16,9 +16,7 @@ script = ExtResource( 2 )
 
 [node name="ShipBody1" parent="." instance=ExtResource( 4 )]
 position = Vector2( 961.117, 548.977 )
-linear_velocity = Vector2( 10, 0 )
 linear_damp = 0.0
-angular_velocity = 0.5
 angular_damp = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShipBody1"]
