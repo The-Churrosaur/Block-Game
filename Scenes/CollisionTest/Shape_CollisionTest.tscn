@@ -14,7 +14,7 @@ position = Vector2( 619.562, 891.493 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionTester"]
-position = Vector2( -619.562, -891.493 )
+position = Vector2( -17.562, 28.507 )
 shape = SubResource( 1 )
 
 [node name="ShipBase" parent="." instance=ExtResource( 3 )]

@@ -6,6 +6,7 @@ extends Node2D
 var shipBody
 var shipInfo
 var grid_size = 64 # base
+onready var anchor = $GridAnchor
 
 var block_dict = {} # master dictionary of grid
 # blocks are organized in a dict of vector2 -> node
@@ -46,6 +47,7 @@ func add_block(block, center_coord, coord_ary = []):
 		block_dict[pos] = block
 	
 	add_child(block) # for cleanliness
+	block.owner = shipBody
 	position_block(center_coord)
 	
 	# a surprise tool that will help us later

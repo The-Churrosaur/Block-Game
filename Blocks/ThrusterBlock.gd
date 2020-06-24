@@ -11,7 +11,7 @@ func _ready():
 
 func _process(delta):
 	if (Input.is_action_just_pressed("ui_up")):
-		emit_signal("emit_force", position, force, true)
+		emit_signal("emit_force", position, force, false)
 
 func on_added_to_grid(center_coord, block, grid):
 	.on_added_to_grid(center_coord, block, grid)

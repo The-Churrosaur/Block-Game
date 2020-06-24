@@ -11,6 +11,7 @@ onready var test_grid = test_ship.grid
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	test_ship.connect("on_clicked", self, "on_ship_clicked")
+	#test_ship.add_central_force(Vector2(1,0))
 	pass # Replace with function body.
 
 func on_ship_clicked(shipBody):
@@ -43,6 +44,9 @@ func _process(delta):
 	if (Input.is_action_just_pressed("ui_rclick")):
 		
 		test_grid.remove_block_at_point(get_global_mouse_position())
-		test_ship.scale = test_ship.scale * 0.9
+	
+	if (Input.is_action_just_pressed("ui_cancel")):
+		print("saving")
+		test_ship.save("saveTest")
 	
 	pass

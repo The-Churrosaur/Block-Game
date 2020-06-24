@@ -19,7 +19,7 @@ func stealshape():
 	
 	var shape = ship.collision_shape.shape
 	collision_shape = CollisionShape2D.new()
-	add_child(collision_shape)
+	$CollisionShape2D.add_child(collision_shape)
 	collision_shape.shape = shape
 
 func push():
