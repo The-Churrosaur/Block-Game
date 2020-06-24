@@ -43,5 +43,6 @@ func _process(delta):
 	if (Input.is_action_just_pressed("ui_rclick")):
 		
 		test_grid.remove_block_at_point(get_global_mouse_position())
+		test_ship.scale = test_ship.scale * 0.9
 	
 	pass
