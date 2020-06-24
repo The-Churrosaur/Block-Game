@@ -12,7 +12,7 @@ extents = Vector2( 32.6318, 29.7891 )
 [node name="Node2D" type="Node2D"]
 
 [node name="Parent" type="RigidBody2D" parent="."]
-position = Vector2( 100, 100 )
+position = Vector2( 300, 100 )
 mass = 29.9
 script = ExtResource( 2 )
 
@@ -25,9 +25,6 @@ texture = ExtResource( 1 )
 [node name="Node2D" type="Node2D" parent="Parent"]
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Parent/Node2D"]
-position = Vector2( 25.7894, 26.8421 )
-node_a = NodePath("../..")
-node_b = NodePath("../../../Child")
 
 [node name="Child" type="RigidBody2D" parent="."]
 position = Vector2( 129.474, 128.421 )

@@ -3,6 +3,8 @@
 class_name ShipBody
 extends RigidBody2D
 
+export var save_directory = "res://Ships"
+
 onready var grid = $GridBase
 # ShipBody changes position with COM because godot
 # grid position moves with ShipBody BUT
@@ -119,13 +121,12 @@ func on_force_requested(pos, magnitude, central):
 	pass
 
 func save(name):
-	var address = "res://Ships/" + name + ".tscn"
+	var address = save_directory + "/" + name + ".tscn"
 	
 	var packed_scene = PackedScene.new()
-	packed_scene.pack(self) #TODOself
-	
+	packed_scene.pack(self)
 	ResourceSaver.save(address, packed_scene)
 	
-	print("saved")
+	print(name + " saved")
 	
 	pass

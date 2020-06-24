@@ -6,6 +6,7 @@ extends Node2D
 var shipBody
 var shipInfo
 var grid_size = 64 # base
+onready var anchor = $GridAnchor
 
 var block_dict = {} # master dictionary of grid
 # blocks are organized in a dict of vector2 -> node
