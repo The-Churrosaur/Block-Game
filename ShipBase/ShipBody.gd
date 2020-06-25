@@ -29,6 +29,8 @@ var block_collision_dict = {}
 # - is holding hitboxes on the ship necessary? 
 # - single polygon that switches owners (collider has to be direct child)
 
+var supergrid = null
+
 signal on_clicked(shipBody)
 
 func _ready():
@@ -60,7 +62,7 @@ func on_grid_block_added(coord, block, grid):
 	for block_collider in block.hitbox_collision_shapes:
 		var collider = CollisionShape2D.new()
 		grid.add_child(collider)
-		collider.owner = self
+		set_as_owner(collider)
 		collider.shape = block_collider.shape
 		
 		# preserves collider position relative to block
@@ -117,7 +119,7 @@ func on_force_requested(pos, magnitude, central = false):
 	if central:
 		add_central_force(magnitude)
 	else:
-		add_force(pos - position, magnitude)
+		add_force(grid.position + pos, magnitude)
 	pass
 
 func save(name):
@@ -128,5 +130,9 @@ func save(name):
 	ResourceSaver.save(address, packed_scene)
 	
 	print(name + " saved")
-	
-	pass
+
+func set_as_owner(node):
+	if (supergrid != null):
+		node.owner = supergrid.shipBody
+	else:
+		node.set_owner(self)

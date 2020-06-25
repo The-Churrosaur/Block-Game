@@ -31,7 +31,8 @@ func create_pin_subShip():
 		
 		subShip = subShip_template.instance()
 		add_child(subShip) # note this makes subgrid child of block
-		subShip.owner = shipBody
+		shipBody.set_as_owner(subShip)
+		subShip.supergrid = grid
 		subShip.global_position = global_position
 		subShip.angular_velocity = 1.0 # for shits
 		

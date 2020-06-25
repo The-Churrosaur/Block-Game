@@ -1,4 +1,4 @@
-# block grid manager, should hold blocks as child nodes for tidiness
+# block grid manager, should hold blocks as child nodes
 
 class_name GridBase
 extends Node2D
@@ -47,7 +47,7 @@ func add_block(block, center_coord, coord_ary = []):
 		block_dict[pos] = block
 	
 	add_child(block) # for cleanliness
-	block.owner = shipBody
+	shipBody.set_as_owner(block)
 	position_block(center_coord)
 	
 	# a surprise tool that will help us later

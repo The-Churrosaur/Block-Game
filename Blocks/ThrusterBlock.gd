@@ -1,7 +1,7 @@
 class_name ThrusterBlock
 extends Block
 
-var force = Vector2(100000,0)
+var force = Vector2(10000,0)
 var shipBody
 
 signal emit_force(pos, mag, central)
