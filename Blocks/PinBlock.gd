@@ -4,7 +4,12 @@ extends Block
 var subShip_template = preload("res://Ships/turretBase.tscn") # default
 
 export var subShip_address = ""
-export var subShip_saved = true
+export var subShip_saved = false
+
+# TODO make some kind of system out of this
+# just do this shit, it chains all the way down
+export var shipBody_address = ""
+export var shipBody_saved = false
 
 var subShip = null
 onready var pinJoint = $PinJoint2D
@@ -12,31 +17,39 @@ onready var pinJoint = $PinJoint2D
 var queue_pin = false
 
 func _ready():
-	print(subShip_address)
+	._ready()
+	
+	print("loading!")
+	print(shipBody_address)
+	
+	var dir = Directory.new()
+	
+	# set saved shipbody on load
+	
+	if (shipBody_saved):
+		shipBody = get_node_or_null(shipBody_address)
+		if(shipBody == null):
+			print("shipbody address invalid")
+		print("shipbody loaded:")
+		print(shipBody)
+		grid = shipBody.grid
 	
 	# if valid subship address, sets subShip template, spawns
 	
 	if (subShip_saved):
-		var dir = Directory.new()
 		if (dir.file_exists(subShip_address)):
 			subShip_template = load(subShip_address)
 			create_pin_subShip()
 	
 	# TODO - ALL ON_ADDED_TO_GRID REFERENCES ARE WIPED WITH SAVE/LOAD
-	
-	pass
-
-func set_ship_grid(block, grid):
-	# quack quack reeee
-	var ship
-	#if grid is GridBase:
-	ship = grid.shipBody
-	#if ship is ShipBody:
-	shipBody = ship
-	pass
 
 func on_added_to_grid(center_coord, block, grid):
 	.on_added_to_grid(center_coord, block, grid)
+	
+	# get relative path of shipBody
+
+	shipBody_address = get_path_to(shipBody)
+	shipBody_saved = true
 	
 	create_pin_subShip()
 

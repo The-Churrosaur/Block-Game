@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://ShipBase/ShipBody.gd" type="Script" id=2]
-[ext_resource path="res://ShipBase/ShipInfo.gd" type="Script" id=3]
-[ext_resource path="res://ShipBase/ShipInfo.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ShipBase/ShipBody.gd" type="Script" id=1]
+[ext_resource path="res://ShipBase/GridBase/GridBase.gd" type="Script" id=2]
+[ext_resource path="res://ShipBase/ShipInfo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ShipBase/ShipInfo.gd" type="Script" id=4]
 [ext_resource path="res://ShipBase/GridBase/GridBase.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ShipBase/GridBase/GridBase.gd" type="Script" id=6]
+[ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://Blocks/PinBlock.gd" type="Script" id=7]
 [ext_resource path="res://Blocks/PinBlock.tscn" type="PackedScene" id=8]
 
@@ -21,28 +21,34 @@ gravity_scale = 0.0
 sleeping = true
 linear_damp = 0.0
 angular_damp = 0.0
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 save_directory = "res://Ships"
 
 [node name="GridBase" type="Node2D" parent="." instance=ExtResource( 5 )]
 position = Vector2( 895.91, 255.974 )
-script = ExtResource( 6 )
+script = ExtResource( 2 )
 
 [node name="PinBlockBase" type="Node2D" parent="GridBase" instance=ExtResource( 8 )]
 position = Vector2( -896, -256 )
 script = ExtResource( 7 )
 hitbox_names_string = "Hitbox"
 mass = 100
-subShip_address = "res://Ships/savaroni/ShipBody1/ShipBody1.tscn"
+subShip_address = "res://Ships/reee/ShipBody1/ShipBody1.tscn"
 subShip_saved = true
+shipBody_address = NodePath("../..")
+shipBody_saved = true
 
 [node name="@@8" type="CollisionShape2D" parent="GridBase"]
 position = Vector2( -896, -256 )
 shape = SubResource( 1 )
 
-[node name="ShipInfo" type="Node2D" parent="." instance=ExtResource( 4 )]
-script = ExtResource( 3 )
+[node name="@@9" type="CollisionShape2D" parent="GridBase"]
+position = Vector2( -896, -256 )
+shape = SubResource( 1 )
+
+[node name="ShipInfo" type="Node2D" parent="." instance=ExtResource( 3 )]
+script = ExtResource( 4 )
 
 [node name="COM Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 1 )
+texture = ExtResource( 6 )
