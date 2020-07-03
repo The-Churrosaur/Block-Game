@@ -16,6 +16,7 @@ export var mass = 100
 var grid : Node2D = null
 var grid_coord = [] # DEFUNCT just in case self-reference to find itself through grid
 var center_grid_coord : Vector2 # center coordinate of block
+var shipBody
 
 
 func _ready():
@@ -33,4 +34,5 @@ func set_hitbox_collision_shapes():
 func on_added_to_grid(center_coord, block, grid):
 	self.grid = grid
 	self.center_grid_coord = center_coord
+	shipBody = grid.shipBody
 	pass

@@ -2,7 +2,6 @@ class_name ThrusterBlock
 extends Block
 
 var force = Vector2(10000,0)
-var shipBody
 
 signal emit_force(pos, mag, central)
 
@@ -15,5 +14,4 @@ func _process(delta):
 
 func on_added_to_grid(center_coord, block, grid):
 	.on_added_to_grid(center_coord, block, grid)
-	shipBody = grid.shipBody
 	connect("emit_force", shipBody, "on_force_requested")

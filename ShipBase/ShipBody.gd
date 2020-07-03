@@ -122,14 +122,35 @@ func on_force_requested(pos, magnitude, central = false):
 		add_force(grid.position + pos, magnitude)
 	pass
 
-func save(name):
-	var address = save_directory + "/" + name + ".tscn"
+signal save_subships(dir)
+signal saved (name, address)
+
+func save(name, dir = save_directory):
 	
+	# navigate a directory, make new folder
+	
+	var directory = Directory.new()
+	directory.open(dir)
+	directory.make_dir(name) 
+	directory.change_dir(name)
+	var folder = directory.get_current_dir()
+	
+	# tell subgrids to save under current directory
+	
+	emit_signal("save_subships", folder)
+	
+	# save scene under folder
+	
+	var address = folder + "/" + name + ".tscn"
 	var packed_scene = PackedScene.new()
 	packed_scene.pack(self)
 	ResourceSaver.save(address, packed_scene)
 	
+	emit_signal("saved", name, address)
 	print(name + " saved")
+
+func save_as_subship(dir):
+	save(self.name, dir)
 
 func set_as_owner(node):
 	if (supergrid != null):

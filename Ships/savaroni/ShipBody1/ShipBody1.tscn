@@ -1,0 +1,44 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://ShipBase/ShipBody.gd" type="Script" id=2]
+[ext_resource path="res://ShipBase/ShipInfo.gd" type="Script" id=3]
+[ext_resource path="res://Blocks/GunBlock.gd" type="Script" id=4]
+[ext_resource path="res://ShipBase/ShipInfo.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ShipBase/GridBase/GridBase.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ShipBase/GridBase/GridBase.gd" type="Script" id=7]
+[ext_resource path="res://Blocks/GunBlock.tscn" type="PackedScene" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[node name="ShipBody1" type="RigidBody2D"]
+rotation = -1.91652
+scale = Vector2( 1, 1 )
+input_pickable = true
+collision_mask = 2
+mass = 100.01
+gravity_scale = 0.0
+linear_damp = 0.0
+angular_velocity = 1.0
+angular_damp = 0.0
+script = ExtResource( 2 )
+save_directory = "res://Ships"
+
+[node name="GridBase" type="Node2D" parent="." instance=ExtResource( 6 )]
+script = ExtResource( 7 )
+
+[node name="GunBlockBase" type="Node2D" parent="GridBase" instance=ExtResource( 8 )]
+script = ExtResource( 4 )
+hitbox_names_string = "Hitbox"
+mass = 100
+
+[node name="@@5" type="CollisionShape2D" parent="GridBase"]
+shape = SubResource( 1 )
+
+[node name="ShipInfo" type="Node2D" parent="." instance=ExtResource( 5 )]
+script = ExtResource( 3 )
+
+[node name="COM Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 1 )
