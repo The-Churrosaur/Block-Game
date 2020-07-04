@@ -3,9 +3,12 @@
 class_name GridBase
 extends Node2D
 
+onready var storage = $GridBase_Storage
+# TODO timing of loading children/references
+
 var shipBody
 var shipInfo
-var grid_size = 64 # base
+export var grid_size = 64 # base
 onready var anchor = $GridAnchor
 
 var block_dict = {} # master dictionary of grid
@@ -15,6 +18,8 @@ var block_dict = {} # master dictionary of grid
 signal block_added(coord, block, grid)
 signal block_removed(coord, block, grid) 
 # be wary of holding the reference to a dying block
+
+export var saved = false
 
 func _ready():
 	
@@ -29,6 +34,9 @@ func _ready():
 	if info is ShipInfo:
 		shipInfo = info
 		#set_vars_from_info(info)
+	
+#	if saved:
+#		load_in()
 	
 	pass
 
@@ -95,7 +103,6 @@ func get_gridFromPoint(point : Vector2):
 	print("getting grid coordinate ", grid_coord)
 	return grid_coord
 
-
 func position_block(pos : Vector2):
 	if !block_dict.has(pos):
 		return false
@@ -107,6 +114,36 @@ func position_all_blocks():
 	for p in block_dict.keys():
 		position_block(p as Vector2)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+# SAVING AND LOADING ===========================================================
+
+signal save_blocks(name, folder)
+
+func save(folder):
+	
+	saved = true
+	
+	# serialize vars to storage
+	storage.save(self)
+	
+	# -> save blocks
+	
+	# make new folder for blocks
+	var directory = Directory.new()
+	directory.open(folder)
+	directory.make_dir("Blocks")
+	directory.change_dir("Blocks")
+	var new_folder = directory.get_current_dir()
+	
+	# tell blocks to save under new folder
+	emit_signal("save_blocks", self.name, new_folder)
+	
+	# save self 
+	
+	var address = folder + "/" + name + ".tscn"
+	var packed_scene = PackedScene.new()
+	packed_scene.pack(self)
+	ResourceSaver.save(address, packed_scene)
+
+func load_in():
+	print("grid loaded")
+	storage.load_data(self)

@@ -1,9 +1,10 @@
-# editor/physics wrapper for a block grid
+#physics wrapper for a block grid
 
 class_name ShipBody
 extends RigidBody2D
 
 export var save_directory = "res://Ships"
+onready var storage = $ShipBase_Storage
 
 onready var grid = $GridBase
 # ShipBody changes position with COM because godot
@@ -16,7 +17,7 @@ func grid_origin():
 	grid_origin = grid.global_position
 	return grid_origin
 
-#TODO since it's all bunk, encapsulating node slaved to grid?
+#TODO some way to serialize vvv
 
 var block_collision_dict = {}
 # CollisionShape2D -> Block
@@ -28,16 +29,23 @@ var block_collision_dict = {}
 # TODO this feels inelegant af.
 # - is holding hitboxes on the ship necessary? 
 # - single polygon that switches owners (collider has to be direct child)
+# - performance of individual block hitboxes?
+# - find collision point then manually calculate
 
 var supergrid = null
 
 signal on_clicked(shipBody)
 
+export var saved = false # toggled when saved
+
 func _ready():
 	grid.connect("block_added", self, "on_grid_block_added")
 	grid.connect("block_removed", self, "on_grid_block_removed")
+	
 	input_pickable = true
-	pass
+	
+	if saved: # loaded from disc
+		load_in()
 
 func _unhandled_input(event):
 
@@ -122,10 +130,15 @@ func on_force_requested(pos, magnitude, central = false):
 		add_force(grid.position + pos, magnitude)
 	pass
 
-signal save_subships(dir)
+# SAVING AND LOADING ===========================================================
+
+signal saving_ship(ship, dir)
 signal saved (name, address)
+signal save_to_storage(ship)
 
 func save(name, dir = save_directory):
+	
+	saved = true
 	
 	# navigate a directory, make new folder
 	
@@ -135,9 +148,15 @@ func save(name, dir = save_directory):
 	directory.change_dir(name)
 	var folder = directory.get_current_dir()
 	
-	# tell subgrids to save under current directory
+	# announce
+	emit_signal("saving_ship", self, folder)
 	
-	emit_signal("save_subships", folder)
+	# start chain of children saving 
+	# -> save grid -> save blocks
+	grid.save(folder)
+	
+	# save ship data
+	storage.save(self)
 	
 	# save scene under folder
 	
@@ -149,8 +168,16 @@ func save(name, dir = save_directory):
 	emit_signal("saved", name, address)
 	print(name + " saved")
 
-func save_as_subship(dir):
+func load_in():
+	storage.load_data(self)
+	grid.load_in()
+	pass
+
+func save_as_subship(parent, dir):
 	save(self.name, dir)
+
+func load_data(storage):
+	storage.load_data(self)
 
 func set_as_owner(node):
 	if (supergrid != null):

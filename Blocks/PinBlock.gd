@@ -1,7 +1,7 @@
 class_name PinBlock
 extends Block
 
-var subShip_template = preload("res://Ships/turretBase.tscn") # default
+var subShip_template = preload("res://Ships/turret_default/turret_default.tscn")
 
 export var subShip_address = ""
 export var subShip_saved = false
@@ -40,8 +40,6 @@ func _ready():
 		if (dir.file_exists(subShip_address)):
 			subShip_template = load(subShip_address)
 			create_pin_subShip()
-	
-	# TODO - ALL ON_ADDED_TO_GRID REFERENCES ARE WIPED WITH SAVE/LOAD
 
 func on_added_to_grid(center_coord, block, grid):
 	.on_added_to_grid(center_coord, block, grid)
@@ -68,7 +66,7 @@ func create_pin_subShip():
 		subShip.global_position = global_position # blocks' position
 		
 		# subship vars TODO make factory/is necessary?
-		shipBody.connect("save_subships", subShip, "save_as_subship")
+		shipBody.connect("saving_ship", subShip, "save_as_subship")
 		
 		subShip.angular_velocity = 1.0 # for shits
 		
