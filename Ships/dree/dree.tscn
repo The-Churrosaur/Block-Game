@@ -7,8 +7,8 @@
 [ext_resource path="res://ShipBase/ShipInfo.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ShipBase/ShipBase_Storage.tscn" type="PackedScene" id=6]
 
-[node name="ree" type="RigidBody2D"]
-position = Vector2( 897.123, 548.977 )
+[node name="dree" type="RigidBody2D"]
+position = Vector2( 961.117, 548.977 )
 input_pickable = true
 collision_mask = 2
 mass = 100.01
@@ -18,7 +18,7 @@ linear_damp = 0.0
 angular_damp = 0.0
 script = ExtResource( 2 )
 save_directory = "res://Ships"
-given_name = "ree"
+given_name = "dree"
 
 [node name="ShipInfo" type="Node2D" parent="." instance=ExtResource( 5 )]
 script = ExtResource( 3 )
@@ -32,3 +32,4 @@ script = ExtResource( 4 )
 parent_path = NodePath("..")
 data_saved = true
 grid_address = ""
+subShip_paths = ""

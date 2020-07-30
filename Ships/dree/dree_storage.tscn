@@ -7,3 +7,4 @@ script = ExtResource( 1 )
 parent_path = NodePath("..")
 data_saved = true
 grid_address = ""
+subShip_paths = ""

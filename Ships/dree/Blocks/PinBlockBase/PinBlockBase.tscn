@@ -9,13 +9,11 @@
 extents = Vector2( 32, 32 )
 
 [node name="PinBlockBase" type="Node2D"]
-position = Vector2( -64, 0 )
 script = ExtResource( 3 )
 hitbox_names_string = "Hitbox"
 mass = 100
 data_block = true
 storage_type = "PinBlock_Storage"
-saved = false
 default_subShip = "pinblock_default"
 ships_folder = "res://Ships"
 subShips_filepath = "/SubShips"

@@ -37,6 +37,8 @@ var supergrid = null
 
 signal on_clicked(shipBody)
 
+var subShips = [] # array of subships, node paths saved by storage
+
 func _ready():
 	
 	grid.connect("block_added", self, "on_grid_block_added")
@@ -52,6 +54,11 @@ func _unhandled_input(event):
 		print("ship: input mclick ", name)
 		emit_signal("on_clicked", self)
 		#get_tree().set_input_as_handled()
+
+func on_new_subShip(ship): # called by pinblocks
+	subShips.append(ship)
+
+# BLOCK PLACEMENT ==============================================================
 
 func on_grid_block_added(coord, block, grid):
 	
@@ -114,6 +121,8 @@ func on_grid_block_removed(coord, block, grid):
 	
 	pass
 
+# INGAME LOGIC =================================================================
+
 func on_force_requested(pos, magnitude, central = false):
 	print("force requested")
 	if central:
@@ -156,7 +165,7 @@ func save(name, dir = save_directory):
 	# save ship data
 	print("ship storage: " + storage.name)
 	storage.save(self, folder)
-	
+	print("storage saved")
 	# save scene under folder
 	
 	var address = folder + "/" + name + ".tscn"
@@ -199,3 +208,6 @@ func load_in(folder):
 	# get stored data
 	storage.load_data(self)
 	print(storage.grid_address) # test loaded
+	print(subShips)
+	for ship in subShips:
+		print(ship.name)

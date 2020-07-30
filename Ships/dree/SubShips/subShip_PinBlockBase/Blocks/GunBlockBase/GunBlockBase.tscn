@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://Weapons/DefaultGun.gd" type="Script" id=2]
-[ext_resource path="res://Blocks/GunBlock.gd" type="Script" id=3]
+[ext_resource path="res://Blocks/GunBlock.gd" type="Script" id=2]
+[ext_resource path="res://Weapons/DefaultGun.gd" type="Script" id=3]
 [ext_resource path="res://Weapons/DefaultGun.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/LaserTurret.png" type="Texture" id=5]
 
@@ -10,12 +10,11 @@
 extents = Vector2( 32, 32 )
 
 [node name="GunBlockBase" type="Node2D"]
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 hitbox_names_string = "Hitbox"
 mass = 100
 data_block = true
 storage_type = "Block_Storage"
-saved = false
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -26,7 +25,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 
 [node name="DefaultGunBase" type="Node2D" parent="." instance=ExtResource( 4 )]
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 visible = false

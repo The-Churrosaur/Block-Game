@@ -3,8 +3,8 @@ extends Block
 
 export var default_subShip = "pinblock_default"
 export var ships_folder = "res://Ships"
-# path from ship directory
-export var subShips_filepath = "/SubShips"
+export var subShips_filepath = "/SubShips" # path from ship directory
+
 var subShip_name
 var subShip_address
 
@@ -12,6 +12,9 @@ var subShip = null
 onready var pinJoint = $PinJoint2D
 
 var queue_pin = false
+
+# communicates up to shipbody
+signal subShip_pinned(subShip)
 
 func _ready():
 	._ready()
@@ -21,6 +24,7 @@ func _ready():
 func on_added_to_grid(center_coord, block, grid):
 	.on_added_to_grid(center_coord, block, grid)
 	
+	connect("subShip_pinned", shipBody, "on_new_subShip")
 	create_pin_subShip()
 
 func create_pin_subShip(default = true, ship = null):
@@ -43,6 +47,9 @@ func create_pin_subShip(default = true, ship = null):
 		subShip.angular_velocity = 1.0 # for shits
 		queue_pin = true
 		
+		emit_signal("subShip_pinned", subShip)
+		return true
+		
 	else:
 		print("pinblock: base shipbody not found")
 		return false
@@ -53,7 +60,7 @@ func _process(delta):
 		pinJoint.node_b = subShip.get_path()
 		queue_pin = false
 
-# SAVING AND LOADING =============================================================
+# SAVING AND LOADING ===========================================================
 
 func on_save_blocks(folder, ship_folder):
 	# parent func called below
