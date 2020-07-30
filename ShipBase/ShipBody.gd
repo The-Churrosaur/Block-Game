@@ -5,6 +5,7 @@ extends RigidBody2D
 
 export var save_directory = "res://Ships"
 onready var storage = $ShipBase_Storage
+export var given_name = ""
 
 onready var grid = $GridBase
 # ShipBody changes position with COM because godot
@@ -36,16 +37,12 @@ var supergrid = null
 
 signal on_clicked(shipBody)
 
-export var saved = false # toggled when saved
-
 func _ready():
+	
 	grid.connect("block_added", self, "on_grid_block_added")
 	grid.connect("block_removed", self, "on_grid_block_removed")
 	
 	input_pickable = true
-	
-	if saved: # loaded from disc
-		load_in()
 
 func _unhandled_input(event):
 
@@ -55,9 +52,6 @@ func _unhandled_input(event):
 		print("ship: input mclick ", name)
 		emit_signal("on_clicked", self)
 		#get_tree().set_input_as_handled()
-		
-	
-	pass
 
 func on_grid_block_added(coord, block, grid):
 	
@@ -70,7 +64,7 @@ func on_grid_block_added(coord, block, grid):
 	for block_collider in block.hitbox_collision_shapes:
 		var collider = CollisionShape2D.new()
 		grid.add_child(collider)
-		set_as_owner(collider)
+		collider.owner = self
 		collider.shape = block_collider.shape
 		
 		# preserves collider position relative to block
@@ -79,8 +73,6 @@ func on_grid_block_added(coord, block, grid):
 		
 		block_collision_dict[collider] = block
 		block_collision_dict[block] = collider
-	
-	pass
 
 func update_com(block, invert = false): # also updates mass
 	if !(block is Block):
@@ -138,7 +130,10 @@ signal save_to_storage(ship)
 
 func save(name, dir = save_directory):
 	
-	saved = true
+	# set self name (for reference and loading)
+	self.name = name
+	given_name = name
+	print("ship saving: " + name)
 	
 	# navigate a directory, make new folder
 	
@@ -148,6 +143,9 @@ func save(name, dir = save_directory):
 	directory.change_dir(name)
 	var folder = directory.get_current_dir()
 	
+	# make auxiliary folders
+	directory.make_dir("SubShips")
+	
 	# announce
 	emit_signal("saving_ship", self, folder)
 	
@@ -156,7 +154,8 @@ func save(name, dir = save_directory):
 	grid.save(folder)
 	
 	# save ship data
-	storage.save(self)
+	print("ship storage: " + storage.name)
+	storage.save(self, folder)
 	
 	# save scene under folder
 	
@@ -168,19 +167,35 @@ func save(name, dir = save_directory):
 	emit_signal("saved", name, address)
 	print(name + " saved")
 
-func load_in():
+func load_in(folder):
+	
+	# load grid
+	
+	# seach and destroy false grid
+	grid = $GridBase
+	if (grid != null):
+		grid.free() # not queue_free() since queue would fire after resetting
+	
+	# load grid (+ add child and get grid reference)
+	var grid_packed = load(folder + "/GridBase.tscn")
+	grid = grid_packed.instance()
+	add_child(grid)
+	
+	# tell grid to load in
+	grid.load_in(folder, self)
+	
+	# load storage
+	
+	# remove false storage
+	storage = $ShipBase_Storage
+	if (storage != null):
+		storage.free()
+	
+	# load storage
+	var storage_packed = load(folder + "/" + name + "_storage.tscn")
+	storage = storage_packed.instance()
+	add_child(storage)
+	
+	# get stored data
 	storage.load_data(self)
-	grid.load_in()
-	pass
-
-func save_as_subship(parent, dir):
-	save(self.name, dir)
-
-func load_data(storage):
-	storage.load_data(self)
-
-func set_as_owner(node):
-	if (supergrid != null):
-		node.owner = supergrid.shipBody
-	else:
-		node.set_owner(self)
+	print(storage.grid_address) # test loaded

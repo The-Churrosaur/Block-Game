@@ -1,12 +1,10 @@
 class_name PinBlock_Storage
 extends StorageBase
 
-export var subShip_address = ""
-export var shipBody_path = ""
+export var subShip_name = ""
 
 func get_data(parent):
-	shipBody_path = get_path_to(parent.shipBody)
-	var dir = Directory.new()
+	subShip_name = parent.subShip_name
 
 func set_data(parent):
-	shipBody_path = get_node(shipBody_path)
+	parent.subShip_name = subShip_name

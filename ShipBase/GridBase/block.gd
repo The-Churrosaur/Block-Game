@@ -11,7 +11,11 @@ export var hitbox_names_string = "Hitbox"
 
 export var mass = 100
 
-onready var storage = $Block_Storage
+# if block has storage
+var storage
+export var data_block = true 
+export var storage_type = "Block_Storage"
+var saved_name
 
 # owned by grid, no touch vvv
 
@@ -20,14 +24,16 @@ var grid_coord = [] # DEFUNCT just in case self-reference to find itself through
 var center_grid_coord : Vector2 # center coordinate of block
 var shipBody
 
-export var saved = false
-
 func _ready():
+	storage = get_node(storage_type)
+	sanitize_name()
 	set_hitbox_collision_shapes()
-	
-#	if saved:
-#		load_in()
-	pass
+
+# removes the @node@ from node name
+# don't ask...
+func sanitize_name():
+	var chars = name
+	name = chars
 
 func set_hitbox_collision_shapes():
 	for node in get_children():
@@ -39,18 +45,22 @@ func set_hitbox_collision_shapes():
 # TODO give full coordinates for deletion (or should it recreate from local?)
 func on_added_to_grid(center_coord, block, grid):
 	
-	# vars from grid
-	self.grid = grid
 	self.center_grid_coord = center_coord
+	connect_to_grid(grid)
+
+# vars from grid
+func connect_to_grid(grid):
+	self.grid = grid
 	shipBody = grid.shipBody
-	
 	# grid signals
 	grid.connect("save_blocks", self, "on_save_blocks")
 
 # SAVING AND LOADING ===========================================================
-#TODO do some c# shit to make this not garbage
+#TODO do some c# shit to make this not hot garbage
 
-func on_save_blocks(name, folder):
+func on_save_blocks(folder, ship_folder):
+	
+	print("block saving: " + name)
 	
 	# new folder
 	
@@ -60,6 +70,9 @@ func on_save_blocks(name, folder):
 	directory.change_dir(self.name)
 	var new_folder = directory.get_current_dir()
 	
+	# save data
+	storage.save(self, new_folder)
+	
 	# save self 
 	
 	var address = new_folder + "/" + self.name + ".tscn"
@@ -67,7 +80,28 @@ func on_save_blocks(name, folder):
 	packed_scene.pack(self)
 	ResourceSaver.save(address, packed_scene)
 	
-	saved = true
+	return new_folder # for inheriting blocks
 
-func load_in():
-	storage.load_data()
+func load_in(folder, grid, ship_folder, old_name):
+	set_name(old_name)
+	print("block loading: " + name)
+	
+	# vars should be recreated from data/when grid adds block
+	
+	# load storage
+	load_storage(folder)
+
+func load_storage(folder):
+
+	# remove false storage
+	storage = get_node_or_null(storage_type)
+	if (storage != null):
+		storage.free()
+	
+	# load storage
+	var storage_packed = load(folder + "/" + name + "_storage.tscn")
+	storage = storage_packed.instance()
+	add_child(storage)
+	
+	# get data from storage
+	storage.load_data(self)

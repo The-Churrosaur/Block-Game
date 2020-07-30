@@ -23,39 +23,49 @@ export var saved = false
 
 func _ready():
 	
+	# just in case
+	if saved:
+		storage = $GridBase_Storage 
+	
 	# set node references from tree
 	
 	var parent = get_parent()
-	if parent is ShipBody:
-		shipBody = parent
+	#if parent is ShipBody: # whyyyyyyy
+	shipBody = parent
 	
 	# TODO this is somehow broken
 	var info = parent.get_node("ShipInfo")
-	if info is ShipInfo:
-		shipInfo = info
+#	if info is ShipInfo:
+	shipInfo = info
 		#set_vars_from_info(info)
-	
-#	if saved:
-#		load_in()
 	
 	pass
 
-func set_vars_from_info(info):
-	if info is ShipInfo:
-		print (info.grid_size)
-		grid_size = info.grid_size
+#func set_vars_from_info(info):
+#	if info is ShipInfo:
+#		print (info.grid_size)
+#		grid_size = info.grid_size
 
-func add_block(block, center_coord, coord_ary = []):
-
+func add_block(block, center_coord, check_blocked = true):
+	
+	# creates array of grid coords from block sizegrid, centered on found coord
+	var coord_ary = []
+	for vec in block.size_grid:
+		coord_ary.append(center_coord + vec)
+		# position + relative vector
+	
+	# check if pos blocked
+	if (check_blocked):
+		for pos in coord_ary:
+			if block_dict.has(pos): # if 'blocked'
+				print (name,": coordinate occupied, block failed to place")
+				return false
+	
 	# add all pos to dict
 	for pos in coord_ary:
-		if block_dict.has(pos): # if 'blocked'
-			print (name,": coordinate occupied, block failed to place")
-			return false
 		block_dict[pos] = block
 	
 	add_child(block) # for cleanliness
-	shipBody.set_as_owner(block)
 	position_block(center_coord)
 	
 	# a surprise tool that will help us later
@@ -66,16 +76,8 @@ func add_block(block, center_coord, coord_ary = []):
 
 func add_block_at_point(block : Block, point : Vector2):
 	
-	# creates array of grid coords from block sizegrid, centered on found coord
-	
 	var coord = get_gridFromPoint(point)
-	var coord_ary = []
-	
-	for vec in block.size_grid:
-		coord_ary.append(coord + vec)
-		# position + relative vector
-	
-	add_block(block, coord, coord_ary)
+	add_block(block, coord)
 
 
 func remove_block(pos : Vector2): 
@@ -119,11 +121,12 @@ func position_all_blocks():
 signal save_blocks(name, folder)
 
 func save(folder):
+	print("grid saving: " + name)
 	
 	saved = true
 	
-	# serialize vars to storage
-	storage.save(self)
+	# serialize vars, save storage
+	storage.save(self, folder)
 	
 	# -> save blocks
 	
@@ -135,7 +138,10 @@ func save(folder):
 	var new_folder = directory.get_current_dir()
 	
 	# tell blocks to save under new folder
-	emit_signal("save_blocks", self.name, new_folder)
+	emit_signal("save_blocks", new_folder, folder)
+	
+	# dissociates self from ship (removes duplicate nodes in save)
+	owner = null
 	
 	# save self 
 	
@@ -144,6 +150,64 @@ func save(folder):
 	packed_scene.pack(self)
 	ResourceSaver.save(address, packed_scene)
 
-func load_in():
-	print("grid loaded")
+func load_in(folder, ship):
+	
+	# set vars
+	shipBody = ship
+	
+	# load blocks
+	
+	# navigate to blocks directory
+	var directory = Directory.new()
+	directory.open(folder)
+	directory.change_dir("Blocks")
+	var address = directory.get_current_dir()
+	
+	# cycle through blocks
+	var bname
+	var block_preload
+	var block
+	var block_folder
+	
+	directory.list_dir_begin(true, false)
+	bname = directory.get_next()
+	
+	print ("bname:" + bname)
+	print (address)
+	
+	while bname != "":
+		# instantiate block
+		block_folder = address + "/" + bname
+		block_preload = load(block_folder + "/" + bname + ".tscn")
+		block = block_preload.instance()
+		add_child(block)
+		
+		# tell block to load in
+		block.load_in(block_folder, self, folder, bname)
+		
+		# add block
+		add_block(block, block.center_grid_coord)
+		block_dict[block.center_grid_coord] = block
+		print("block loaded: " + block.name)
+		print(block.center_grid_coord)
+		
+		bname = directory.get_next()
+	
+	directory.list_dir_end()
+	
+	print("blocks loaded")
+	
+	# load storage
+	
+	# search and destroy false storage
+	storage = $GridBase_Storage
+	if (storage != null):
+		storage.free()
+	
+	# load storage
+	var storage_packed = load(folder + "/" + name + "_storage.tscn")
+	storage = storage_packed.instance()
+	add_child(storage)
+	print("grid storage: " + storage.name)
+	
 	storage.load_data(self)

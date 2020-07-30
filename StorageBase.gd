@@ -10,7 +10,19 @@ var parent
 export var parent_path = ""
 export var data_saved = false
 
-func save(parent):
+# gets parent data and saves to file
+func save(parent, folder):
+	save_data(parent)
+	
+	# save self to disc
+	
+	var address = folder + "/" + parent.name + "_storage.tscn"
+	var packed_scene = PackedScene.new()
+	packed_scene.pack(self)
+	ResourceSaver.save(address, packed_scene)
+
+# gets parent data
+func save_data(parent):
 	
 	# resolve parent
 	self.parent = parent

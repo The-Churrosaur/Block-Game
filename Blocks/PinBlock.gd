@@ -1,15 +1,12 @@
 class_name PinBlock
 extends Block
 
-var subShip_template = preload("res://Ships/turret_default/turret_default.tscn")
-
-export var subShip_address = ""
-export var subShip_saved = false
-
-# TODO make some kind of system out of this
-# just do this shit, it chains all the way down
-export var shipBody_address = ""
-export var shipBody_saved = false
+export var default_subShip = "pinblock_default"
+export var ships_folder = "res://Ships"
+# path from ship directory
+export var subShips_filepath = "/SubShips"
+var subShip_name
+var subShip_address
 
 var subShip = null
 onready var pinJoint = $PinJoint2D
@@ -20,68 +17,63 @@ func _ready():
 	._ready()
 	
 	print("loading!")
-	print(shipBody_address)
-	
-	var dir = Directory.new()
-	
-	# set saved shipbody on load
-	
-	if (shipBody_saved):
-		shipBody = get_node_or_null(shipBody_address)
-		if(shipBody == null):
-			print("shipbody address invalid")
-		print("shipbody loaded:")
-		print(shipBody)
-		grid = shipBody.grid
-	
-	# if valid subship address, sets subShip template, spawns
-	
-	if (subShip_saved):
-		if (dir.file_exists(subShip_address)):
-			subShip_template = load(subShip_address)
-			create_pin_subShip()
 
 func on_added_to_grid(center_coord, block, grid):
 	.on_added_to_grid(center_coord, block, grid)
 	
-	# get relative path of shipBody
-
-	shipBody_address = get_path_to(shipBody)
-	shipBody_saved = true
-	
 	create_pin_subShip()
 
-func create_pin_subShip():
+func create_pin_subShip(default = true, ship = null):
 	
 	if shipBody is ShipBody:
 		
-		# set up subship
+		# if no arg, set up default subship
+		if (default):
+			var address = ships_folder + "/" + default_subShip
+			var template = load(address + "/" + default_subShip + ".tscn")
+			ship = template.instance()
+			ship.load_in(address)
 		
-		subShip = subShip_template.instance()
-		
-		# to get address when saved
-		subShip.connect("saved", self, "on_subship_saved") 
-		
+		subShip = ship
 		add_child(subShip) # note this makes subgrid child of block
 		subShip.global_position = global_position # blocks' position
 		
-		# subship vars TODO make factory/is necessary?
-		shipBody.connect("saving_ship", subShip, "save_as_subship")
+		# TODO relative position for loaded subships
 		
 		subShip.angular_velocity = 1.0 # for shits
-		
 		queue_pin = true
 		
 	else:
 		print("pinblock: base shipbody not found")
 		return false
 
-func on_subship_saved(name, address):
-	subShip_address = address
-	subShip_saved = true
-
 func _process(delta):
 	if (queue_pin):
 		pinJoint.node_a = grid.anchor.get_path() # pin to grid anchor
 		pinJoint.node_b = subShip.get_path()
 		queue_pin = false
+
+# SAVING AND LOADING =============================================================
+
+func on_save_blocks(folder, ship_folder):
+	# parent func called below
+	
+	# subship name
+	# set before calling parent func, saving name to file
+	subShip_name = "subShip_" + self.name
+	
+	# save subship
+	subShip.save(subShip_name, ship_folder + subShips_filepath)
+	
+	# save self, storage
+	.on_save_blocks(folder, ship_folder)
+
+func load_in(folder, grid, ship_folder, old_name):
+	.load_in(folder, grid, ship_folder, old_name)
+	
+	# instance and load subship
+	subShip_address = ship_folder + subShips_filepath + "/" + subShip_name 
+	var template = load(subShip_address + "/" + subShip_name + ".tscn")
+	var ship = template.instance()
+	ship.load_in(subShip_address) # load vars
+	create_pin_subShip(false, ship)

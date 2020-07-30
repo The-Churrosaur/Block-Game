@@ -4,4 +4,6 @@
 
 [node name="GridBase_Storage" type="Node2D"]
 script = ExtResource( 1 )
-storage_type = "GridBase_Storage"
+parent_path = NodePath("..")
+data_saved = true
+shipBody_address = NodePath("../..")
