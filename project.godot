@@ -49,10 +49,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Blocks/PinBlock.gd"
 }, {
-"base": "StorageBase",
+"base": "Block_Storage",
 "class": "PinBlock_Storage",
 "language": "GDScript",
 "path": "res://Blocks/PinBlock_Storage.gd"
+}, {
+"base": "Block",
+"class": "PinHead",
+"language": "GDScript",
+"path": "res://Blocks/PinHead.gd"
 }, {
 "base": "RigidBody2D",
 "class": "Projectile",
@@ -94,6 +99,7 @@ _global_script_class_icons={
 "GunBlock": "",
 "PinBlock": "",
 "PinBlock_Storage": "",
+"PinHead": "",
 "Projectile": "",
 "ShipBase_Storage": "",
 "ShipBody": "",

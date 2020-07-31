@@ -20,5 +20,6 @@ func on_text_entered(var text):
 	emit_signal("change_ship", new_ship)
 	owner.test_ship = new_ship
 	owner.test_grid = new_ship.grid
+	owner.main_ship = new_ship
 	
 	pass

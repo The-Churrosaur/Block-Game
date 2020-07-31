@@ -23,6 +23,11 @@ export var saved = false
 
 func _ready():
 	
+	# on load to reset offset position
+	# TODO is this the best way to do this?
+	position = Vector2(0,0)
+	
+	# TODO clean a bunch of this garbage
 	# just in case
 	if saved:
 		storage = $GridBase_Storage 
@@ -71,6 +76,7 @@ func add_block(block, center_coord, check_blocked = true):
 	# a surprise tool that will help us later
 	if block is Block:
 		block.on_added_to_grid(center_coord, block, self)
+		# would need reference to connect signal
 	emit_signal("block_added", center_coord, block, self)
 	return true
 
@@ -80,14 +86,22 @@ func add_block_at_point(block : Block, point : Vector2):
 	add_block(block, coord)
 
 
-func remove_block(pos : Vector2): 
+func remove_block(pos : Vector2) -> bool:
 	if block_dict.has(pos):
 		var block = block_dict[pos]
+		
+		# calls cleanup on block, can abort here
+		var cancel = block.on_removed_from_grid(pos, block, self)
+		if cancel:
+			print("block cancelled removal")
+			return false
+		
 		block_dict.erase(pos)
-		block.queue_free()
 		emit_signal("block_removed", pos, block, self)
+		block.queue_free()
 		return true
 	else:
+		print("block to remove not found!")
 		return false
 
 func remove_block_at_point(point : Vector2):
@@ -154,6 +168,7 @@ func load_in(folder, ship):
 	
 	# set vars
 	shipBody = ship
+	print("grid shipbody: ", shipBody)
 	
 	# load blocks
 	
@@ -172,8 +187,8 @@ func load_in(folder, ship):
 	directory.list_dir_begin(true, false)
 	bname = directory.get_next()
 	
-	print ("bname:" + bname)
-	print (address)
+#	print ("bname:" + bname)
+#	print (address)
 	
 	while bname != "":
 		# instantiate block

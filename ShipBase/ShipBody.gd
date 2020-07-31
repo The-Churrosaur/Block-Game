@@ -4,9 +4,10 @@ class_name ShipBody
 extends RigidBody2D
 
 export var save_directory = "res://Ships"
-onready var storage = $ShipBase_Storage
 export var given_name = ""
+export var default_mass = 0.01
 
+onready var storage = $ShipBase_Storage
 onready var grid = $GridBase
 # ShipBody changes position with COM because godot
 # grid position moves with ShipBody BUT
@@ -37,16 +38,29 @@ var supergrid = null
 
 signal on_clicked(shipBody)
 
-var subShips = [] # array of subships, node paths saved by storage
+# array of subships, node paths repopulated on load
+var subShips = [] 
+# holds self as [0]
+# not a dict for iteration purposes
 
 func _ready():
 	
-	grid.connect("block_added", self, "on_grid_block_added")
-	grid.connect("block_removed", self, "on_grid_block_removed")
+	# just in case
+	if grid != null:
+		connect_to_grid(grid)
+	
+	mass = default_mass
 	
 	input_pickable = true
+	
+	subShips.append(self)
+	print(subShips)
 
-func _unhandled_input(event):
+func connect_to_grid(grid):
+	grid.connect("block_added", self, "on_grid_block_added")
+	grid.connect("block_removed", self, "on_grid_block_removed")
+
+func _unhandled_input(event): # testing
 
 	# when clicked, emits signal that has been clicked
 	
@@ -55,8 +69,19 @@ func _unhandled_input(event):
 		emit_signal("on_clicked", self)
 		#get_tree().set_input_as_handled()
 
-func on_new_subShip(ship): # called by pinblocks
+func is_shipBody() -> bool: # lul
+	return true
+
+func on_new_subShip(ship, pinBlock, pinHead): # called by pinblocks
+	print("ship: new subship received: ", ship)
 	subShips.append(ship)
+
+func on_subShip_removed(ship, pinBlock, pinHead):
+	# poof. kind of slow, but ships shouldn't have that many subships
+	# memory is free right
+	subShips.erase(ship)
+	print("ship: ", name, " subships ",subShips)
+
 
 # BLOCK PLACEMENT ==============================================================
 
@@ -85,6 +110,8 @@ func update_com(block, invert = false): # also updates mass
 	if !(block is Block):
 		return
 	
+#	print("BLOCK ADDED: ", block.name)
+	
 	if (invert):
 		block.mass *= -1
 	
@@ -99,12 +126,17 @@ func update_com(block, invert = false): # also updates mass
 	com_x /= mass
 	com_y /= mass
 	var com = Vector2(com_x,com_y)
+#	print("com: ", com)
+#	print("old grid pos: ", grid.position, grid.global_position)
+#	print("old ship position", position, global_position)
 	
 	grid.global_position += (position - com)
 	position = com
 	
-	print (block.global_position)
-	print (position)
+	
+	print (block.position, block.global_position)
+#	print ("ship position", position, global_position)
+#	print("grid position: ", grid.position)
 
 func on_grid_block_removed(coord, block, grid):
 	
@@ -189,6 +221,7 @@ func load_in(folder):
 	var grid_packed = load(folder + "/GridBase.tscn")
 	grid = grid_packed.instance()
 	add_child(grid)
+	connect_to_grid(grid)
 	
 	# tell grid to load in
 	grid.load_in(folder, self)
@@ -207,7 +240,8 @@ func load_in(folder):
 	
 	# get stored data
 	storage.load_data(self)
-	print(storage.grid_address) # test loaded
+	print("ship: subships:")
 	print(subShips)
 	for ship in subShips:
 		print(ship.name)
+	print(grid.position)

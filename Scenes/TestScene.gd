@@ -7,6 +7,9 @@ var block_template = null
 onready var test_ship = $ShipBody1
 onready var test_grid = test_ship.grid
 
+onready var main_ship = test_ship
+var subShip = 0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,5 +49,14 @@ func _process(delta):
 	if (Input.is_action_just_pressed("ui_cancel")):
 		print("saving")
 		test_ship.save("saveTest")
+	
+	if (Input.is_action_just_pressed("ui_focus_next")):
+		subShip += 1
+		if subShip >= main_ship.subShips.size():
+			subShip = 0
+		print(subShip)
+		print(main_ship.subShips)
+		test_ship = main_ship.subShips[subShip]
+		test_grid = test_ship.grid
 	
 	pass

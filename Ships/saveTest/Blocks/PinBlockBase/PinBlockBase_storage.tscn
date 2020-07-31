@@ -6,4 +6,9 @@
 script = ExtResource( 1 )
 parent_path = NodePath("..")
 data_saved = true
+grid_path = ""
+center_grid_coord = Vector2( -6, -2 )
+shipBody_path = ""
+saved_name = "PinBlockBase"
 subShip_name = "subShip_PinBlockBase"
+pinHead_name = "PinHeadBase"

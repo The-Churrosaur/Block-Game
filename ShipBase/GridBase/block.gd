@@ -44,16 +44,16 @@ func set_hitbox_collision_shapes():
 
 # TODO give full coordinates for deletion (or should it recreate from local?)
 func on_added_to_grid(center_coord, block, grid):
-	
+	# vars from grid
 	self.center_grid_coord = center_coord
-	connect_to_grid(grid)
-
-# vars from grid
-func connect_to_grid(grid):
 	self.grid = grid
 	shipBody = grid.shipBody
+	print("block shipbody: ", shipBody)
 	# grid signals
 	grid.connect("save_blocks", self, "on_save_blocks")
+
+func on_removed_from_grid(center_coord, block, grid):
+	pass
 
 # SAVING AND LOADING ===========================================================
 #TODO do some c# shit to make this not hot garbage
@@ -90,6 +90,8 @@ func load_in(folder, grid, ship_folder, old_name):
 	
 	# load storage
 	load_storage(folder)
+	print("block position: ", position, global_position)
+	print("grid position: ", grid.position)
 
 func load_storage(folder):
 
