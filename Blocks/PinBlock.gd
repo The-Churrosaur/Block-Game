@@ -82,7 +82,7 @@ func attach(pinHead):
 	
 	# TODO relative position for loaded subships
 	
-	#subShip.angular_velocity = 1.0 # for shits
+	subShip.angular_velocity = 1.0 # for shits
 	queue_pin = true
 	
 	emit_signal("subShip_pinned", subShip, self, pinHead)
@@ -91,7 +91,8 @@ func attach(pinHead):
 # pinhead reattaching ----------------------------------------------------------
 
 func on_pin_grid_changed(pinHead):
-	reattach(pinHead)
+	#reattach(pinHead)
+	pass
 
 # reattaches to pinHead position (for shifting subship)
 func reattach(pinHead):

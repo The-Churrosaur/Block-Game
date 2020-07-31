@@ -49,8 +49,6 @@ func _ready():
 	if grid != null:
 		connect_to_grid(grid)
 	
-	mass = default_mass
-	
 	input_pickable = true
 	
 	subShips.append(self)
@@ -110,33 +108,60 @@ func update_com(block, invert = false): # also updates mass
 	if !(block is Block):
 		return
 	
-#	print("BLOCK ADDED: ", block.name)
+	print("BLOCK ADDED: ", block.name)
 	
 	if (invert):
 		block.mass *= -1
 	
-	if (mass <= 0.02): # editor limit
-		mass = 0 
+	# round mass
+	mass = round(mass)
 	
-	var coord_abs = block.global_position
-	var com_x = (position.x * mass) + (coord_abs.x * block.mass)
-	var com_y = (position.y * mass) + (coord_abs.y * block.mass)
+#	var coord_abs = block.global_position
+#	var com_x = (global_position.x * mass) + (coord_abs.x * block.mass)
+#	var com_y = (global_position.y * mass) + (coord_abs.y * block.mass)
+#
+#	mass += block.mass
+#	com_x /= mass
+#	com_y /= mass
+#	var global_com = Vector2(com_x,com_y)
+
+
+#
+#	var ship_to_com = global_com - global_position
+#
+#	# translate ship_com to grid/ship's reference frame
+#	var stc_rotated = ship_to_com.rotated(grid.rotation)
+#	#...todo
 	
-	mass += block.mass
-	com_x /= mass
-	com_y /= mass
-	var com = Vector2(com_x,com_y)
-#	print("com: ", com)
-#	print("old grid pos: ", grid.position, grid.global_position)
-#	print("old ship position", position, global_position)
+	var combined_mass = mass + block.mass
+	var block_vec = grid.position + block.position # from here (from ship)
 	
-	grid.global_position += (position - com)
-	position = com
+	# relative COM calculation
+	# offset com equation over by 1 to not multiply ship mass x 0
+	var com_x = (mass * 1 + block.mass * (block_vec.x + 1)) / combined_mass
+	com_x -= 1
+	var com_y = (mass * 1 + block.mass * (block_vec.y + 1)) / combined_mass
+	com_y -= 1
 	
+	var com_relative = Vector2(com_x, com_y)
 	
-	print (block.position, block.global_position)
-#	print ("ship position", position, global_position)
-#	print("grid position: ", grid.position)
+	print("com vec: ", com_relative)
+	print("old grid pos: ", grid.position, grid.global_position)
+	print("grid mass: ", mass)
+	print("old ship position", position, global_position)
+	
+	grid.position -= com_relative
+	position += com_relative
+	mass = combined_mass
+	print("new mass: ", mass)
+	
+#	grid.position = (grid.position - ship_to_com)
+#	position += ship_to_com
+	
+	print ("block: ",block.position, block.global_position)
+	print("mass: ", block.mass)
+	print ("ship position", position, global_position)
+	print("grid position: ", grid.position, grid.global_position)
 
 func on_grid_block_removed(coord, block, grid):
 	
@@ -210,6 +235,10 @@ func save(name, dir = save_directory):
 
 func load_in(folder):
 	
+	# reset mass before reloading grid/blocks
+	mass = default_mass
+	print("mass reset")
+	
 	# load grid
 	
 	# seach and destroy false grid
@@ -225,7 +254,7 @@ func load_in(folder):
 	
 	# tell grid to load in
 	grid.load_in(folder, self)
-	
+	print("testo: ", mass)
 	# load storage
 	
 	# remove false storage
@@ -240,8 +269,3 @@ func load_in(folder):
 	
 	# get stored data
 	storage.load_data(self)
-	print("ship: subships:")
-	print(subShips)
-	for ship in subShips:
-		print(ship.name)
-	print(grid.position)

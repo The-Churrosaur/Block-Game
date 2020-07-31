@@ -90,8 +90,6 @@ func load_in(folder, grid, ship_folder, old_name):
 	
 	# load storage
 	load_storage(folder)
-	print("block position: ", position, global_position)
-	print("grid position: ", grid.position)
 
 func load_storage(folder):
 
