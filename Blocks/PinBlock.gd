@@ -91,28 +91,39 @@ func attach(pinHead):
 # pinhead reattaching ----------------------------------------------------------
 
 func on_pin_grid_changed(pinHead):
-	#reattach(pinHead)
+	reattach(pinHead)
 	pass
 
 # reattaches to pinHead position (for shifting subship)
 func reattach(pinHead):
 	
-	# detach from subship
-	pinJoint.node_b = grid.anchor.get_path()
-	reposition_subShip(pinHead)
+	print("reattaching...")
+	
+	# deletes pinjoint, new pinjoint
+	pinJoint.node_b = ""
+	pinJoint.node_a = ""
+	pinJoint.free()
+	
+	pinJoint = PinJoint2D.new()
+	add_child(pinJoint)
+	
+	#reposition_subShip(pinHead)
 	
 	queue_pin = true
 
-func reposition_subShip(pinHead):
+# redundant to natural movement of subship?
+func reposition_subShip(pinHead): 
 	# shifts subship along inverse of pinhead relative position vector 
-#	var from_subship = subShip.grid.position + pinHead.position 
-#	subShip.position -= from_subship
-	
-	var dif = pinHead.global_position - subShip.global_position
-	subShip.position -= dif
+	var from_subship = subShip.grid.position + pinHead.position 
+	print("repos: ", from_subship)
+	subShip.position -= from_subship
 
-func _process(delta):
+func _physics_process(delta):
 	if (queue_pin):
+		# refreshes 
+		pinJoint.disable_collision = !pinJoint.disable_collision
+		pinJoint.disable_collision = !pinJoint.disable_collision
+		
 		pinJoint.node_a = grid.anchor.get_path() # pin to grid anchor
 		pinJoint.node_b = subShip.get_path()
 		queue_pin = false

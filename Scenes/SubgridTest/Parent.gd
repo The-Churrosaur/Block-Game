@@ -5,7 +5,7 @@ signal ree
 
 func _ready():
 	#add_central_force(Vector2(200,0))
-	#apply_central_impulse(Vector2(200,0))
+	apply_central_impulse(Vector2(200,0))
 	connect("ree",self,"test")
 	
 	pass

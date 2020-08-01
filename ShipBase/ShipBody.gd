@@ -113,27 +113,12 @@ func update_com(block, invert = false): # also updates mass
 	if (invert):
 		block.mass *= -1
 	
-	# round mass
-	mass = round(mass)
+	var combined_mass
+	if (mass < 1): # rounds out editor minimum for empty grid
+		combined_mass = block.mass
+	else:
+		combined_mass = mass + block.mass
 	
-#	var coord_abs = block.global_position
-#	var com_x = (global_position.x * mass) + (coord_abs.x * block.mass)
-#	var com_y = (global_position.y * mass) + (coord_abs.y * block.mass)
-#
-#	mass += block.mass
-#	com_x /= mass
-#	com_y /= mass
-#	var global_com = Vector2(com_x,com_y)
-
-
-#
-#	var ship_to_com = global_com - global_position
-#
-#	# translate ship_com to grid/ship's reference frame
-#	var stc_rotated = ship_to_com.rotated(grid.rotation)
-#	#...todo
-	
-	var combined_mass = mass + block.mass
 	var block_vec = grid.position + block.position # from here (from ship)
 	
 	# relative COM calculation
@@ -143,6 +128,10 @@ func update_com(block, invert = false): # also updates mass
 	var com_y = (mass * 1 + block.mass * (block_vec.y + 1)) / combined_mass
 	com_y -= 1
 	
+	# round out float errors
+	com_x = round(com_x)
+	com_y = round(com_y)
+	
 	var com_relative = Vector2(com_x, com_y)
 	
 	print("com vec: ", com_relative)
@@ -150,17 +139,19 @@ func update_com(block, invert = false): # also updates mass
 	print("grid mass: ", mass)
 	print("old ship position", position, global_position)
 	
+	# rotationally, both grid and com vec are in reference frame under ship
 	grid.position -= com_relative
-	position += com_relative
+	
+	# put com vector in reference frame alongside ship
+	var com_rotated = com_relative.rotated(rotation)
+	position += com_rotated
+	
 	mass = combined_mass
+	
 	print("new mass: ", mass)
-	
-#	grid.position = (grid.position - ship_to_com)
-#	position += ship_to_com
-	
-	print ("block: ",block.position, block.global_position)
+	print("block: ",block.position, block.global_position)
 	print("mass: ", block.mass)
-	print ("ship position", position, global_position)
+	print("ship position", position, global_position)
 	print("grid position: ", grid.position, grid.global_position)
 
 func on_grid_block_removed(coord, block, grid):
