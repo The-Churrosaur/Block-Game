@@ -228,7 +228,6 @@ func load_in(folder):
 	
 	# reset mass before reloading grid/blocks
 	mass = default_mass
-	print("mass reset")
 	
 	# load grid
 	
@@ -260,3 +259,6 @@ func load_in(folder):
 	
 	# get stored data
 	storage.load_data(self)
+	
+	# testo
+	print("loaded", global_position)

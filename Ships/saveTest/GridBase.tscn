@@ -6,7 +6,6 @@
 [ext_resource path="res://ShipBase/GridBase/GridBase_Storage.tscn" type="PackedScene" id=4]
 
 [node name="GridBase" type="Node2D"]
-position = Vector2( 383.962, 127.987 )
 script = ExtResource( 3 )
 grid_size = 64
 saved = true

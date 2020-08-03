@@ -8,10 +8,10 @@
 [ext_resource path="res://ShipBase/ShipInfo.tscn" type="PackedScene" id=6]
 
 [node name="saveTest" type="RigidBody2D"]
-position = Vector2( 577.155, 420.99 )
+position = Vector2( 961.117, 548.977 )
 input_pickable = true
 collision_mask = 2
-mass = 100.01
+mass = 0.01
 gravity_scale = 0.0
 sleeping = true
 linear_damp = 0.0

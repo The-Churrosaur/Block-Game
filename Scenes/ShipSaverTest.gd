@@ -7,5 +7,5 @@ func _ready():
 	pass
 
 func on_text_entered(var text):
-	owner.test_ship.save(text)
+	owner.main_ship.save(text)
 	pass

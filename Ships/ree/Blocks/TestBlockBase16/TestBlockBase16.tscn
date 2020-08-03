@@ -8,8 +8,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
-[node name="TestBlockBase" type="Node2D"]
-position = Vector2( -448, -128 )
+[node name="TestBlockBase16" type="Node2D"]
+position = Vector2( -448, 0 )
 script = ExtResource( 3 )
 hitbox_names_string = "Hitbox"
 mass = 100
@@ -29,6 +29,6 @@ script = ExtResource( 4 )
 parent_path = NodePath("..")
 data_saved = true
 grid_path = ""
-center_grid_coord = Vector2( -7, -2 )
+center_grid_coord = Vector2( -7, 0 )
 shipBody_path = ""
-saved_name = "TestBlockBase"
+saved_name = "TestBlockBase16"

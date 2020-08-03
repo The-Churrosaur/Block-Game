@@ -58,5 +58,6 @@ func _process(delta):
 		print(main_ship.subShips)
 		test_ship = main_ship.subShips[subShip]
 		test_grid = test_ship.grid
+		print("SHIP SELECTED: ", test_ship.name)
 	
 	pass
