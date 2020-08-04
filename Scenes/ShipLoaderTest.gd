@@ -12,9 +12,8 @@ func on_text_entered(var text):
 	var address = "res://Ships/" + text + "/"
 	var packed_scene = load(address + "/" + text + ".tscn")
 	var new_ship = packed_scene.instance()
-	new_ship.load_in(address)
-	
 	owner.add_child(new_ship)
+	new_ship.load_in(address)
 	new_ship.position = Vector2(1100,500)
 	
 	emit_signal("change_ship", new_ship)

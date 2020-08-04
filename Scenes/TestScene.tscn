@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/TestScene.gd" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Blocks/PinBlock.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/ShipLoaderTest.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/ShipSaverTest.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/CoordinateLabel.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/MouseFollow.gd" type="Script" id=11]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -84,6 +86,17 @@ margin_top = 300.0
 margin_right = 110.0
 margin_bottom = 324.0
 script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource( 11 )
+
+[node name="CoordinateLabel" type="Label" parent="Node2D"]
+margin_right = 40.0
+margin_bottom = 14.0
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

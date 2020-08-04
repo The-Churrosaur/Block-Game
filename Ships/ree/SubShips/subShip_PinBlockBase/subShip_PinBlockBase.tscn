@@ -6,14 +6,13 @@
 [ext_resource path="res://ShipBase/ShipInfo.tscn" type="PackedScene" id=4]
 
 [node name="subShip_PinBlockBase" type="RigidBody2D"]
-position = Vector2( 0.0374756, 0.0574341 )
-rotation = -1.84842
-scale = Vector2( 1, 1 )
+position = Vector2( 17.462, 28.0603 )
+rotation = -2.09957
 input_pickable = true
 collision_mask = 2
-mass = 500.0
+mass = 200.0
 gravity_scale = 0.0
-linear_velocity = Vector2( -0.0573547, 0.0376033 )
+linear_velocity = Vector2( -27.9134, 17.695 )
 linear_damp = 0.0
 angular_velocity = 1.0
 angular_damp = 0.0

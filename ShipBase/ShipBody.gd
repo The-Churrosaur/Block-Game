@@ -1,4 +1,4 @@
-#physics wrapper for a block grid
+# physics and editor wrapper for a block grid
 
 class_name ShipBody
 extends RigidBody2D
@@ -45,6 +45,8 @@ var subShips = []
 
 func _ready():
 	
+	print("SHIP READY")
+	
 	# just in case
 	if grid != null:
 		connect_to_grid(grid)
@@ -58,7 +60,7 @@ func connect_to_grid(grid):
 	grid.connect("block_added", self, "on_grid_block_added")
 	grid.connect("block_removed", self, "on_grid_block_removed")
 
-func _unhandled_input(event): # testing
+func _unhandled_input(event): # test func
 
 	# when clicked, emits signal that has been clicked
 	
@@ -71,15 +73,38 @@ func is_shipBody() -> bool: # lul
 	return true
 
 func on_new_subShip(ship, pinBlock, pinHead): # called by pinblocks
-	print("ship: new subship received: ", ship)
+	print("ship:", self, "new subship received: ", ship)
 	subShips.append(ship)
+	print("subships:", subShips)
 
 func on_subShip_removed(ship, pinBlock, pinHead):
 	# poof. kind of slow, but ships shouldn't have that many subships
 	# memory is free right
 	subShips.erase(ship)
-	print("ship: ", name, " subships ",subShips)
+	print("SUBSHIP REMOVED, ship: ", name, " subships ",subShips)
 
+func _integrate_forces(state):
+#	int_forces_reposition()
+	pass
+
+# RIGIDBODY HELPERS -===========================================================
+
+# DEFUNCT - set position is fine, issue is physics timer vs. update timer
+
+## sets flags, updates position in _integrate_forces()
+#var reposition = false
+#var repos_target : Vector2
+#
+#func reposition(pos : Vector2):
+#	reposition = true
+#	repos_target = pos
+#
+## call this in _integrate_forces
+#func int_forces_reposition():
+#	if (reposition):
+#		position = repos_target
+#		print("RB REPOS: ", position, global_position)
+#		reposition = false
 
 # BLOCK PLACEMENT ==============================================================
 
@@ -134,10 +159,10 @@ func update_com(block, invert = false): # also updates mass
 	
 	var com_relative = Vector2(com_x, com_y)
 	
-	print("com vec: ", com_relative)
-	print("old grid pos: ", grid.position, grid.global_position)
-	print("grid mass: ", mass)
-	print("old ship position", position, global_position)
+#	print("com vec: ", com_relative)
+#	print("old grid pos: ", grid.position, grid.global_position)
+#	print("grid mass: ", mass)
+#	print("old ship position", position, global_position)
 	
 	# rotationally, both grid and com vec are in reference frame under ship
 	grid.position -= com_relative
@@ -148,11 +173,12 @@ func update_com(block, invert = false): # also updates mass
 	
 	mass = combined_mass
 	
-	print("new mass: ", mass)
-	print("block: ",block.position, block.global_position)
-	print("mass: ", block.mass)
-	print("ship position", position, global_position)
-	print("grid position: ", grid.position, grid.global_position)
+#	print("new mass: ", mass)
+#	print("block: ",block.position, block.global_position)
+#	print("mass: ", block.mass)
+#	print("ship position", position, global_position)
+#	print("grid position: ", grid.position, grid.global_position)
+	
 
 func on_grid_block_removed(coord, block, grid):
 	
@@ -229,6 +255,8 @@ func load_in(folder):
 	# reset mass before reloading grid/blocks
 	mass = default_mass
 	
+	# set name
+	
 	# load grid
 	
 	# seach and destroy false grid
@@ -240,11 +268,12 @@ func load_in(folder):
 	var grid_packed = load(folder + "/GridBase.tscn")
 	grid = grid_packed.instance()
 	add_child(grid)
+	grid.owner = self
 	connect_to_grid(grid)
 	
 	# tell grid to load in
 	grid.load_in(folder, self)
-	print("testo: ", mass)
+	print("!!!grid new:", grid, position, grid.position, grid.global_position)
 	# load storage
 	
 	# remove false storage

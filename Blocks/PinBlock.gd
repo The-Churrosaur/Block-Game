@@ -28,7 +28,7 @@ func _ready():
 	
 	pinJoint = $PinJoint2D
 	
-	print("loading!")
+	print("pinjoint loading!")
 
 func on_added_to_grid(center_coord, block, grid):
 	.on_added_to_grid(center_coord, block, grid)
@@ -54,6 +54,10 @@ func create_subship_pinhead() -> Node2D: # returns pinhead
 	# ship
 	var template = load(subShip_address + "/" + subShip_name + ".tscn")
 	var ship = template.instance()
+	
+	# ship as child of proper context
+	shipBody.get_parent().add_child(ship)
+	
 	ship.load_in(subShip_address)
 	
 	# pinhead
@@ -74,44 +78,43 @@ func attach(pinHead):
 		print("pinHead has invalid shipBody")
 		return false
 	subShip = ship
-	add_child(subShip) # note this makes subgrid child of block
-	subShip.position = Vector2(0,0)
 	
-	# setup pinhead (after ship placed in nodetree) 
+	# move subship to current position
+	# move subship to align pinhead with current position
+	reposition_subShip(pinHead)
+	
+	# TODO
+	print("?!?!", global_position, subShip.global_position, subShip.grid.global_position)
+	for block in subShip.grid.block_dict.values():
+		print(block.center_grid_coord, block.position, block.global_position)
+	print(subShip.grid.get_parent())
+	
+	# setup pinhead field
 	self.pinHead = pinHead
 	pinHead_name = pinHead.name
 	
-	# TODO relative position for loaded subships
-	
-	subShip.angular_velocity = 1.0 # for shits
 	queue_pin = true
 	
 	emit_signal("subShip_pinned", subShip, self, pinHead)
 	return true
 
 func pin_subShip():
-	# TEST 
-	print(subShip.position)
 	
-	reposition_subShip(pinHead)
-	
+	# fly, be free (godot reeee) [this may not be necessareeeee]
 	if (pinJoint is PinJoint2D):
-		pinJoint.node_b = ""
-		pinJoint.node_a = ""
 		pinJoint.free()
 	
 	pinJoint = PinJoint2D.new()
 	add_child(pinJoint)
-	pinJoint.owner = self
 	pinJoint.name = "PinJoint2D" # fine godot have it your way
 	
-	# refreshes 
-	#pinJoint.disable_collision = !pinJoint.disable_collision
-	#pinJoint.disable_collision = !pinJoint.disable_collision
-	
 	pinJoint.node_a = grid.anchor.get_path() # pin to grid anchor
-	pinJoint.node_b = subShip.get_path()
+	pinJoint.node_b = subShip.get_path() # pin to subship
+	
 	queue_pin = false
+	
+	subShip.angular_velocity = 1.0 # for shits
+	
 	print("subship physics pinned")
 
 # pinhead reattaching ----------------------------------------------------------
@@ -127,21 +130,23 @@ func reattach(pinHead):
 	
 	queue_pin = true
 
-# redundant to natural movement of subship
 func reposition_subShip(pinHead): 
-	# first centers subship, (assuming subship is child)
-	subShip.position = Vector2(0,0)
+	# first centers subship on self
+	subShip.position = shipBody.position + grid.position + position
 	
+	# moves subship to place pinhead on old center
+	shift_subship_pos_to_pinhead(pinHead)
+
+# moves subship to place pinhead on old center
+func shift_subship_pos_to_pinhead(pinHead):
 	# shifts subship along inverse of pinhead relative position vector 
 	var from_subship = subShip.grid.position + pinHead.position 
-	print("repos: ", from_subship)
+	print("subship repos: ", from_subship)
 	subShip.position -= from_subship
-
-func reposition_subship_to_pinhead(pinHead):
-	pass
 
 func _physics_process(delta):
 	if (queue_pin):
+		print("POSITION",subShip.position)
 		pin_subShip()
 
 # SAVING AND LOADING ===========================================================

@@ -3,13 +3,14 @@
 class_name GridBase
 extends Node2D
 
+export var grid_size = 64 # base
+
+onready var shipBody = get_parent()
+var shipInfo
+onready var anchor = $GridAnchor
+
 onready var storage = $GridBase_Storage
 # TODO timing of loading children/references
-
-var shipBody
-var shipInfo
-export var grid_size = 64 # base
-onready var anchor = $GridAnchor
 
 var block_dict = {} # master dictionary of grid
 # blocks are organized in a dict of vector2 -> node
@@ -19,32 +20,11 @@ signal block_added(coord, block, grid)
 signal block_removed(coord, block, grid) 
 # be wary of holding the reference to a dying block
 
-export var saved = false
-
 func _ready():
-	
-	# on load to reset offset position
-	# TODO is this the best way to do this?
-	position = Vector2(0,0)
-	
-	# TODO clean a bunch of this garbage
-	# just in case
-	if saved:
-		storage = $GridBase_Storage 
-	
-	# set node references from tree
-	
-	var parent = get_parent()
-	#if parent is ShipBody: # whyyyyyyy
-	shipBody = parent
-	
-	# TODO this is somehow broken
-	var info = parent.get_node("ShipInfo")
-#	if info is ShipInfo:
-	shipInfo = info
-		#set_vars_from_info(info)
-	
-	pass
+	print("NEW GRID READY")
+
+func _enter_tree():
+	print("GRID ENTERED TREE")
 
 #func set_vars_from_info(info):
 #	if info is ShipInfo:
@@ -137,8 +117,6 @@ signal save_blocks(name, folder)
 func save(folder):
 	print("grid saving: " + name)
 	
-	saved = true
-	
 	# serialize vars, save storage
 	storage.save(self, folder)
 	
@@ -164,11 +142,28 @@ func save(folder):
 	packed_scene.pack(self)
 	ResourceSaver.save(address, packed_scene)
 
+# MOTHER FUCK TODO
+var tim = 100
+func _process(delta):
+	tim -= 1
+	if tim == 0:
+		print("==============================")
+		print(self, position, global_position)
+		print(shipBody.subShips)
+		for ship in shipBody.subShips:
+			print("parent: ", ship.get_parent())
+			print("grid: ",ship.grid)
+			for block in ship.grid.block_dict.values():
+				print(block)
+		tim = 100
+
 func load_in(folder, ship):
+	
+	# reset pos (will be set when blocks added)
+	position = ship.position
 	
 	# set vars
 	shipBody = ship
-	print("grid shipbody: ", shipBody)
 	
 	# load blocks
 	

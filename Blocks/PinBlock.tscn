@@ -10,6 +10,7 @@ extents = Vector2( 32, 32 )
 [node name="PinBlockBase" type="Node2D"]
 script = ExtResource( 2 )
 storage_type = "PinBlock_Storage"
+default_subShip = "offset_pintest"
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
