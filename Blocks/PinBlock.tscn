@@ -2,15 +2,15 @@
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Blocks/PinBlock.gd" type="Script" id=2]
-[ext_resource path="res://Blocks/PinBlock_Storage.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Ships/joint_head/joint_head.tres" type="Resource" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
 [node name="PinBlockBase" type="Node2D"]
 script = ExtResource( 2 )
-storage_type = "PinBlock_Storage"
-default_subShip = "offset_pintest"
+class_type = "PinBlock"
+default_subShip_resource = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -21,5 +21,3 @@ shape = SubResource( 1 )
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 bias = 0.402
-
-[node name="PinBlock_Storage" parent="." instance=ExtResource( 3 )]

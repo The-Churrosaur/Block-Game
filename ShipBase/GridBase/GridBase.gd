@@ -5,16 +5,24 @@ extends Node2D
 
 export var grid_size = 64 # base
 
+# TODO do these by path exports?
 onready var shipBody = get_parent()
 var shipInfo
 onready var anchor = $GridAnchor
+onready var tilemap : TileMap = get_parent().get_node("ShipTileMap")
+onready var tilemap_remote : RemoteTransform2D = $TileMapRemote
 
+# defunct
 onready var storage = $GridBase_Storage
-# TODO timing of loading children/references
 
+export var test_dict = {}
+
+onready var num_blocks : int = 0
+onready var gross_blocks : int = 0 # just for bad uid for now
 var block_dict = {} # master dictionary of grid
 # blocks are organized in a dict of vector2 -> node
 # hashes all given positions as references to given block
+# this is marginally expensive for saving/loading
 
 signal block_added(coord, block, grid)
 signal block_removed(coord, block, grid) 
@@ -22,6 +30,11 @@ signal block_removed(coord, block, grid)
 
 func _ready():
 	print("NEW GRID READY")
+	
+	# setup tilemap transform
+	tilemap_remote.remote_path = tilemap.get_path()
+	# to upper corner of 0,0 block : ergo tile pos == block pos
+	tilemap_remote.position -= Vector2(grid_size/2, grid_size/2)
 
 func _enter_tree():
 	print("GRID ENTERED TREE")
@@ -31,40 +44,53 @@ func _enter_tree():
 #		print (info.grid_size)
 #		grid_size = info.grid_size
 
-func add_block(block, center_coord, check_blocked = true):
+func add_block(block, center_coord, facing, check_blocked = true):
+	
+	# add tile to tilemap
+#	tilemap.set_cellv(center_coord, block.tile_id)
 	
 	# creates array of grid coords from block sizegrid, centered on found coord
 	var coord_ary = []
 	for vec in block.size_grid:
 		coord_ary.append(center_coord + vec)
 		# position + relative vector
-	
+
 	# check if pos blocked
 	if (check_blocked):
 		for pos in coord_ary:
 			if block_dict.has(pos): # if 'blocked'
 				print (name,": coordinate occupied, block failed to place")
 				return false
-	
+
 	# add all pos to dict
 	for pos in coord_ary:
 		block_dict[pos] = block
 	
 	add_child(block) # for cleanliness
-	position_block(center_coord)
+	position_block(center_coord, facing)
+	
+	# FYI vvv this is the slowest part of loading by order of magnitude
 	
 	# a surprise tool that will help us later
 	if block is Block:
 		block.on_added_to_grid(center_coord, block, self)
+		block.block_id = new_block_id()
 		# would need reference to connect signal
 	emit_signal("block_added", center_coord, block, self)
+	
+	num_blocks += 1
+	gross_blocks += 1
 	return true
 
-func add_block_at_point(block : Block, point : Vector2):
+func add_block_at_point(block : Block, point : Vector2, facing : int):
 	
 	var coord = get_gridFromPoint(point)
-	add_block(block, coord)
+	add_block(block, coord, facing)
 
+func new_block_id() -> int:
+	
+	# this is eh but w/e for now
+	return gross_blocks;
 
 func remove_block(pos : Vector2) -> bool:
 	if block_dict.has(pos):
@@ -79,6 +105,11 @@ func remove_block(pos : Vector2) -> bool:
 		block_dict.erase(pos)
 		emit_signal("block_removed", pos, block, self)
 		block.queue_free()
+		num_blocks -= 1
+		
+		# remove from tilemap
+#		tilemap.set_cellv(pos, -1)
+		
 		return true
 	else:
 		print("block to remove not found!")
@@ -99,18 +130,26 @@ func get_gridFromPoint(point : Vector2):
 	print("getting grid coordinate ", grid_coord)
 	return grid_coord
 
-func position_block(pos : Vector2):
+func position_block(pos : Vector2, facing):
 	if !block_dict.has(pos):
 		return false
 	else: 
 		var block = block_dict[pos]
 		block.position = pos as Vector2 * grid_size
+		
+		# covers null case for legacy ships etc.
+		if facing is int:
+			block.set_facing(facing)
+		else:
+			block.set_facing(0)
+	
 
 func position_all_blocks():
 	for p in block_dict.keys():
-		position_block(p as Vector2)
+		position_block(p as Vector2, block_dict[p].block_rotation)
 
 # SAVING AND LOADING ===========================================================
+# this is all defunct old shit
 
 signal save_blocks(name, folder)
 
@@ -145,17 +184,18 @@ func save(folder):
 # MOTHER FUCK TODO
 var tim = 100
 func _process(delta):
-	tim -= 1
-	if tim == 0:
-		print("==============================")
-		print(self, position, global_position)
-		print(shipBody.subShips)
-		for ship in shipBody.subShips:
-			print("parent: ", ship.get_parent())
-			print("grid: ",ship.grid)
-			for block in ship.grid.block_dict.values():
-				print(block)
-		tim = 100
+#	tim -= 1
+#	if tim == 0:
+#		print("==============================")
+#		print(self, position, global_position)
+#		print(shipBody.subShips)
+#		for ship in shipBody.subShips.values():
+#			print("parent: ", ship.get_parent())
+#			print("grid: ",ship.grid)
+#			for block in ship.grid.block_dict.values():
+#				print(block)
+#		tim = 100
+		pass
 
 func load_in(folder, ship):
 	
@@ -196,7 +236,7 @@ func load_in(folder, ship):
 		block.load_in(block_folder, self, folder, bname)
 		
 		# add block
-		add_block(block, block.center_grid_coord)
+		add_block(block, block.center_grid_coord, 0)
 		block_dict[block.center_grid_coord] = block
 		print("block loaded: " + block.name)
 		print(block.center_grid_coord)

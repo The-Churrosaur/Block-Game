@@ -1,5 +1,5 @@
+class_name TestBlock
 extends Block
-
 
 # Declare member variables here. Examples:
 # var a = 2

@@ -1,21 +1,23 @@
 class_name PinBlock
 extends Block
 
-export var default_subShip = "pinblock_default"
-export var default_pinHead = "PinHeadBase" 
-# relative path from subship node
+# spawns subship and pins when added to grid
+# saves location of ship resource
+# maybe TODO have the loader initiate loading subships idk
 
-export var ships_folder = "res://Ships"
-export var subShips_filepath = "/SubShips" # filepath from ship directory
+export var default_subShip_resource : Resource
+export var default_pinHead_coord = Vector2(0,0)
+
+onready var ship_loader = get_node("/root/ShipLoader")
+
+var pinHead_coord = null
+var subShip_resource = null
+var subShip_name = null
+var subShip_resource_path = null
 
 var subShip = null
 var pinHead = null
 var pinJoint = null
-
-# by default from exports - overwritten in load_in()
-onready var subShip_name = default_subShip
-onready var subShip_address = ships_folder + "/" + default_subShip
-onready var pinHead_name = default_pinHead
 
 var queue_pin = false
 
@@ -30,17 +32,17 @@ func _ready():
 	
 	print("pinjoint loading!")
 
+func _input(event):
+	
+	# test input
+	if event.is_action_pressed("ui_home"):
+		setup_load_subship()
+
 func on_added_to_grid(center_coord, block, grid):
 	.on_added_to_grid(center_coord, block, grid)
 	
 	connect("subShip_pinned", shipBody, "on_new_subShip")
 	connect("subShip_removed", shipBody, "on_subShip_removed")
-	
-	var pinHead = create_subship_pinhead()
-	attach(pinHead)
-	
-	# listen for subship grid changes
-	pinHead.connect("pin_grid_changed", self, "on_pin_grid_changed")
 
 func on_removed_from_grid(center_coord, block, grid):
 	.on_removed_from_grid(center_coord, block, grid)
@@ -50,18 +52,36 @@ func on_removed_from_grid(center_coord, block, grid):
 	
 	emit_signal("subShip_removed", subShip, self, pinHead)
 
+func setup_load_subship():
+	
+	# load saved subship from path or default subship
+	if pinHead_coord == null: 
+		pinHead_coord = default_pinHead_coord
+	if subShip_resource_path == null: 
+		print("default resource path")
+		subShip_resource = default_subShip_resource
+	else:
+		subShip_resource = ResourceLoader.load(subShip_resource_path)
+		print("PINBLOCK: loaded subship resource: ", subShip_resource_path, subShip_resource)
+	
+	var pinHead = create_subship_pinhead()
+	attach(pinHead)
+	
+	# listen for subship grid changes
+	pinHead.connect("pin_grid_changed", self, "on_pin_grid_changed")
+
 func create_subship_pinhead() -> Node2D: # returns pinhead
+	
 	# ship
-	var template = load(subShip_address + "/" + subShip_name + ".tscn")
-	var ship = template.instance()
+	# TODO place in tree through level singleton
+	var ship = ship_loader.load_ship(subShip_resource, get_tree().root)
 	
-	# ship as child of proper context
-	shipBody.get_parent().add_child(ship)
-	
-	ship.load_in(subShip_address)
+	# setup
+	subShip_name = ship.name
+	ship.connect("shipBody_saved", self, "on_subShip_saved")
 	
 	# pinhead
-	var pinHead = ship.grid.get_node(pinHead_name)
+	var pinHead = ship.get_block(pinHead_coord)
 	return pinHead
 
 func attach(pinHead): 
@@ -84,31 +104,35 @@ func attach(pinHead):
 	reposition_subShip(pinHead)
 	
 	# TODO
-	print("?!?!", global_position, subShip.global_position, subShip.grid.global_position)
-	for block in subShip.grid.block_dict.values():
-		print(block.center_grid_coord, block.position, block.global_position)
-	print(subShip.grid.get_parent())
+#	print("?!?!", global_position, subShip.global_position, subShip.grid.global_position)
+#	for block in subShip.grid.block_dict.values():
+#		print(block.center_grid_coord, block.position, block.global_position)
+#	print(subShip.grid.get_parent())
 	
 	# setup pinhead field
 	self.pinHead = pinHead
-	pinHead_name = pinHead.name
+	pinHead_coord = pinHead.center_grid_coord
 	
+#	print("***AJDSFKASpre-pin position: ", pinJoint.global_position, global_position)
 	queue_pin = true
+#	subShip.angular_velocity = 1
 	
 	emit_signal("subShip_pinned", subShip, self, pinHead)
 	return true
 
 func pin_subShip():
 	
-	# fly, be free (godot reeee) [this may not be necessareeeee]
 	if (pinJoint is PinJoint2D):
 		pinJoint.free()
 	
 	pinJoint = PinJoint2D.new()
 	add_child(pinJoint)
 	pinJoint.name = "PinJoint2D" # fine godot have it your way
+	pinJoint.disable_collision = true
 	
 	pinJoint.node_a = grid.anchor.get_path() # pin to grid anchor
+#	print("anchor position: ", grid.anchor.global_position)
+#	print("pin position: ", pinJoint.global_position)
 	pinJoint.node_b = subShip.get_path() # pin to subship
 	
 	queue_pin = false
@@ -132,7 +156,7 @@ func reattach(pinHead):
 
 func reposition_subShip(pinHead): 
 	# first centers subship on self
-	subShip.position = shipBody.position + grid.position + position
+	subShip.global_position = get_parent().to_global(position)
 	
 	# moves subship to place pinhead on old center
 	shift_subship_pos_to_pinhead(pinHead)
@@ -146,30 +170,21 @@ func shift_subship_pos_to_pinhead(pinHead):
 
 func _physics_process(delta):
 	if (queue_pin):
-		print("POSITION",subShip.position)
+#		print("POSITION", global_position, subShip.position)
 		pin_subShip()
 
 # SAVING AND LOADING ===========================================================
 
-func on_save_blocks(folder, ship_folder):
-	# parent func called below
-	
-	# subship name
-	# set before calling parent func, saving name to file
-	subShip_name = "subShip_" + self.name
-	
-	# save subship
-	subShip.save(subShip_name, ship_folder + subShips_filepath)
-	
-	# save self, storage
-	.on_save_blocks(folder, ship_folder)
+func on_subShip_saved(ship, name, file):
+	subShip_resource_path = file
 
-func load_in(folder, grid, ship_folder, old_name):
-	.load_in(folder, grid, ship_folder, old_name)
-	# storage loaded:
-	# - subShip_name
+func get_save_data() -> Dictionary:
+	var dict = .get_save_data()
 	
-	# instance and load subship
-	subShip_address = ship_folder + subShips_filepath + "/" + subShip_name 
+	dict["subShip_name"] = subShip_name
+	dict["pinHead_coord"] = pinHead_coord
+	dict["subShip_resource_path"] = subShip_resource_path
+	
+	return dict
 
 
