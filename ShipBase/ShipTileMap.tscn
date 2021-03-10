@@ -5,5 +5,6 @@
 
 [node name="ShipTileMap" type="TileMap"]
 tile_set = ExtResource( 1 )
+collision_use_parent = true
 format = 1
 script = ExtResource( 2 )

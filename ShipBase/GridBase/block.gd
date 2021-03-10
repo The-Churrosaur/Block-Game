@@ -81,7 +81,7 @@ func on_added_to_grid(center_coord, block, grid):
 	self.center_grid_coord = center_coord
 	self.grid = grid
 	shipBody = grid.shipBody
-	print("block shipbody: ", shipBody)
+#	print("block added: shipbody: ", shipBody, " grid: ", self.grid)
 	# grid signals
 	grid.connect("save_blocks", self, "on_save_blocks")
 

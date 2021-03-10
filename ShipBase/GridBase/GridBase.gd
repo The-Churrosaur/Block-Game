@@ -24,8 +24,8 @@ var block_dict = {} # master dictionary of grid
 # hashes all given positions as references to given block
 # this is marginally expensive for saving/loading
 
-signal block_added(coord, block, grid)
-signal block_removed(coord, block, grid) 
+signal block_added(coord, block, grid, update_com)
+signal block_removed(coord, block, grid, update_com) 
 # be wary of holding the reference to a dying block
 
 func _ready():
@@ -44,10 +44,11 @@ func _enter_tree():
 #		print (info.grid_size)
 #		grid_size = info.grid_size
 
-func add_block(block, center_coord, facing, check_blocked = true):
+func add_block(block, center_coord, facing, check_blocked = true, update_com = true):
 	
 	# add tile to tilemap
-#	tilemap.set_cellv(center_coord, block.tile_id)
+	tilemap.set_cellv(center_coord, block.tile_id)
+	tilemap.rotate_tilev(center_coord, facing)
 	
 	# creates array of grid coords from block sizegrid, centered on found coord
 	var coord_ary = []
@@ -69,14 +70,15 @@ func add_block(block, center_coord, facing, check_blocked = true):
 	add_child(block) # for cleanliness
 	position_block(center_coord, facing)
 	
-	# FYI vvv this is the slowest part of loading by order of magnitude
-	
 	# a surprise tool that will help us later
 	if block is Block:
 		block.on_added_to_grid(center_coord, block, self)
 		block.block_id = new_block_id()
 		# would need reference to connect signal
-	emit_signal("block_added", center_coord, block, self)
+	
+	# FYI vvv this is the slowest part of loading by order of magnitude
+	# COM recalcing
+	emit_signal("block_added", center_coord, block, self, update_com)
 	
 	num_blocks += 1
 	gross_blocks += 1
@@ -103,12 +105,12 @@ func remove_block(pos : Vector2) -> bool:
 			return false
 		
 		block_dict.erase(pos)
-		emit_signal("block_removed", pos, block, self)
+		emit_signal("block_removed", pos, block, self, true)
 		block.queue_free()
 		num_blocks -= 1
 		
 		# remove from tilemap
-#		tilemap.set_cellv(pos, -1)
+		tilemap.set_cellv(pos, -1)
 		
 		return true
 	else:

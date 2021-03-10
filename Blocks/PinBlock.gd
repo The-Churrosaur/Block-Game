@@ -131,7 +131,7 @@ func pin_subShip():
 	pinJoint.disable_collision = true
 	
 	pinJoint.node_a = grid.anchor.get_path() # pin to grid anchor
-#	print("anchor position: ", grid.anchor.global_position)
+	print("anchor position: ", grid.anchor.global_position)
 #	print("pin position: ", pinJoint.global_position)
 	pinJoint.node_b = subShip.get_path() # pin to subship
 	

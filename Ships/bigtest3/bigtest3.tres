@@ -139,11 +139,6 @@ blocks = [ {
 "pos": Vector2( 1, -3 ),
 "type": "TestBlock"
 }, {
-"block_id": 26,
-"facing": 0,
-"pos": Vector2( 0, -3 ),
-"type": "TestBlock"
-}, {
 "block_id": 27,
 "facing": 0,
 "pos": Vector2( -1, -3 ),
@@ -829,11 +824,6 @@ blocks = [ {
 "pos": Vector2( -1, 1 ),
 "type": "TestBlock"
 }, {
-"block_id": 164,
-"facing": 0,
-"pos": Vector2( -1, 0 ),
-"type": "TestBlock"
-}, {
 "block_id": 165,
 "facing": 0,
 "pos": Vector2( -2, 0 ),
@@ -842,11 +832,6 @@ blocks = [ {
 "block_id": 166,
 "facing": 0,
 "pos": Vector2( -3, 0 ),
-"type": "TestBlock"
-}, {
-"block_id": 167,
-"facing": 0,
-"pos": Vector2( 0, 0 ),
 "type": "TestBlock"
 }, {
 "block_id": 168,
@@ -977,16 +962,6 @@ blocks = [ {
 "block_id": 193,
 "facing": 0,
 "pos": Vector2( 4, -1 ),
-"type": "TestBlock"
-}, {
-"block_id": 194,
-"facing": 0,
-"pos": Vector2( 0, -1 ),
-"type": "TestBlock"
-}, {
-"block_id": 195,
-"facing": 0,
-"pos": Vector2( -1, -1 ),
 "type": "TestBlock"
 }, {
 "block_id": 196,
@@ -1389,29 +1364,1229 @@ blocks = [ {
 "pos": Vector2( 14, 5 ),
 "type": "TestBlock"
 }, {
-"block_id": 277,
+"block_id": 276,
 "facing": 0,
 "pos": Vector2( -8, -2 ),
 "type": "TestBlock"
 }, {
-"block_id": 278,
+"block_id": 277,
 "facing": 0,
 "pos": Vector2( -8, -3 ),
 "type": "TestBlock"
 }, {
-"block_id": 280,
+"block_id": 278,
 "facing": 0,
 "pos": Vector2( -7, -4 ),
 "type": "TestBlock"
 }, {
-"block_id": 281,
+"block_id": 279,
 "facing": 0,
 "pos": Vector2( -7, -5 ),
 "type": "TestBlock"
 }, {
-"block_id": 282,
+"block_id": 280,
 "facing": 0,
 "pos": Vector2( -7, -6 ),
 "type": "TestBlock"
+}, {
+"block_id": 281,
+"facing": 0,
+"pos": Vector2( 8, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 282,
+"facing": 0,
+"pos": Vector2( 7, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 283,
+"facing": 0,
+"pos": Vector2( 6, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 284,
+"facing": 0,
+"pos": Vector2( 5, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 285,
+"facing": 0,
+"pos": Vector2( 4, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 286,
+"facing": 0,
+"pos": Vector2( 3, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 287,
+"facing": 0,
+"pos": Vector2( 2, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 288,
+"facing": 0,
+"pos": Vector2( 1, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 289,
+"facing": 0,
+"pos": Vector2( 0, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 290,
+"facing": 0,
+"pos": Vector2( -1, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 291,
+"facing": 0,
+"pos": Vector2( -2, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 292,
+"facing": 0,
+"pos": Vector2( -3, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 293,
+"facing": 0,
+"pos": Vector2( -4, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 294,
+"facing": 0,
+"pos": Vector2( -5, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 295,
+"facing": 0,
+"pos": Vector2( -6, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 296,
+"facing": 0,
+"pos": Vector2( -6, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 297,
+"facing": 0,
+"pos": Vector2( -5, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 298,
+"facing": 0,
+"pos": Vector2( -4, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 299,
+"facing": 0,
+"pos": Vector2( -3, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 300,
+"facing": 0,
+"pos": Vector2( -2, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 301,
+"facing": 0,
+"pos": Vector2( -1, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 302,
+"facing": 0,
+"pos": Vector2( 0, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 303,
+"facing": 0,
+"pos": Vector2( 2, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 304,
+"facing": 0,
+"pos": Vector2( 3, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 305,
+"facing": 0,
+"pos": Vector2( 4, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 306,
+"facing": 0,
+"pos": Vector2( 5, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 307,
+"facing": 0,
+"pos": Vector2( 6, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 308,
+"facing": 0,
+"pos": Vector2( 7, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 309,
+"facing": 0,
+"pos": Vector2( 8, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 310,
+"facing": 0,
+"pos": Vector2( 1, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 311,
+"facing": 0,
+"pos": Vector2( -7, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 312,
+"facing": 0,
+"pos": Vector2( -7, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 313,
+"facing": 0,
+"pos": Vector2( -7, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 314,
+"facing": 0,
+"pos": Vector2( -7, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 315,
+"facing": 0,
+"pos": Vector2( -7, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 316,
+"facing": 0,
+"pos": Vector2( -8, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 317,
+"facing": 0,
+"pos": Vector2( -8, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 318,
+"facing": 0,
+"pos": Vector2( -8, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 319,
+"facing": 0,
+"pos": Vector2( -8, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 320,
+"facing": 0,
+"pos": Vector2( -8, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 321,
+"facing": 0,
+"pos": Vector2( -8, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 322,
+"facing": 0,
+"pos": Vector2( -8, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 323,
+"facing": 0,
+"pos": Vector2( -8, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 324,
+"facing": 0,
+"pos": Vector2( -8, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 325,
+"facing": 0,
+"pos": Vector2( -8, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 326,
+"facing": 0,
+"pos": Vector2( -8, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 327,
+"facing": 0,
+"pos": Vector2( 9, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 328,
+"facing": 0,
+"pos": Vector2( 10, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 329,
+"facing": 0,
+"pos": Vector2( 11, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 330,
+"facing": 0,
+"pos": Vector2( 11, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 331,
+"facing": 0,
+"pos": Vector2( 12, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 332,
+"facing": 0,
+"pos": Vector2( 10, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 333,
+"facing": 0,
+"pos": Vector2( 9, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 334,
+"facing": 0,
+"pos": Vector2( -8, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 335,
+"facing": 0,
+"pos": Vector2( -8, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 336,
+"facing": 0,
+"pos": Vector2( -9, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 337,
+"facing": 0,
+"pos": Vector2( -10, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 338,
+"facing": 0,
+"pos": Vector2( -9, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 339,
+"facing": 0,
+"pos": Vector2( -9, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 340,
+"facing": 0,
+"pos": Vector2( -9, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 341,
+"facing": 0,
+"pos": Vector2( -9, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 342,
+"facing": 0,
+"pos": Vector2( -9, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 343,
+"facing": 0,
+"pos": Vector2( -9, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 344,
+"facing": 0,
+"pos": Vector2( -9, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 345,
+"facing": 0,
+"pos": Vector2( -9, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 346,
+"facing": 0,
+"pos": Vector2( -9, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 347,
+"facing": 0,
+"pos": Vector2( -9, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 348,
+"facing": 0,
+"pos": Vector2( -9, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 349,
+"facing": 0,
+"pos": Vector2( -9, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 350,
+"facing": 0,
+"pos": Vector2( -9, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 351,
+"facing": 0,
+"pos": Vector2( -9, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 352,
+"facing": 0,
+"pos": Vector2( -10, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 353,
+"facing": 0,
+"pos": Vector2( -10, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 354,
+"facing": 0,
+"pos": Vector2( -10, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 355,
+"facing": 0,
+"pos": Vector2( -10, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 356,
+"facing": 0,
+"pos": Vector2( -10, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 357,
+"facing": 0,
+"pos": Vector2( -10, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 358,
+"facing": 0,
+"pos": Vector2( -10, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 359,
+"facing": 0,
+"pos": Vector2( -10, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 360,
+"facing": 0,
+"pos": Vector2( -10, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 361,
+"facing": 0,
+"pos": Vector2( -10, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 362,
+"facing": 0,
+"pos": Vector2( -10, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 363,
+"facing": 0,
+"pos": Vector2( -10, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 364,
+"facing": 0,
+"pos": Vector2( -10, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 365,
+"facing": 0,
+"pos": Vector2( -10, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 366,
+"facing": 0,
+"pos": Vector2( -11, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 367,
+"facing": 0,
+"pos": Vector2( -11, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 368,
+"facing": 0,
+"pos": Vector2( -11, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 369,
+"facing": 0,
+"pos": Vector2( -11, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 370,
+"facing": 0,
+"pos": Vector2( -11, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 371,
+"facing": 0,
+"pos": Vector2( -11, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 372,
+"facing": 0,
+"pos": Vector2( -11, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 373,
+"facing": 0,
+"pos": Vector2( -11, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 374,
+"facing": 0,
+"pos": Vector2( -11, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 375,
+"facing": 0,
+"pos": Vector2( -11, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 376,
+"facing": 0,
+"pos": Vector2( -11, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 377,
+"facing": 0,
+"pos": Vector2( -11, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 378,
+"facing": 0,
+"pos": Vector2( -11, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 379,
+"facing": 0,
+"pos": Vector2( -11, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 380,
+"facing": 0,
+"pos": Vector2( -11, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 381,
+"facing": 0,
+"pos": Vector2( 0, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 382,
+"facing": 0,
+"pos": Vector2( 0, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 383,
+"facing": 0,
+"pos": Vector2( -1, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 384,
+"facing": 0,
+"pos": Vector2( -1, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 386,
+"facing": 0,
+"pos": Vector2( -12, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 387,
+"facing": 0,
+"pos": Vector2( -12, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 388,
+"facing": 0,
+"pos": Vector2( -12, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 389,
+"facing": 0,
+"pos": Vector2( -12, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 390,
+"facing": 0,
+"pos": Vector2( -12, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 391,
+"facing": 0,
+"pos": Vector2( -12, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 392,
+"facing": 0,
+"pos": Vector2( -13, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 393,
+"facing": 0,
+"pos": Vector2( -12, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 394,
+"facing": 0,
+"pos": Vector2( -12, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 395,
+"facing": 0,
+"pos": Vector2( -12, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 396,
+"facing": 0,
+"pos": Vector2( -12, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 397,
+"facing": 0,
+"pos": Vector2( -12, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 398,
+"facing": 0,
+"pos": Vector2( -12, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 399,
+"facing": 0,
+"pos": Vector2( -12, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 400,
+"facing": 0,
+"pos": Vector2( -12, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 401,
+"facing": 0,
+"pos": Vector2( -12, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 402,
+"facing": 0,
+"pos": Vector2( -13, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 403,
+"facing": 0,
+"pos": Vector2( -13, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 404,
+"facing": 0,
+"pos": Vector2( -13, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 405,
+"facing": 0,
+"pos": Vector2( -13, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 406,
+"facing": 0,
+"pos": Vector2( -13, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 407,
+"facing": 0,
+"pos": Vector2( -13, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 408,
+"facing": 0,
+"pos": Vector2( -13, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 409,
+"facing": 0,
+"pos": Vector2( -13, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 410,
+"facing": 0,
+"pos": Vector2( -13, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 411,
+"facing": 0,
+"pos": Vector2( -13, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 412,
+"facing": 0,
+"pos": Vector2( -13, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 413,
+"facing": 0,
+"pos": Vector2( -13, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 414,
+"facing": 0,
+"pos": Vector2( -13, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 415,
+"facing": 0,
+"pos": Vector2( -13, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 416,
+"facing": 0,
+"pos": Vector2( -14, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 417,
+"facing": 0,
+"pos": Vector2( -14, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 418,
+"facing": 0,
+"pos": Vector2( -14, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 419,
+"facing": 0,
+"pos": Vector2( -14, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 420,
+"facing": 0,
+"pos": Vector2( -14, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 421,
+"facing": 0,
+"pos": Vector2( -14, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 422,
+"facing": 0,
+"pos": Vector2( -14, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 423,
+"facing": 0,
+"pos": Vector2( -14, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 424,
+"facing": 0,
+"pos": Vector2( -14, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 425,
+"facing": 0,
+"pos": Vector2( -14, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 426,
+"facing": 0,
+"pos": Vector2( -15, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 427,
+"facing": 0,
+"pos": Vector2( -14, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 428,
+"facing": 0,
+"pos": Vector2( -14, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 429,
+"facing": 0,
+"pos": Vector2( -14, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 430,
+"facing": 0,
+"pos": Vector2( -14, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 431,
+"facing": 0,
+"pos": Vector2( -14, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 432,
+"facing": 0,
+"pos": Vector2( -15, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 433,
+"facing": 0,
+"pos": Vector2( -15, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 434,
+"facing": 0,
+"pos": Vector2( -15, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 435,
+"facing": 0,
+"pos": Vector2( -15, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 436,
+"facing": 0,
+"pos": Vector2( -15, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 437,
+"facing": 0,
+"pos": Vector2( -15, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 438,
+"facing": 0,
+"pos": Vector2( -15, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 439,
+"facing": 0,
+"pos": Vector2( -15, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 440,
+"facing": 0,
+"pos": Vector2( -15, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 441,
+"facing": 0,
+"pos": Vector2( -15, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 442,
+"facing": 0,
+"pos": Vector2( -15, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 443,
+"facing": 0,
+"pos": Vector2( -15, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 444,
+"facing": 0,
+"pos": Vector2( -15, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 445,
+"facing": 0,
+"pos": Vector2( -15, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 446,
+"facing": 0,
+"pos": Vector2( -16, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 447,
+"facing": 0,
+"pos": Vector2( -16, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 448,
+"facing": 0,
+"pos": Vector2( -16, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 449,
+"facing": 0,
+"pos": Vector2( -16, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 450,
+"facing": 0,
+"pos": Vector2( -16, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 451,
+"facing": 0,
+"pos": Vector2( -16, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 452,
+"facing": 0,
+"pos": Vector2( -16, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 453,
+"facing": 0,
+"pos": Vector2( -16, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 454,
+"facing": 0,
+"pos": Vector2( -16, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 455,
+"facing": 0,
+"pos": Vector2( -16, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 456,
+"facing": 0,
+"pos": Vector2( -16, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 457,
+"facing": 0,
+"pos": Vector2( -16, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 458,
+"facing": 0,
+"pos": Vector2( -16, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 459,
+"facing": 0,
+"pos": Vector2( -16, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 460,
+"facing": 0,
+"pos": Vector2( -16, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 461,
+"facing": 0,
+"pos": Vector2( -17, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 462,
+"facing": 0,
+"pos": Vector2( -17, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 463,
+"facing": 0,
+"pos": Vector2( -17, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 464,
+"facing": 0,
+"pos": Vector2( -17, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 465,
+"facing": 0,
+"pos": Vector2( -17, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 466,
+"facing": 0,
+"pos": Vector2( -17, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 467,
+"facing": 0,
+"pos": Vector2( -17, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 468,
+"facing": 0,
+"pos": Vector2( -17, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 469,
+"facing": 0,
+"pos": Vector2( -17, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 470,
+"facing": 0,
+"pos": Vector2( -17, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 471,
+"facing": 0,
+"pos": Vector2( -17, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 472,
+"facing": 0,
+"pos": Vector2( -17, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 473,
+"facing": 0,
+"pos": Vector2( -17, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 474,
+"facing": 0,
+"pos": Vector2( -17, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 475,
+"facing": 0,
+"pos": Vector2( -17, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 476,
+"facing": 0,
+"pos": Vector2( 0, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 477,
+"facing": 0,
+"pos": Vector2( -18, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 478,
+"facing": 0,
+"pos": Vector2( -18, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 479,
+"facing": 0,
+"pos": Vector2( -18, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 480,
+"facing": 0,
+"pos": Vector2( -18, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 481,
+"facing": 0,
+"pos": Vector2( -18, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 482,
+"facing": 0,
+"pos": Vector2( -18, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 483,
+"facing": 0,
+"pos": Vector2( -18, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 484,
+"facing": 0,
+"pos": Vector2( -18, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 485,
+"facing": 0,
+"pos": Vector2( -18, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 486,
+"facing": 0,
+"pos": Vector2( -18, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 487,
+"facing": 0,
+"pos": Vector2( -18, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 488,
+"facing": 0,
+"pos": Vector2( -18, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 489,
+"facing": 0,
+"pos": Vector2( -18, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 490,
+"facing": 0,
+"pos": Vector2( -18, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 491,
+"facing": 0,
+"pos": Vector2( -19, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 492,
+"facing": 0,
+"pos": Vector2( -18, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 493,
+"facing": 0,
+"pos": Vector2( -19, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 494,
+"facing": 0,
+"pos": Vector2( -19, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 495,
+"facing": 0,
+"pos": Vector2( -19, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 496,
+"facing": 0,
+"pos": Vector2( -19, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 497,
+"facing": 0,
+"pos": Vector2( -19, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 498,
+"facing": 0,
+"pos": Vector2( -19, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 499,
+"facing": 0,
+"pos": Vector2( -19, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 500,
+"facing": 0,
+"pos": Vector2( -19, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 501,
+"facing": 0,
+"pos": Vector2( -19, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 502,
+"facing": 0,
+"pos": Vector2( -19, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 503,
+"facing": 0,
+"pos": Vector2( -19, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 504,
+"facing": 0,
+"pos": Vector2( -19, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 505,
+"facing": 0,
+"pos": Vector2( -19, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 506,
+"facing": 0,
+"pos": Vector2( -20, 4 ),
+"type": "TestBlock"
+}, {
+"block_id": 507,
+"facing": 0,
+"pos": Vector2( -20, 5 ),
+"type": "TestBlock"
+}, {
+"block_id": 508,
+"facing": 0,
+"pos": Vector2( -20, 2 ),
+"type": "TestBlock"
+}, {
+"block_id": 509,
+"facing": 0,
+"pos": Vector2( -20, 1 ),
+"type": "TestBlock"
+}, {
+"block_id": 510,
+"facing": 0,
+"pos": Vector2( -20, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 511,
+"facing": 0,
+"pos": Vector2( -20, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 512,
+"facing": 0,
+"pos": Vector2( -20, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 513,
+"facing": 0,
+"pos": Vector2( -20, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 514,
+"facing": 0,
+"pos": Vector2( -20, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 515,
+"facing": 0,
+"pos": Vector2( -20, -6 ),
+"type": "TestBlock"
+}, {
+"block_id": 516,
+"facing": 0,
+"pos": Vector2( -20, -7 ),
+"type": "TestBlock"
+}, {
+"block_id": 517,
+"facing": 0,
+"pos": Vector2( -20, -8 ),
+"type": "TestBlock"
+}, {
+"block_id": 518,
+"facing": 0,
+"pos": Vector2( -20, -9 ),
+"type": "TestBlock"
+}, {
+"block_id": 519,
+"facing": 0,
+"pos": Vector2( -20, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 520,
+"facing": 0,
+"pos": Vector2( -20, 3 ),
+"type": "TestBlock"
+}, {
+"block_id": 521,
+"facing": 0,
+"pos": Vector2( -21, -4 ),
+"type": "TestBlock"
 } ]
-gridDisplacement = Vector2( -215, 63 )
+gridDisplacement = Vector2( 729, 203 )

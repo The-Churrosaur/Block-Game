@@ -34,7 +34,8 @@ func on_text_entered(var text):
 	var ship = loader.load_ship(res, owner)
 	
 	ship.position = Vector2(700,500)
-	ship.linear_velocity += Vector2(10,0)
+	ship.linear_velocity += Vector2(30,0)
+	print("grid position: ", ship.grid.position)
 	
 	owner.add_child(ship)
 	owner.test_ship = ship

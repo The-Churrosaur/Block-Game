@@ -60,7 +60,7 @@ func _process(delta):
 		if display_block != null:
 			display_block.set_facing(block_facing)
 	
-	if (Input.is_action_just_pressed("ui_lclick")):
+	if (Input.is_action_pressed("ui_lclick")):
 		
 		if block_template is PackedScene:
 			var block = block_template.instance()

@@ -117,12 +117,12 @@ func _integrate_forces(state):
 
 # BLOCK PLACEMENT ==============================================================
 
-func on_grid_block_added(coord, block, grid):
+func on_grid_block_added(coord, block, grid, update_com):
 	
 	# edit COM/position, append mass
 	
-	update_com(block)
-	print("after com update: ", global_position)
+	if update_com : update_com(block)
+#	print("after com update: ", global_position)
 	
 	# add block collisionShapes to the ship, log them in the dict
 	# depreciated, probably do this through tilemap
@@ -196,11 +196,11 @@ func update_com(block, invert = false): # also updates mass
 #	print("grid position: ", grid.position, grid.global_position)
 
 
-func on_grid_block_removed(coord, block, grid):
+func on_grid_block_removed(coord, block, grid, update_com):
 	
 	# update com in reverse
 	
-	update_com(block, true)
+	if update_com: update_com(block, true)
 	
 	# remove block and collisionshape from dict, delete collisionshape
 	# depreeeeeeeeeeeeeeciated

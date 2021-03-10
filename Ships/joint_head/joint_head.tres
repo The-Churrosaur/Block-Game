@@ -13,3 +13,4 @@ blocks = [ {
 "pos": Vector2( 0, 0 ),
 "type": "PinHead"
 } ]
+gridDisplacement = Vector2( 0, 0 )
