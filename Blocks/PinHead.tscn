@@ -9,7 +9,6 @@ extents = Vector2( 32, 32 )
 
 [node name="PinHeadBase" type="Node2D"]
 script = ExtResource( 2 )
-class_type = "PinHead"
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
