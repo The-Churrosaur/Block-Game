@@ -44,6 +44,12 @@ func _enter_tree():
 #		print (info.grid_size)
 #		grid_size = info.grid_size
 
+func get_block(pos : Vector2) -> Node2D:
+	if block_dict.has(pos):
+		return block_dict[pos]
+	else:
+		return null
+
 func add_block(block, center_coord, facing, check_blocked = true, update_com = true):
 	
 	# add tile to tilemap
@@ -70,11 +76,13 @@ func add_block(block, center_coord, facing, check_blocked = true, update_com = t
 	add_child(block) # for cleanliness
 	position_block(center_coord, facing)
 	
-	# a surprise tool that will help us later
+	# inject info to new block
 	if block is Block:
 		block.on_added_to_grid(center_coord, block, self)
 		block.block_id = new_block_id()
 		# would need reference to connect signal
+		if block.io_box:
+			block.io_box.manager = shipBody.io_manager
 	
 	# FYI vvv this is the slowest part of loading by order of magnitude
 	# COM recalcing
@@ -149,6 +157,12 @@ func position_block(pos : Vector2, facing):
 func position_all_blocks():
 	for p in block_dict.keys():
 		position_block(p as Vector2, block_dict[p].block_rotation)
+
+func post_load_block_setup():
+	
+	# iterate through blocks, call setup
+	for pos in block_dict.keys():
+		block_dict[pos].post_load_setup()
 
 # SAVING AND LOADING ===========================================================
 # this is all defunct old shit

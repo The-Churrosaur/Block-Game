@@ -1,0 +1,121 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Scenes/character/weapons/guns/smg.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/character/hud/hud.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/environment/player_camera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/character/player_controller.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/character/BlueTest/Rig.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/character/kinematic_character.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/character/weapons/guns/battle_rifle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://icon.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/character/JetLight.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/character/player_base.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/character/weapons/grapple_gun.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/character/character_health.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/character/weapons/guns/shotgun.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/character/weapons/guns/rail_rifle.tscn" type="PackedScene" id=14]
+
+[sub_resource type="CapsuleShape2D" id=1]
+height = 30.0
+
+[node name="PlayerBase" type="Node2D"]
+script = ExtResource( 10 )
+player_path = NodePath("KinematicCharacter")
+
+[node name="KinematicCharacter" parent="." instance=ExtResource( 6 )]
+magwalk_velocity = 500
+jump_impulse = 500
+boost_number = 4
+boost_invul_time = 0.7
+hit_area_path = NodePath("Hitbox")
+
+[node name="Rig" parent="KinematicCharacter" instance=ExtResource( 5 )]
+position = Vector2( 0.17944, -16.9724 )
+scale = Vector2( 0.6, 0.6 )
+
+[node name="hip" parent="KinematicCharacter/Rig/Dolly/Skeleton2D" index="0"]
+position = Vector2( 86.2327, 36.8977 )
+
+[node name="hipL" parent="KinematicCharacter/Rig/Dolly/Skeleton2D/hip" index="1"]
+rotation = -0.195046
+
+[node name="kneeL" parent="KinematicCharacter/Rig/Dolly/Skeleton2D/hip/hipL" index="0"]
+rotation = -0.686077
+
+[node name="hipR" parent="KinematicCharacter/Rig/Dolly/Skeleton2D/hip" index="2"]
+position = Vector2( -6.18043, 3.85378 )
+rotation = 0.529806
+
+[node name="kneeR" parent="KinematicCharacter/Rig/Dolly/Skeleton2D/hip/hipR" index="0"]
+rotation = -1.57949
+
+[node name="Hitbox" type="Area2D" parent="KinematicCharacter"]
+collision_layer = 18
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicCharacter/Hitbox"]
+position = Vector2( 0, -19.7855 )
+shape = SubResource( 1 )
+
+[node name="JetLight" parent="KinematicCharacter" instance=ExtResource( 9 )]
+visible = false
+position = Vector2( 0, -7.821 )
+scale = Vector2( 0.25, 0.25 )
+
+[node name="Sprite2" type="Sprite" parent="KinematicCharacter"]
+visible = false
+position = Vector2( 0, -18.4026 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 8 )
+
+[node name="GrappleGun" parent="KinematicCharacter" instance=ExtResource( 11 )]
+muzzle_path = NodePath("Muzzle")
+shooter_path = NodePath("..")
+muzzle_vel = 1500.0
+
+[node name="Muzzle" type="Node2D" parent="KinematicCharacter/GrappleGun"]
+position = Vector2( 0, -45.5628 )
+
+[node name="WeaponSMG" parent="KinematicCharacter" instance=ExtResource( 1 )]
+visible = false
+shooter_path = NodePath("..")
+
+[node name="WeaponBR" parent="KinematicCharacter" instance=ExtResource( 7 )]
+visible = false
+shooter_path = NodePath("..")
+
+[node name="WeaponSG" parent="KinematicCharacter" instance=ExtResource( 13 )]
+visible = false
+shooter_path = NodePath("..")
+
+[node name="WeaponRR" parent="KinematicCharacter" instance=ExtResource( 14 )]
+visible = false
+shooter_path = NodePath("..")
+
+[node name="PlayerController" parent="." instance=ExtResource( 4 )]
+character_path = NodePath("../KinematicCharacter")
+anim_path = NodePath("../KinematicCharacter/Rig/AnimationTree")
+rig_path = NodePath("../KinematicCharacter/Rig")
+weapon_paths = [ NodePath("../KinematicCharacter/WeaponSMG"), NodePath("../KinematicCharacter/WeaponBR"), NodePath("../KinematicCharacter/WeaponSG"), NodePath("../KinematicCharacter/WeaponRR") ]
+grapple_path = NodePath("../KinematicCharacter/GrappleGun")
+camera_path = NodePath("../PlayerCamera")
+
+[node name="Hud" parent="." instance=ExtResource( 2 )]
+camera_path = NodePath("../PlayerCamera")
+player_path = NodePath("../KinematicCharacter")
+health_bar_path = NodePath("Hud/HealthBar")
+
+[node name="HealthBar" parent="Hud/Hud" index="1"]
+char_health_path = NodePath("../../../CharacterHealth")
+
+[node name="PlayerCamera" parent="." instance=ExtResource( 3 )]
+scale = Vector2( 0.25, 0.25 )
+player_path = NodePath("../KinematicCharacter")
+
+[node name="CharacterHealth" parent="." instance=ExtResource( 12 )]
+
+[editable path="KinematicCharacter"]
+
+[editable path="KinematicCharacter/Rig"]
+
+[editable path="Hud"]

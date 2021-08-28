@@ -10,6 +10,9 @@ const size_grid = [Vector2(0,0)]
 export var mass = 100
 export var class_type = "Block"
 export var tile_id = 0
+export var io_box_path : NodePath
+
+onready var io_box = get_node_or_null(io_box_path)
 
 var block_id : int = 0
 var block_facing : int = block_facing_direction.RIGHT
@@ -86,6 +89,14 @@ func on_added_to_grid(center_coord, block, grid):
 	grid.connect("save_blocks", self, "on_save_blocks")
 
 func on_removed_from_grid(center_coord, block, grid):
+	pass
+
+# to convert stored id's into block references etc.
+func post_load_setup():
+	pass
+
+# called when ship is impacted
+func ship_body_entered(body, pos):
 	pass
 
 # SAVING AND LOADING ===========================================================

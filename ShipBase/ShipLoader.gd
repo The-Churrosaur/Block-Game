@@ -26,10 +26,14 @@ func load_ship(var ship_save : Resource, var target_parent : Node) -> Node2D:
 	
 	thread_load(ship_save)
 	
+	# doing this here instead of in save res for flexibility
+	ship.post_load_block_setup()
+	
 	return ship
 
 func thread_load(var ship_save : Resource):
 	ship_save.loadShip(ship)
+	
 	print("SHIP LOADING TIME func: ", OS.get_ticks_msec() - start_time)
 	emit_signal("ship_loaded", ship)
 

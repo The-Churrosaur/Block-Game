@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/character/weapons/weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/environment/test_turret.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/environment/loot_spawner.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="TestTurret" type="StaticBody2D" groups=[
+"Enemy",
+"TestTurret",
+]]
+collision_layer = 7
+collision_mask = 5
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Weapon" parent="." instance=ExtResource( 1 )]
+scale = Vector2( 5, 5 )
+muzzle_path = NodePath("Muzzle")
+impulse = 300.0
+cycle_interval = 0.3
+
+[node name="Muzzle" type="Node2D" parent="Weapon"]
+position = Vector2( 5, 0 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 3 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 20.9847, 0 )
+scale = Vector2( 0.2, 0.1 )
+texture = ExtResource( 3 )
+
+[node name="LootSpawner" parent="." instance=ExtResource( 4 )]

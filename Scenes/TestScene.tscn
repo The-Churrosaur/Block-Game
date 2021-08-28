@@ -5,7 +5,7 @@
 [ext_resource path="res://Scenes/BlockSelectButton.gd" type="Script" id=3]
 [ext_resource path="res://Blocks/PinBlock.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Blocks/GunBlock.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Blocks/PinHead.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ShipBase/GridBase/PinBlock/PinHeadBase.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/ShipLoaderTest.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/ShipSaverTest.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/CoordinateLabel.gd" type="Script" id=10]
@@ -93,7 +93,9 @@ __meta__ = {
 }
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2( 2000, -500 )
+position = Vector2( 1000, 500 )
+collision_layer = 3
+collision_mask = 3
 mass = 1000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]

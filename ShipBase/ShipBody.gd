@@ -19,27 +19,20 @@ onready var grid = $GridBase
 # grid position moves with ShipBody BUT
 # grid position remains relative to ShipBody at original scene origin
 
+onready var tilemap : TileMap = $ShipTileMap
+onready var io_manager = $IOManager
+
 # use grid position for ship local coordinates/origin
 var grid_origin setget ,grid_origin
 func grid_origin():
 	#grid_origin = grid.global_position
 	return grid_origin
 
-
-var block_collision_dict = {}
-# CollisionShape2D -> Block
-# tells blocks when they've gone cronch
-
-# also holds references in reverse (Block -> Collisionshape)
-# for deletion once the block has gone cronch
-
-# TODO this feels inelegant af.
-# - is holding hitboxes on the ship necessary? 
-# - single polygon that switches owners (collider has to be direct child)
-# - performance of individual block hitboxes?
-# - find collision point then manually calculate
-
 var supergrid = null
+
+# most recent collision, updated every tick
+var collision_pos : Vector2
+var collision_normal : Vector2
 
 signal on_clicked(shipBody)
 signal shipBody_saved(shipBody, name, file)
@@ -66,10 +59,21 @@ func _ready():
 	
 	subShips[name] = self;
 	print("subships: ", subShips)
+	
+	# collision handling
+	connect("body_shape_entered", self, "on_body_shape_entered")
 
 func connect_to_grid(grid):
 	grid.connect("block_added", self, "on_grid_block_added")
 	grid.connect("block_removed", self, "on_grid_block_removed")
+
+func _integrate_forces(state):
+#	int_forces_reposition()
+	if(state.get_contact_count() >= 1):  #this check is needed or it will throw errors 
+		# it appears this is actually getting global position? is it?
+		collision_pos = state.get_contact_local_position(0)
+		collision_normal = state.get_contact_local_normal(0)
+	pass
 
 func _unhandled_input(event): # test func
 
@@ -92,53 +96,12 @@ func on_subShip_removed(ship, pinBlock, pinHead):
 	subShips.erase(ship.name)
 	print("SUBSHIP REMOVED, ship: ", name, " subships ",subShips)
 
-func _integrate_forces(state):
-#	int_forces_reposition()
-	pass
-
-# RIGIDBODY HELPERS -===========================================================
-
-# DEFUNCT - set position is fine, issue is physics timer vs. update timer
-
-## sets flags, updates position in _integrate_forces()
-#var reposition = false
-#var repos_target : Vector2
-#
-#func reposition(pos : Vector2):
-#	reposition = true
-#	repos_target = pos
-#
-## call this in _integrate_forces
-#func int_forces_reposition():
-#	if (reposition):
-#		position = repos_target
-#		print("RB REPOS: ", position, global_position)
-#		reposition = false
-
 # BLOCK PLACEMENT ==============================================================
 
 func on_grid_block_added(coord, block, grid, update_com):
 	
 	# edit COM/position, append mass
-	
 	if update_com : update_com(block)
-#	print("after com update: ", global_position)
-	
-	# add block collisionShapes to the ship, log them in the dict
-	# depreciated, probably do this through tilemap
-	
-#	for block_collider in block.hitbox_collision_shapes:
-#		var collider = CollisionShape2D.new()
-#		grid.add_child(collider)
-#		collider.owner = self
-#		collider.shape = block_collider.shape
-#
-#		# preserves collider position relative to block
-#		collider.position = block.position + block_collider.position
-#		print("collider pos:", collider.position)
-#
-#		block_collision_dict[collider] = block
-#		block_collision_dict[block] = collider
 
 func update_com(block, invert = false): # also updates mass
 	if !(block is Block):
@@ -195,24 +158,18 @@ func update_com(block, invert = false): # also updates mass
 #	print("mass shifting ship position", position, global_position)
 #	print("grid position: ", grid.position, grid.global_position)
 
-
 func on_grid_block_removed(coord, block, grid, update_com):
 	
 	# update com in reverse
 	
 	if update_com: update_com(block, true)
-	
-	# remove block and collisionshape from dict, delete collisionshape
-	# depreeeeeeeeeeeeeeciated
-	
-#	var collider = block_collision_dict[block]
-#	block_collision_dict.erase(block)
-#	block_collision_dict.erase(collider)
-#	collider.queue_free() # mark for deletion
 
 # gets block from coordinate
 func get_block(coord : Vector2):
 	return grid.block_dict[coord]
+
+func post_load_block_setup():
+	grid.post_load_block_setup()
 
 # INGAME LOGIC =================================================================
 
@@ -222,6 +179,23 @@ func on_force_requested(pos, magnitude, central = false):
 		add_central_force(magnitude)
 	else:
 		add_force(grid.position + pos, magnitude)
+	pass
+
+func on_body_shape_entered (body_id, body, body_shape, local_shape):
+	
+	# get block coord from tilemap
+	# rotation messes this up, temp disabled
+#	var pos = collision_pos + collision_normal
+#	var coord = tilemap.world_to_map(tilemap.to_local(pos))
+#
+#	# get block from grid
+#	var block = grid.block_dict[coord]
+#
+#	print("ship body entered", pos, coord, block)
+#
+#	# notify block
+#	block.ship_body_entered(body, pos)
+	
 	pass
 
 # SAVING AND LOADING ===========================================================

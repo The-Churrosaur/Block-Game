@@ -19,10 +19,65 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ShipBase/GridBase/Block_Storage.gd"
 }, {
+"base": "Reference",
+"class": "BouncingBullet",
+"language": "GDScript",
+"path": "res://Scenes/character/weapons/bouncing_bullet.gd"
+}, {
+"base": "Reference",
+"class": "Bullet",
+"language": "GDScript",
+"path": "res://Scenes/character/weapons/bullet.gd"
+}, {
+"base": "Node",
+"class": "CharacterHealth",
+"language": "GDScript",
+"path": "res://character_health.gd"
+}, {
+"base": "Reference",
+"class": "CharacterRig",
+"language": "GDScript",
+"path": "res://Scenes/character/BlueTest/blue_rig.gd"
+}, {
 "base": "GunBase",
 "class": "DefaultGun",
 "language": "GDScript",
 "path": "res://Weapons/DefaultGun.gd"
+}, {
+"base": "Reference",
+"class": "EnemyController",
+"language": "GDScript",
+"path": "res://Scenes/environment/enemy/enemy_controller.gd"
+}, {
+"base": "Reference",
+"class": "EnemyGrenadierController",
+"language": "GDScript",
+"path": "res://Scenes/environment/enemy/enemy_grenadier_controller.gd"
+}, {
+"base": "Reference",
+"class": "EnemyShotgunController",
+"language": "GDScript",
+"path": "res://Scenes/environment/enemy/enemy_shotgun_controller.gd"
+}, {
+"base": "Reference",
+"class": "EnemyTurretController",
+"language": "GDScript",
+"path": "res://Scenes/environment/enemy/enemy_turret_controller.gd"
+}, {
+"base": "Reference",
+"class": "GrappleGun",
+"language": "GDScript",
+"path": "res://Scenes/character/weapons/grapple_gun.gd"
+}, {
+"base": "Reference",
+"class": "GravityArea",
+"language": "GDScript",
+"path": "res://Scenes/environment/gravity_area.gd"
+}, {
+"base": "Reference",
+"class": "Grenade",
+"language": "GDScript",
+"path": "res://Scenes/character/weapons/grenade.gd"
 }, {
 "base": "Node2D",
 "class": "GridBase",
@@ -44,15 +99,60 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Blocks/GunBlock.gd"
 }, {
+"base": "Control",
+"class": "HealthBar",
+"language": "GDScript",
+"path": "res://Scenes/character/hud/health_bar.gd"
+}, {
+"base": "Reference",
+"class": "HealthPickup",
+"language": "GDScript",
+"path": "res://Scenes/environment/health_pickup.gd"
+}, {
+"base": "Block",
+"class": "IOBlock",
+"language": "GDScript",
+"path": "res://Blocks/IOBlock.gd"
+}, {
+"base": "Reference",
+"class": "IOBox",
+"language": "GDScript",
+"path": "res://BlockSystems/IO/IOBox.gd"
+}, {
+"base": "Reference",
+"class": "IOManager",
+"language": "GDScript",
+"path": "res://BlockSystems/IO/IOManager.gd"
+}, {
 "base": "Block",
 "class": "JointBlock",
 "language": "GDScript",
 "path": "res://Blocks/JointBlock.gd"
 }, {
-"base": "Block",
-"class": "PinBlock",
+"base": "KinematicBody2D",
+"class": "KinematicCharacter",
 "language": "GDScript",
-"path": "res://Blocks/PinBlock.gd"
+"path": "res://Scenes/character/kinematic_character.gd"
+}, {
+"base": "Reference",
+"class": "LootSpawner",
+"language": "GDScript",
+"path": "res://Scenes/environment/loot_spawner.gd"
+}, {
+"base": "Reference",
+"class": "PhysicsPlatform",
+"language": "GDScript",
+"path": "res://Scenes/environment/physics_platform.gd"
+}, {
+"base": "Reference",
+"class": "Pickup",
+"language": "GDScript",
+"path": "res://Scenes/environment/pickup.gd"
+}, {
+"base": "Block",
+"class": "PinBlockBase",
+"language": "GDScript",
+"path": "res://ShipBase/GridBase/PinBlock/PinBlockBase.gd"
 }, {
 "base": "Block_Storage",
 "class": "PinBlock_Storage",
@@ -60,14 +160,39 @@ _global_script_classes=[ {
 "path": "res://Blocks/PinBlock_Storage.gd"
 }, {
 "base": "Block",
-"class": "PinHead",
+"class": "PinHeadBase",
 "language": "GDScript",
-"path": "res://Blocks/PinHead.gd"
+"path": "res://ShipBase/GridBase/PinBlock/PinHeadBase.gd"
+}, {
+"base": "Reference",
+"class": "PlayerBase",
+"language": "GDScript",
+"path": "res://Scenes/character/player_base.gd"
+}, {
+"base": "Reference",
+"class": "PlayerCamera",
+"language": "GDScript",
+"path": "res://Scenes/environment/player_camera.gd"
+}, {
+"base": "Reference",
+"class": "PlayerController",
+"language": "GDScript",
+"path": "res://Scenes/character/player_controller.gd"
 }, {
 "base": "RigidBody2D",
 "class": "Projectile",
 "language": "GDScript",
 "path": "res://WeaponBase/ProjectileBase.gd"
+}, {
+"base": "Reference",
+"class": "Rig",
+"language": "GDScript",
+"path": "res://Scenes/character/BlueTest/rig.gd"
+}, {
+"base": "Reference",
+"class": "ScreenShaker",
+"language": "GDScript",
+"path": "res://Scenes/character/hud/screen_shaker.gd"
 }, {
 "base": "StorageBase",
 "class": "ShipBase_Storage",
@@ -113,20 +238,55 @@ _global_script_classes=[ {
 "class": "ThrusterBlock",
 "language": "GDScript",
 "path": "res://Blocks/ThrusterBlock.gd"
+}, {
+"base": "Node2D",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://Scenes/character/weapons/weapon.gd"
+}, {
+"base": "Node2D",
+"class": "ik_2d",
+"language": "GDScript",
+"path": "res://Scenes/utils/ik_2d.gd"
 } ]
 _global_script_class_icons={
 "Block": "",
 "Block_Storage": "",
+"BouncingBullet": "",
+"Bullet": "",
+"CharacterHealth": "",
+"CharacterRig": "",
 "DefaultGun": "",
+"EnemyController": "",
+"EnemyGrenadierController": "",
+"EnemyShotgunController": "",
+"EnemyTurretController": "",
+"GrappleGun": "",
+"GravityArea": "",
+"Grenade": "",
 "GridBase": "",
 "GridBase_Storage": "",
 "GunBase": "",
 "GunBlock": "",
+"HealthBar": "",
+"HealthPickup": "",
+"IOBlock": "",
+"IOBox": "",
+"IOManager": "",
 "JointBlock": "",
-"PinBlock": "",
+"KinematicCharacter": "",
+"LootSpawner": "",
+"PhysicsPlatform": "",
+"Pickup": "",
+"PinBlockBase": "",
 "PinBlock_Storage": "",
-"PinHead": "",
+"PinHeadBase": "",
+"PlayerBase": "",
+"PlayerCamera": "",
+"PlayerController": "",
 "Projectile": "",
+"Rig": "",
+"ScreenShaker": "",
 "ShipBase_Storage": "",
 "ShipBody": "",
 "ShipInfo": "",
@@ -135,12 +295,14 @@ _global_script_class_icons={
 "ShipTileMap": "",
 "StorageBase": "",
 "TestBlock": "",
-"ThrusterBlock": ""
+"ThrusterBlock": "",
+"Weapon": "",
+"ik_2d": ""
 }
 
 [application]
 
-config/name="Grid Blocks"
+config/name="BlockVania"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
@@ -184,6 +346,21 @@ ui_mclick={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+ui_alt_select={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_rotate_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_rotate_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [physics]
 
@@ -191,4 +368,5 @@ ui_mclick={
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_environment="res://default_env.tres"

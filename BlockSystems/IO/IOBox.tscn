@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://BlockSystems/IO/IOBox.gd" type="Script" id=1]
+
+[node name="IOBox" type="Node"]
+script = ExtResource( 1 )
+inputs = [ {
+"name": "",
+"value": 0.0
+}, {
+"name": "",
+"value": 0.0
+}, {
+"name": "",
+"value": 0.0
+}, {
+"name": "",
+"value": 0.0
+}, {
+"name": "",
+"value": 0.0
+} ]
+outputs = [ {
+"name": "",
+"value": 0.0
+}, {
+"name": "",
+"value": 0.0
+}, {
+"name": "",
+"value": 0.0
+}, {
+"name": "",
+"value": 0.0
+}, {
+"name": "",
+"value": 0.0
+} ]
