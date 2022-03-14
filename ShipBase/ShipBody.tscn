@@ -11,6 +11,7 @@
 [node name="ShipBody" type="RigidBody2D" groups=[
 "Platform",
 ]]
+input_pickable = true
 collision_layer = 7
 collision_mask = 0
 mass = 0.01

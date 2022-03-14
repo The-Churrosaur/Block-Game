@@ -10,9 +10,6 @@ const size_grid = [Vector2(0,0)]
 export var mass = 100
 export var class_type = "Block"
 export var tile_id = 0
-export var io_box_path : NodePath
-
-onready var io_box = get_node_or_null(io_box_path)
 
 var block_id : int = 0
 var block_facing : int = block_facing_direction.RIGHT

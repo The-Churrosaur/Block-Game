@@ -81,11 +81,8 @@ func add_block(block, center_coord, facing, check_blocked = true, update_com = t
 		block.on_added_to_grid(center_coord, block, self)
 		block.block_id = new_block_id()
 		# would need reference to connect signal
-		if block.io_box:
-			block.io_box.manager = shipBody.io_manager
 	
-	# FYI vvv this is the slowest part of loading by order of magnitude
-	# COM recalcing
+	# COM recalcing (also picked up by block systems) 
 	emit_signal("block_added", center_coord, block, self, update_com)
 	
 	num_blocks += 1
@@ -139,6 +136,9 @@ func get_gridFromPoint(point : Vector2):
 	grid_coord = (grid_coord / grid_size).round()
 	print("getting grid coordinate ", grid_coord)
 	return grid_coord
+
+func get_blockFromPoint(point : Vector2):
+	return get_block(get_gridFromPoint(point))
 
 func position_block(pos : Vector2, facing):
 	if !block_dict.has(pos):

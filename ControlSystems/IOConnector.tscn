@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ControlSystems/IOConnector.gd" type="Script" id=1]
+[ext_resource path="res://BlockSystems/IO/IOHud.tscn" type="PackedScene" id=2]
+
+[node name="IOPicker" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="HudDolly" type="Node2D" parent="CanvasLayer"]
+
+[node name="IOHud" parent="CanvasLayer/HudDolly" instance=ExtResource( 2 )]
+visible = false

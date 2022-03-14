@@ -4,7 +4,7 @@
 
 [node name="IOBox" type="Node"]
 script = ExtResource( 1 )
-inputs = [ {
+initial_inputs = [ {
 "name": "",
 "value": 0.0
 }, {
@@ -20,7 +20,7 @@ inputs = [ {
 "name": "",
 "value": 0.0
 } ]
-outputs = [ {
+initial_outputs = [ {
 "name": "",
 "value": 0.0
 }, {

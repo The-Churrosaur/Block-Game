@@ -1,24 +1,40 @@
 class_name IOBox
 extends Node
 
-# port-indexed arrays
-# contain dictionaries with name, value, activated this tick etc.
-# set in editor 
-export var inputs = []
-export var outputs = []
+# TODO export dictionaries are static??!?!
+
+
+# sorry I'll automate this later
+export var initial_inputs = [{"name":"","value":0.0},
+							 {"name":"","value":0.0},
+							 {"name":"","value":0.0},
+							 {"name":"","value":0.0},
+							 {"name":"","value":0.0}]
+
+export var initial_outputs = [{"name":"","value":0.0},
+							  {"name":"","value":0.0},
+							  {"name":"","value":0.0},
+							  {"name":"","value":0.0},
+							  {"name":"","value":0.0}]
 
 export var block_path : NodePath
+
+# port-indexed arrays
+# contain dictionaries with name, value, activated this tick etc.
+# deep copy copies dict (so we don't just reference the static export dict)
+onready var inputs = initial_inputs.duplicate(true)
+onready var outputs = initial_outputs.duplicate(true)
 
 onready var block = get_node_or_null(block_path)
 onready var manager = null
 
 func _ready():
 	# tool
-#	for i in inputs.size():
-#		inputs[i] = {"name":"","value":0.0}
+#	for i in initial_inputs.size():
+#		initial_inputs[i] = {"name":"","value":0.0}
 #
-#	for i in outputs.size():
-#		outputs[i] = {"name":"","value":0.0}
+#	for i in initial_outputs.size():
+#		initial_outputs[i] = {"name":"","value":0.0}
 	
 	pass
 
@@ -41,9 +57,6 @@ func get_input_port(port_name : String):
 func set_output(port, value):
 	if port is String: set_output(get_output_port(port), value)
 	else: outputs[port]["value"] = value
-#	print(manager)
-	if manager: 
-		manager.output(block.center_grid_coord, port, value)
 
 func get_output(port):
 	if port is String: get_output(get_output_port(port))

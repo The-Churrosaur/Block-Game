@@ -1,5 +1,5 @@
 class_name PinBlockBase
-extends Block
+extends IOBlock
 
 # spawns subship and pins when added to grid
 # saves location of ship resource
@@ -42,7 +42,7 @@ func _input(event):
 
 func post_load_setup():
 	.post_load_setup()
-	# wow I hate this so much but it works for now
+	# wow I hate this so much but it works for now TODO TODO
 	yield(get_tree().create_timer(0.0001), "timeout")
 	setup_load_subship()
 

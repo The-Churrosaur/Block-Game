@@ -1,11 +1,14 @@
 extends MarginContainer
 
-export var box_path : NodePath
+
+export var io_box_path : NodePath
 export var port_hud_scene : PackedScene
 
-onready var box = get_node(box_path)
+onready var io_box = get_node_or_null(io_box_path)
 onready var inputs = $VBoxContainer/Inputs
 onready var outputs = $VBoxContainer/Outputs
+
+signal port_selected(port, state, is_input)
 
 func display():
 	if inputs.get_child_count() <= 0: set_input_huds()
@@ -18,19 +21,43 @@ func toggle_display():
 		visible = true
 		display()
 
+func set_display(val):
+	print("setting iohud display: ", val, " position at: ", get_parent().global_position)
+	visible = val
+	display()
+
+func show_inputs(val):
+	inputs.visible = val
+
+func show_outputs(val):
+	outputs.visible = val
+
+func set_io_box(box):
+	io_box = box
+
+func reset_port_huds():
+	for child in inputs.get_children():
+		child.queue_free()
+	for child in outputs.get_children():
+		child.queue_free()
+
 func set_input_huds():
-	for i in box.inputs.size():
-		var input = box.inputs[i]
+	# TODO I renamed something formerly called 'box'
+	for i in io_box.inputs.size():
+		var input = io_box.inputs[i]
 		var port_hud = port_hud_scene.instance()
 		inputs.add_child(port_hud)
-		port_hud.set_port(i, input["name"])
+		port_hud.set_port(i, input["name"], true)
+		port_hud.connect("button", self, "button_pressed")
 
 func set_output_huds():
-	for i in box.outputs.size():
-		var output = box.outputs[i]
+	for i in io_box.outputs.size():
+		var output = io_box.outputs[i]
 		var port_hud = port_hud_scene.instance()
 		outputs.add_child(port_hud)
-		port_hud.set_port(i, output["name"])
+		port_hud.set_port(i, output["name"], false)
+		port_hud.connect("button", self, "button_pressed")
 
-func button_pressed(port, state):
-	pass
+func button_pressed(port, state, is_input):
+	print("iohud button pressed: ", port, state, " is input? ", is_input)
+	emit_signal("port_selected", port, state, is_input)

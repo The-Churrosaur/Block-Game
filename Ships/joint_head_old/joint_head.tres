@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave.gdns" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+blocksFilepath = "res://Blocks/"
+blockTypes = {
+"PinHead": true
+}
+blocks = [ {
+"block_id": 0,
+"pos": Vector2( 0, 0 ),
+"type": "PinHead"
+} ]
+gridDisplacement = Vector2( 0, 0 )

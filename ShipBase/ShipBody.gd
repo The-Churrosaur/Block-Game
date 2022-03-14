@@ -6,12 +6,14 @@ class_name ShipBody
 extends RigidBody2D
 
 export var save_directory = "res://Ships/"
-export var given_name = ""
+export var display_name = "MyShip" # set by player, ingame name
 export var default_mass = 0.01
 
 onready var ship_save = load("res://ShipBase/ShipSave.gdns").new()
 func call_test(param):
 	print("method called: ", param)
+
+onready var save_name = display_name + "0"
 
 onready var storage = $ShipBase_Storage
 onready var grid = $GridBase
@@ -20,6 +22,8 @@ onready var grid = $GridBase
 # grid position remains relative to ShipBody at original scene origin
 
 onready var tilemap : TileMap = $ShipTileMap
+
+# TODO ship systems 
 onready var io_manager = $IOManager
 
 # use grid position for ship local coordinates/origin
@@ -34,14 +38,16 @@ var supergrid = null
 var collision_pos : Vector2
 var collision_normal : Vector2
 
-signal on_clicked(shipBody)
+signal on_clicked(shipBody, block)
 signal shipBody_saved(shipBody, name, file)
+signal new_subShip(shipBody, subShip, pinBlock)
 
 # dict of subships, node paths repopulated on load
 var subShips = {}
 # name -> ship
 func get_subShips():
 	return subShips
+var subShip_counter = 0
 
 func _ready():
 	
@@ -62,6 +68,10 @@ func _ready():
 	
 	# collision handling
 	connect("body_shape_entered", self, "on_body_shape_entered")
+	
+	# setup systems / children 
+	# currently just io
+	io_manager.setup(self)
 
 func connect_to_grid(grid):
 	grid.connect("block_added", self, "on_grid_block_added")
@@ -75,26 +85,50 @@ func _integrate_forces(state):
 		collision_normal = state.get_contact_local_normal(0)
 	pass
 
-func _unhandled_input(event): # test func
+#func _input_event(viewport, event, shape_idx): # test func
+#
+#	# when clicked, emits signal that has been clicked
+#
+#	if event.is_action("ui_lclick"):
+#		print("ship: input click ", self)
+#		print("at: ", get_global_mouse_position())
+#		var clicked_block = grid.get_blockFromPoint(get_global_mouse_position())
+#		emit_signal("on_clicked", self, clicked_block)
+#		#get_tree().set_input_as_handled()
 
-	# when clicked, emits signal that has been clicked
+# look, ^he's being a shit so we're here now
+# TODO this would be far more elegant under the picker instead of the pickee
+func _unhandled_input(event):
 	
-	if event.is_action("ui_mclick"):
-		print("ship: input mclick ", name)
-		emit_signal("on_clicked", self)
-		#get_tree().set_input_as_handled()
+	if event.is_action("ui_lclick"):
+		
+		# query the physics server for click
+		var state = get_world_2d().direct_space_state
+		var intersections = state.intersect_point(get_global_mouse_position())
+		for hit in intersections:
+			if hit.collider == self:
+				print("ship: input click ", self)
+				print("at: ", get_global_mouse_position())
+				var clicked_block = grid.get_blockFromPoint(get_global_mouse_position())
+				emit_signal("on_clicked", self, clicked_block)
 
 func is_shipBody() -> bool: # lul
 	return true
 
 func on_new_subShip(ship, pinBlock, pinHead): # called by pinblocks
 	print("ship:", self, "new subship received: ", ship)
+	# hacky, but keeps names unique for now
+	ship.name = name + "_subship" + str(subShip_counter) + "_" + ship.name
 	subShips[ship.name] = ship
 	print("subships:", subShips)
+	subShip_counter += 1
+	
+	emit_signal("new_subShip", self, ship, pinBlock)
 
 func on_subShip_removed(ship, pinBlock, pinHead):
 	subShips.erase(ship.name)
 	print("SUBSHIP REMOVED, ship: ", name, " subships ",subShips)
+	subShip_counter -= 1
 
 # BLOCK PLACEMENT ==============================================================
 
@@ -166,7 +200,10 @@ func on_grid_block_removed(coord, block, grid, update_com):
 
 # gets block from coordinate
 func get_block(coord : Vector2):
-	return grid.block_dict[coord]
+	if grid.block_dict.has(coord):
+		return grid.block_dict[coord]
+	else:
+		 return null
 
 func post_load_block_setup():
 	grid.post_load_block_setup()
@@ -204,7 +241,7 @@ func save(name = self.name, dir = save_directory):
 	
 	# set self name (for reference and loading)
 	self.name = name
-	given_name = name # probably redundant
+	display_name = name # probably redundant
 	print("ship saving: " + name)
 	
 	var file = ship_save.save(self, name, dir)
@@ -221,7 +258,7 @@ func save(name = self.name, dir = save_directory):
 #
 #	# set self name (for reference and loading)
 #	self.name = name
-#	given_name = name
+#	display_name = name
 #	print("ship saving: " + name)
 #
 #	# navigate a directory, make new folder
