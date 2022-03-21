@@ -34,8 +34,7 @@ func _ready():
 #		initial_inputs[i] = {"name":"","value":0.0}
 #
 #	for i in initial_outputs.size():
-#		initial_outputs[i] = {"name":"","value":0.0}
-	
+#		initial_outputs[i] = {"name":"","value":0.0}	
 	pass
 
 func _process(delta):
