@@ -6,26 +6,21 @@
 script = ExtResource( 1 )
 blocksFilepath = "res://Blocks/"
 blockTypes = {
-"PinBlock": true,
-"TestBlock": true
+"Block": true,
+"PinBlock": true
 }
 blocks = [ {
 "block_id": 0,
 "facing": 0,
-"pinHead_coord": Vector2( 0, 0 ),
-"pos": Vector2( 1, -3 ),
-"subShip_name": "ShipBody",
-"subShip_resource_path": "res://Ships/ShipBody_1/SubShips/ShipBody_subship0_ShipBody_1/ShipBody_subship0_ShipBody_1.tres",
-"type": "PinBlock"
+"pos": Vector2( 2, -2 ),
+"type": "Block"
 }, {
 "block_id": 1,
 "facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
 "pos": Vector2( 2, -3 ),
-"type": "TestBlock"
-}, {
-"block_id": 2,
-"facing": 0,
-"pos": Vector2( 3, -3 ),
-"type": "TestBlock"
+"subShip_name": "ShipBody",
+"subShip_resource_path": "res://Ships/ShipBody_1/SubShips/ShipBody_subship0_ShipBody_1/ShipBody_subship0_ShipBody_1.tres",
+"type": "PinBlock"
 } ]
-gridDisplacement = Vector2( -128, 192 )
+gridDisplacement = Vector2( -128, 160 )

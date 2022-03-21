@@ -119,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://BlockSystems/IO/IOBox.gd"
 }, {
+"base": "ShipBuilderTool",
+"class": "IOConnector",
+"language": "GDScript",
+"path": "res://ControlSystems/IOConnector.gd"
+}, {
 "base": "Node",
 "class": "IOManager",
 "language": "GDScript",
@@ -205,6 +210,11 @@ _global_script_classes=[ {
 "path": "res://ShipBase/ShipBody.gd"
 }, {
 "base": "Node2D",
+"class": "ShipBuilderTool",
+"language": "GDScript",
+"path": "res://ControlSystems/ShipBuilderTool.gd"
+}, {
+"base": "Node2D",
 "class": "ShipInfo",
 "language": "GDScript",
 "path": "res://ShipBase/ShipInfo.gd"
@@ -213,6 +223,11 @@ _global_script_classes=[ {
 "class": "ShipLoadSave",
 "language": "GDScript",
 "path": "res://ShipBase/Depreciated/ShipLoadSave.gd"
+}, {
+"base": "ShipBuilderTool",
+"class": "ShipSelector",
+"language": "GDScript",
+"path": "res://ControlSystems/ShipSelector.gd"
 }, {
 "base": "Resource",
 "class": "ShipStorage",
@@ -272,6 +287,7 @@ _global_script_class_icons={
 "HealthPickup": "",
 "IOBlock": "",
 "IOBox": "",
+"IOConnector": "",
 "IOManager": "",
 "JointBlock": "",
 "KinematicCharacter": "",
@@ -289,8 +305,10 @@ _global_script_class_icons={
 "ScreenShaker": "",
 "ShipBase_Storage": "",
 "ShipBody": "",
+"ShipBuilderTool": "",
 "ShipInfo": "",
 "ShipLoadSave": "",
+"ShipSelector": "",
 "ShipStorage": "",
 "ShipTileMap": "",
 "StorageBase": "",

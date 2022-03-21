@@ -45,6 +45,7 @@ signal new_subShip(shipBody, subShip, pinBlock)
 # dict of subships, node paths repopulated on load
 var subShips = {}
 # name -> ship
+# TODO, subships save parent ship as a valid subship maybe
 func get_subShips():
 	return subShips
 var subShip_counter = 0
@@ -63,8 +64,8 @@ func _ready():
 	
 	input_pickable = true
 	
-	subShips[name] = self;
-	print("subships: ", subShips)
+#	subShips[name] = self;
+#	print("subships: ", subShips)
 	
 	# collision handling
 	connect("body_shape_entered", self, "on_body_shape_entered")
@@ -98,6 +99,7 @@ func _integrate_forces(state):
 
 # look, ^he's being a shit so we're here now
 # TODO this would be far more elegant under the picker instead of the pickee
+# it's under both now, yay
 func _unhandled_input(event):
 	
 	if event.is_action("ui_lclick"):
@@ -115,6 +117,23 @@ func _unhandled_input(event):
 func is_shipBody() -> bool: # lul
 	return true
 
+func get_subShip(subShip_name):
+	if subShip_name == self.name: 
+		return self
+	else:
+		return subShips.get(subShip_name)
+
+# recursive dfs
+func get_subShip_recursive(subShip_name):
+	
+	if subShip_name == self.name: return self
+
+	for s in subShips.values():
+		var out = s.get_subShip_recursive(subShip_name)
+		if out != null: return out
+	
+	return null
+
 func on_new_subShip(ship, pinBlock, pinHead): # called by pinblocks
 	print("ship:", self, "new subship received: ", ship)
 	# hacky, but keeps names unique for now
@@ -122,6 +141,9 @@ func on_new_subShip(ship, pinBlock, pinHead): # called by pinblocks
 	subShips[ship.name] = ship
 	print("subships:", subShips)
 	subShip_counter += 1
+	
+	# add self to subship's subships
+	ship.subShips[name] = self
 	
 	emit_signal("new_subShip", self, ship, pinBlock)
 

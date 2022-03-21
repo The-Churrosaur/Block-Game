@@ -6,23 +6,12 @@
 script = ExtResource( 1 )
 blocksFilepath = "res://Blocks/"
 blockTypes = {
-"PinHead": true,
-"TestBlock": true
+"PinHead": true
 }
 blocks = [ {
 "block_id": 0,
 "facing": 0,
 "pos": Vector2( 0, 0 ),
 "type": "PinHead"
-}, {
-"block_id": 1,
-"facing": 0,
-"pos": Vector2( 0, -1 ),
-"type": "TestBlock"
-}, {
-"block_id": 2,
-"facing": 0,
-"pos": Vector2( 0, -2 ),
-"type": "TestBlock"
 } ]
-gridDisplacement = Vector2( 0, 96 )
+gridDisplacement = Vector2( 0, 0 )

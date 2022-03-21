@@ -1,12 +1,13 @@
 extends Node2D
 
-
-onready var test_ship
+onready var current_ship
 onready var test_grid
-onready var main_ship = test_ship
+
 onready var io_tool = $IOPicker
+onready var selector_tool = $ShipSelector
 
 onready var io_tool_button = $MarginContainer/VBoxContainer/HBoxContainer/IOToolButton
+onready var selector_tool_button = $MarginContainer/VBoxContainer/HBoxContainer/SelectorButton
 
 var subShip = 0
 var block_facing = 0
@@ -21,32 +22,39 @@ func _ready():
 	
 	# initial ship
 	var packed = load("res://ShipBase/ShipBody.tscn")
-	test_ship = packed.instance()
-	on_new_ship(test_ship)
-	select_ship(test_ship)
+	var ship = packed.instance()
+	on_new_ship(ship)
+	select_ship(ship)
 	
-	main_ship.position = Vector2(500,500)
+	current_ship.position = Vector2(500,500)
 	
 	# setup tools
 	setup_tools()
 	
 	# connect buttons
-	$MarginContainer/VBoxContainer/HBoxContainer/IOToolButton.connect(
-		"toggled", self, "on_io_tool_button_toggled")
+	io_tool_button.connect("toggled", io_tool, "on_toggle_input")
+	selector_tool_button.connect("toggled", selector_tool, "on_toggle_input")
 
 func select_ship(ship):
 	
-	# decolor old ship
-	if test_ship:
-		test_ship.modulate = Color(1,1,1,1)
+	# attempt to switch to selected ship
+	if ship == current_ship:
+		print("scene: current ship selected")
+		return
+	elif !(ship is ShipBody):
+		print("ship clicked: no shipbody returned")
+		return
 	
-	test_ship = ship
+	# decolor old ship
+	if current_ship:
+		current_ship.modulate = Color(1,1,1,1)
+	
+	current_ship = ship
 	print("hooking up ship to testscene: ", ship)
 	test_grid = ship.grid
-	main_ship = test_ship
 	
 	# color new ship
-	test_ship.modulate = Color(1,0.7,0.7,0.7)
+	current_ship.modulate = Color(1,0.7,0.7,0.7)
 
 func on_new_ship(ship):
 	add_child(ship)
@@ -58,24 +66,21 @@ func on_new_ship(ship):
 func on_new_subShip(ship, subShip, pinBlock):
 	on_new_ship(subShip)
 
-# done here to give self information (signals) to children after self ready
 func setup_tools():
-	# just io rn
+	
+	# TODO some tool manager?
 	io_tool.setup(self)
+	selector_tool.setup(self)
+	selector_tool.connect("new_ship_selected", self, "on_selector_new_ship")
 
-# attempt to switch to selected ship
+func on_selector_new_ship(ship):
+	select_ship(ship)
+
 func on_ship_clicked(shipBody, block):
 	print("scene: shipclicked")
-	if shipBody == test_ship:
-		print("scene: current ship selected")
-		return
-	elif shipBody is ShipBody:
-		select_ship(shipBody)
-		print("switching to ship: ", test_ship)
-	else:
-		print("ship clicked: no shipbody returned")
-	
 	emit_signal("ship_clicked", shipBody, block)
+	
+#	select_ship(shipBody)
 
 func on_io_tool_button_toggled(state):
 	io_tool.set_active(state)
@@ -113,24 +118,22 @@ func _process(delta):
 		
 		test_grid.remove_block_at_point(get_global_mouse_position())
 	
-	if (Input.is_action_just_pressed("ui_cancel")):
-		test_ship.save()
-	
 	if (Input.is_action_just_pressed("ui_focus_next")):
 		# slow but we.
-		var dict = main_ship.subShips
+		var dict = current_ship.subShips
 		var keys = dict.keys()
-		var index = keys.find(test_ship.name) + 1
+		var index = keys.find(current_ship.name) + 1
 		
 		var new_ship
 		if (keys.size() > index):
 			new_ship = dict[keys[index]]
 		else:
 			new_ship = dict[keys[0]]
+
 		
 		select_ship(new_ship)
 		
-		print("subship selected: ", test_ship.name)
+		print("subship selected: ", current_ship.name)
 	
 	if (Input.is_action_just_pressed("ui_cancel")):
 		if display_block is Block:

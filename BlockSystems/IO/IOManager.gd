@@ -12,8 +12,7 @@ onready var ship = get_node_or_null(ship_path)
 
 # dictionary of connections
 # output -> input
-# outputs and inputs are arrays of form [coordinate, port]
-#TODO multiple grids: maybe [grid, coordinate, port]
+# outputs and inputs are arrays of form [coordinate, port, ship]
 onready var connections = {}
 
 func _ready():
@@ -39,14 +38,18 @@ func propagate_all_connections():
 		
 		var in_coord = input[0]
 		var in_port = input[1]
+		var in_ship = ship.get_subShip_recursive(input[2])
 		
 		var out_coord = output[0]
 		var out_port = output[1]
+		var out_ship = ship.get_subShip_recursive(output[2])
+		# TODO this is slow - stash results?
 		
 		# retrieve output value
-		var out_block = ship.get_block(out_coord)
+		var out_block = out_ship.get_block(out_coord)
 		if out_block == null:
-			remove_connection(out_coord, out_port, in_coord, in_port)
+			remove_connection(out_coord, out_port, out_ship, 
+								in_coord, in_port, in_ship)
 			continue
 		var value
 		if out_block.io_box:
@@ -55,15 +58,17 @@ func propagate_all_connections():
 		# inject input value
 		# get iobox
 		# set value
-		var in_block = ship.get_block(in_coord)
+		var in_block = in_ship.get_block(in_coord)
 		if in_block == null:
-			remove_connection(out_coord, out_port, in_coord, in_port)
+			remove_connection(out_coord, out_port, out_ship,
+							 in_coord, in_port, in_ship)
 			continue
 		if in_block.io_box:
 			in_block.io_box.set_input(in_port, value)
 #			print("injecting into ", in_block, in_block.io_box)
 
 # can be called by blocks to propagate output to any connections
+# TODO update with multigrid
 func output(coord, port, value) -> bool:
 	if connections.has([coord, port]):
 		var in_coord = connections[[coord, port]][0]
@@ -78,12 +83,14 @@ func output(coord, port, value) -> bool:
 
 # add cut connections
 
-func add_connection(output_coord, output_port, input_coord, input_port):
-	connections[[output_coord, output_port]] = [input_coord, input_port]
+func add_connection(output_coord, output_port, out_ship,
+					input_coord, input_port, in_ship): 
+	connections[[output_coord, output_port, out_ship]] = [input_coord, input_port, in_ship]
 	print("connection added: ", connections)
 
-func remove_connection(output_coord, output_port, input_coord, input_port):
-	connections.erase([output_coord, output_port])
+func remove_connection(output_coord, output_port, out_ship,
+						input_coord, input_port, in_ship):
+	connections.erase([output_coord, output_port, out_ship])
 
 # TODO should it be the block's responsibility to delete connections on death?
 

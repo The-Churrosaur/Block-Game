@@ -1,13 +1,10 @@
-extends Node2D
-
-export var active = false
+class_name IOConnector
+extends ShipBuilderTool
 
 onready var hud = $CanvasLayer/HudDolly/IOHud
 onready var hud_dolly = $CanvasLayer/HudDolly
 
 var current_ship = null
-var scene
-
 var waiting = false # for signal from button
 
 var coord_one = null
@@ -25,19 +22,28 @@ signal end_waiting_for_port(port, flag)
 func _ready():
 	hud.connect("port_selected", self, "on_port_selected")
 
-# call me ;)
-func setup(current_scene):
-	scene = current_scene
-	scene.connect("ship_clicked", self, "on_ship_clicked")
-
-func set_active(state):
-	active = state
-	print("io tool set: ", active)
-
-# signal hooks into scene
-func on_ship_clicked(ship, block):
+func _unhandled_input(event):
 	
-	if !active or waiting: return
+	# tries to find block on scene's current ship, set io
+	if event.is_action_pressed("ui_lclick") and active and !waiting:
+		print("ioconnector clicked ", scene.current_ship)
+		var pos = get_global_mouse_position()
+		var block = scene.current_ship.grid.get_blockFromPoint(pos)
+		set_io(scene.current_ship, block)
+	
+	# cancel selection
+	if event.is_action_pressed("ui_cancel"):
+		print(" ioconnector cancelling")
+		emit_signal("end_waiting_for_port", 0, -1)
+
+# signal hooks into ship -> scene
+func on_ship_reported_clicked(ship, block):
+	.on_ship_reported_clicked(ship, block)
+	
+	#set_io(ship, block)
+
+func set_io(ship, block):
+	if !active or waiting: return false
 	
 	current_ship = ship
 	
@@ -51,6 +57,7 @@ func on_ship_clicked(ship, block):
 		# wary - will return while still yielding for a button
 		set_input(ship, block)
 
+# called by Hud
 func on_port_selected(port, state, is_input):
 	emit_signal("end_waiting_for_port", port, 0)
 
@@ -58,24 +65,29 @@ func set_output(ship, block):
 	print("setting output")
 	if block is IOBlock:
 		# set and open hud
+		
 		hud.set_io_box(block.io_box)
 		hud.show_outputs(true)
 		hud.show_inputs(false)
 		hud.set_display(true)
 		hud_dolly.global_position = block.global_position
+		
 		# wait until button is pressed
-		# get signal ags in port_data
+		# get signal args in port_data
 		waiting = true
 		var port_data = yield(self, "end_waiting_for_port")
 		waiting = false
+		
 		# set input info or cancel
 		if port_data[1] < 0: 
 			coord_one = null
 			port_one = null
+			ship_one = null
 			print("Cancelling port input")
 		else:
 			coord_one = block.center_grid_coord
 			port_one = port_data[0]
+			ship_one = ship.name
 			print("port output set!")
 		hud.set_display(false)
 		hud.show_outputs(false)
@@ -90,19 +102,23 @@ func set_input(ship, block):
 		hud.show_outputs(false)
 		hud.set_display(true)
 		hud_dolly.global_position = block.global_position
+		
 		# wait until button is pressed
 		# get signal ags in port_data
 		waiting = true
 		var port_data = yield(self, "end_waiting_for_port")
 		waiting = false
+		
 		# set input info
 		if port_data[1] < 0: 
 			coord_two = null
 			port_two = null
+			ship_two = null
 			print("Cancelling port input")
 		else:
 			coord_two = block.center_grid_coord
 			port_two = port_data[0]
+			ship_two = ship.name
 			print("port input set!")
 			# set connection
 			set_connection()
@@ -118,12 +134,5 @@ func set_input(ship, block):
 
 func set_connection():
 	# out, in
-	current_ship.io_manager.add_connection(
-							coord_one, port_one, coord_two, port_two)
-
-func _input(event):
-
-	# cancel selection
-	if event.is_action_pressed("ui_cancel"):
-		print("cancelling")
-		emit_signal("end_waiting_for_port", 0, -1)
+	current_ship.io_manager.add_connection( coord_one, port_one, ship_one,
+											coord_two, port_two, ship_two)

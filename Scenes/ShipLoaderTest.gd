@@ -37,4 +37,4 @@ func on_text_entered(var text):
 	ship.linear_velocity += Vector2(30,0)
 	print("grid position: ", ship.grid.position)
 	
-	owner.setup_ship(ship)
+	owner.on_new_ship(ship)
