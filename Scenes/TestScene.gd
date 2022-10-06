@@ -1,3 +1,4 @@
+class_name TestScene
 extends Node2D
 
 onready var current_ship
@@ -117,23 +118,6 @@ func _process(delta):
 	if (Input.is_action_just_pressed("ui_rclick")):
 		
 		test_grid.remove_block_at_point(get_global_mouse_position())
-	
-	if (Input.is_action_just_pressed("ui_focus_next")):
-		# slow but we.
-		var dict = current_ship.subShips
-		var keys = dict.keys()
-		var index = keys.find(current_ship.name) + 1
-		
-		var new_ship
-		if (keys.size() > index):
-			new_ship = dict[keys[index]]
-		else:
-			new_ship = dict[keys[0]]
-
-		
-		select_ship(new_ship)
-		
-		print("subship selected: ", current_ship.name)
 	
 	if (Input.is_action_just_pressed("ui_cancel")):
 		if display_block is Block:

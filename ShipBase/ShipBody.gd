@@ -32,8 +32,6 @@ func grid_origin():
 	#grid_origin = grid.global_position
 	return grid_origin
 
-var supergrid = null
-
 # most recent collision, updated every tick
 var collision_pos : Vector2
 var collision_normal : Vector2
@@ -41,6 +39,8 @@ var collision_normal : Vector2
 signal on_clicked(shipBody, block)
 signal shipBody_saved(shipBody, name, file)
 signal new_subShip(shipBody, subShip, pinBlock)
+
+var supergrid = null
 
 # dict of subships, node paths repopulated on load
 var subShips = {}
@@ -117,6 +117,12 @@ func _unhandled_input(event):
 func is_shipBody() -> bool: # lul
 	return true
 
+# SUBSHIPS AND ROOT SHIP =======================================================
+
+func get_rootShip() -> ShipBody:
+	if supergrid: return self
+	else: return supergrid.get_rootShip()
+
 func get_subShip(subShip_name):
 	if subShip_name == self.name: 
 		return self
@@ -139,12 +145,16 @@ func on_new_subShip(ship, pinBlock, pinHead): # called by pinblocks
 	# hacky, but keeps names unique for now
 	ship.name = name + "_subship" + str(subShip_counter) + "_" + ship.name
 	subShips[ship.name] = ship
+	ship.supergrid = self # this needs to be saved as name and populated
+	# TODO this will break ships that are saved when a subship is selected
+	print("subships:", subShips)
 	print("subships:", subShips)
 	subShip_counter += 1
 	
 	# add self to subship's subships
-	ship.subShips[name] = self
-	
+#	ship.subShips[name] = self
+	# BAD, causes infinite loop in saving
+		
 	emit_signal("new_subShip", self, ship, pinBlock)
 
 func on_subShip_removed(ship, pinBlock, pinHead):

@@ -4,8 +4,9 @@ extends Node2D
 enum block_facing_direction {UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3}
 
 # relative grid of block positions
-const size_grid = [Vector2(0,0)] 
+export var size_grid = [Vector2(0,0)] 
 # ie. a 1x2 spire would be [0,0 , 0,1]
+# I would like this to be a const but it needs to be inherited
 
 export var mass = 100
 export var class_type = "Block"

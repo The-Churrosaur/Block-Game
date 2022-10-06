@@ -7,7 +7,7 @@ func _ready():
 	pass
 
 func on_text_entered(var text):
-	owner.main_ship.save(text)
+	owner.current_ship.save(text)
 #
 #	var ship = owner.main_ship.ship_save.loadShip("res://ShipBase/ShipBody.tscn", "res://Blocks/")
 #	owner.add_child(ship)
