@@ -11,7 +11,9 @@ export var default_mass = 0.01
 
 #onready var ship_save = load("res://ShipBase/ShipSave.gdns").new()
 # TESTING GDSCRIPT
-onready var ship_save = ShipSaveGDS.new()
+
+onready var ship_save = Ship_SaverLoader_GDS.new()
+
 
 func call_test(param):
 	print("method called: ", param)

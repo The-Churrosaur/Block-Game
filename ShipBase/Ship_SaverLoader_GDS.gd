@@ -6,7 +6,7 @@
 
 # TODO should this be a singleton or scene localized or what
 
-class_name ShipSaveGDS
+class_name Ship_SaverLoader_GDS
 extends Node2D
 
 # returns file
@@ -48,7 +48,7 @@ func save(ship : Node2D, name : String, directory : String) -> String:
 	
 	# make subship folder 
 	dir.change_dir(name);
-	dir.make_dir("SubShips"); # case issues? TODO register const property for string
+	dir.make_dir("SubShips"); # TODO case issues? 
 
 	# create file
 	var file = directory + name + "/" + name + ".tres";
@@ -56,7 +56,7 @@ func save(ship : Node2D, name : String, directory : String) -> String:
 	# UPDATE RESOURCE FROM SHIP
 
 	# RECURSIVELY SAVE SUBSHIPS
-	save_subships(ship, directory + name + "/SubShips/"); # PASS RESOURCE
+	save_subShips(ship, directory + name + "/SubShips/")
 	
 	# save blocks
 	# TODO appending to array may be slow - consider resizing in advance
@@ -80,12 +80,30 @@ func save(ship : Node2D, name : String, directory : String) -> String:
 	return file;
 
 
-# todo pass resource
-func save_subships(ship : Node2D, directory : String):
-	pass
+# helper
+func save_subShips(ship : Node2D, directory : String):
+	
+	# iterate through subships, save
+	
+	# get dict
+	var subShip_dict = ship.subShips
+	if subShip_dict.empty():
+		print("Ship saver: no subships")
+		return
+	
+	# get ships
+	var subShips = subShip_dict.values();
+	
+	# iterate
+	for subShip in subShips:
+		
+		# don't re-save self
+		if subShip.name == ship.name : continue
+		
+		# call save with [ship.name, file]
+		print("saving subship: " + subShip.name);
+		subShip.save(subShip.name, directory)
 
-func save_resource(resource : Resource, path : String):
-	pass
 
 func load_ship(ship_base : Node2D) -> Node2D:
 	return Node2D.new()
