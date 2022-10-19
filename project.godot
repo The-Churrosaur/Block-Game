@@ -229,6 +229,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ShipBase/Depreciated/ShipLoadSave.gd"
 }, {
+"base": "Node2D",
+"class": "ShipSaveGDS",
+"language": "GDScript",
+"path": "res://ShipBase/ShipSaveGDS.gd"
+}, {
+"base": "Resource",
+"class": "ShipSaveResource",
+"language": "GDScript",
+"path": "res://ShipBase/ShipSave_Resource.gd"
+}, {
 "base": "ShipBuilderTool",
 "class": "ShipSelector",
 "language": "GDScript",
@@ -319,6 +329,8 @@ _global_script_class_icons={
 "ShipBuilderTool": "",
 "ShipInfo": "",
 "ShipLoadSave": "",
+"ShipSaveGDS": "",
+"ShipSaveResource": "",
 "ShipSelector": "",
 "ShipStorage": "",
 "ShipTileMap": "",

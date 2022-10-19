@@ -9,7 +9,10 @@ export var save_directory = "res://Ships/"
 export var display_name = "MyShip" # set by player, ingame name
 export var default_mass = 0.01
 
-onready var ship_save = load("res://ShipBase/ShipSave.gdns").new()
+#onready var ship_save = load("res://ShipBase/ShipSave.gdns").new()
+# TESTING GDSCRIPT
+onready var ship_save = ShipSaveGDS.new()
+
 func call_test(param):
 	print("method called: ", param)
 
