@@ -245,7 +245,9 @@ func get_block(coord : Vector2):
 func post_load_block_setup():
 	grid.post_load_block_setup()
 
+
 # INGAME LOGIC =================================================================
+
 
 func on_force_requested(pos, magnitude, central = false):
 	print("force requested")
@@ -254,6 +256,7 @@ func on_force_requested(pos, magnitude, central = false):
 	else:
 		add_force(grid.position + pos, magnitude)
 	pass
+
 
 func on_body_shape_entered (body_id, body, body_shape, local_shape):
 	
@@ -274,6 +277,7 @@ func on_body_shape_entered (body_id, body, body_shape, local_shape):
 
 # SAVING AND LOADING ===========================================================
 
+
 func save(name = self.name, dir = save_directory):
 	
 	# set self name (for reference and loading)
@@ -283,6 +287,17 @@ func save(name = self.name, dir = save_directory):
 	
 	var file = ship_save.save(self, name, dir)
 	emit_signal("shipBody_saved", self, name, file)
+
+
+# specify data to be serialized here
+func get_save_data() -> Dictionary :
+	
+	var data = {}
+	
+	data["displacement"] = grid.get_position() # look into this
+	
+	return data
+
 
 #func save_as_subShip(dir = save_directory, name = self.name):
 #	pass

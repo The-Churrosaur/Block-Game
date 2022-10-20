@@ -2,6 +2,7 @@ extends Node
 
 export var new_ship_path = "res://ShipBase/ShipBody.tscn"
 onready var ship_template = load(new_ship_path)
+onready var ship_loader = Ship_SaverLoader_GDS.new() # TODO temp
 
 var loading_thread : Thread
 var ship
@@ -32,7 +33,7 @@ func load_ship(var ship_save : Resource, var target_parent : Node) -> Node2D:
 	return ship
 
 func thread_load(var ship_save : Resource):
-	ship_save.loadShip(ship)
+	ship_loader.load_ship(ship, ship_save)
 	
 	print("SHIP LOADING TIME func: ", OS.get_ticks_msec() - start_time)
 	emit_signal("ship_loaded", ship)

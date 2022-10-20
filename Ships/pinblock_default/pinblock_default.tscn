@@ -3,7 +3,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://ShipBase/ShipBody.gd" type="Script" id=2]
 [ext_resource path="res://ShipBase/ShipInfo.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ShipBase/ShipBase_Storage.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ShipBase/Depreciated/ShipBase_Storage.tscn" type="PackedScene" id=6]
 
 [node name="pinblock_default" type="RigidBody2D"]
 position = Vector2( 961.117, 548.977 )

@@ -29,8 +29,6 @@ func on_text_entered(var text):
 	var res = ResourceLoader.load(address)
 	print("ship save loaded: ", address)
 	
-	res.ping()
-	
 	var ship = loader.load_ship(res, owner)
 	
 	ship.position = Vector2(700,500)

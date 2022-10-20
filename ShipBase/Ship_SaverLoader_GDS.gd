@@ -3,11 +3,15 @@
 # build ship into skeleton
 
 # manager for resource (old saver was encapsulated resource with own functions)
+# resource defined in ShipSave_Resource.gd
 
 # TODO should this be a singleton or scene localized or what
 
 class_name Ship_SaverLoader_GDS
 extends Node2D
+
+# default filepath to load blocks
+export var blocks_directory = "res://Blocks/"
 
 # returns file
 func save(ship : Node2D, name : String, directory : String) -> String:
@@ -24,9 +28,6 @@ func save(ship : Node2D, name : String, directory : String) -> String:
 	if grid == null: return "ERROR"
 	var grid_dict = grid.block_dict
 	
-	# get com offset
-	var grid_displacement = grid.get_position()
-	
 	print("shipsave saving! " + name + " in: " + directory)
 	
 	# NAVIGATE TO DIRECTORY
@@ -38,20 +39,20 @@ func save(ship : Node2D, name : String, directory : String) -> String:
 	# check if file already exists, append name
 	if dir.dir_exists(name):
 	
-		print("Save already exists, renaming");
-		name = name + "_1";
+		print("Save already exists, renaming")
+		name = name + "_1"
 		# TODO properly append numbers use regex lol
 	
 
 	# make folder
-	dir.make_dir(name);
+	dir.make_dir(name)
 	
 	# make subship folder 
-	dir.change_dir(name);
-	dir.make_dir("SubShips"); # TODO case issues? 
+	dir.change_dir(name)
+	dir.make_dir("SubShips") # TODO case issues? 
 
 	# create file
-	var file = directory + name + "/" + name + ".tres";
+	var file = directory + name + "/" + name + ".tres"
 	
 	# UPDATE RESOURCE FROM SHIP
 
@@ -72,15 +73,18 @@ func save(ship : Node2D, name : String, directory : String) -> String:
 		# store type
 		resource_types[block_data["type"]] = true
 	
+	# get ship data
+	save_resource.ship_data = ship.get_save_data()
+	
 	# SAVE RESOURCE TO DISK
 	
 	print("saving to disc: " + file)
 	ResourceSaver.save(file, save_resource)
 	
-	return file;
+	return file
 
 
-# helper
+# recursive helper
 func save_subShips(ship : Node2D, directory : String):
 	
 	# iterate through subships, save
@@ -92,7 +96,7 @@ func save_subShips(ship : Node2D, directory : String):
 		return
 	
 	# get ships
-	var subShips = subShip_dict.values();
+	var subShips = subShip_dict.values()
 	
 	# iterate
 	for subShip in subShips:
@@ -101,10 +105,74 @@ func save_subShips(ship : Node2D, directory : String):
 		if subShip.name == ship.name : continue
 		
 		# call save with [ship.name, file]
-		print("saving subship: " + subShip.name);
+		print("saving subship: " + subShip.name)
 		subShip.save(subShip.name, directory)
 
 
-func load_ship(ship_base : Node2D) -> Node2D:
-	return Node2D.new()
-
+# load ship
+func load_ship(ship_base : Node2D, save_resource : Resource) -> Node2D:
+	
+	# populate dict with loaded block scenes, will instantiate from dict later
+	var block_factory = {}
+	
+	# iterate through blocktypes from resource and populate
+	for type in save_resource.block_types.keys() :
+		
+		var address = blocks_directory + type + ".tscn"
+		
+		print("saver loading blockres:")
+		print(type)
+		print(address)
+		
+		block_factory[type] = ResourceLoader.load(address)
+		
+		# TODO unnecessary instance
+#		print("saver blockresource added: " + blockRes.instance().get_name())
+	
+	print("BLOCK FACTORY: ")
+	print(block_factory)
+	
+	# get grid
+	var grid = ship_base.grid
+	print("block grid retrieved")
+	
+	# add blocks to ship
+	for block_dict in save_resource.blocks :
+		
+		# TRANSFER OVER BLOCK FIELDS
+		
+#		print("block dict retrieved")
+		
+		# instance block from resources
+		var block_name = block_dict["type"]
+		var block = block_factory[block_name].instance()
+		
+		# add all keys as fields back to block 
+		# if applicable field exists
+		
+		for field_name in block_dict.keys() :
+			
+			# Godot::print("setting block field: " + field_name)
+			block.set(field_name, block_dict[field_name]) # fails silently for special keys
+			# Godot::print(block->get(field_name))
+		
+		# ADD BLOCK TO GRID
+		
+		if grid == null : print("grid is null") # let it crash
+		
+		# needed specifically for placement
+		var name = block_dict["type"]
+		var pos = block_dict["pos"]
+		var facing = block_dict["facing"]
+		
+		# block, pos, facing, check collision, check com
+		grid.add_block(block, pos, facing, false, false)
+	
+	# set position from data
+	var displacement = save_resource.ship_data["displacement"]
+	print("grid displacement: ", displacement)
+	grid.set_position(displacement)
+	print("grid position: ", grid.get_position())
+	
+	# return built ship
+	return ship_base
