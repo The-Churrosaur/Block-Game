@@ -5,6 +5,7 @@
 
 [node name="IOInverterBlock" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+class_type = "IOInverter"
 io_box_path = NodePath("IOBox")
 
 [node name="IOBox" parent="." index="3"]

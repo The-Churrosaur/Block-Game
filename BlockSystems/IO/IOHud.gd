@@ -3,10 +3,16 @@ extends MarginContainer
 
 export var io_box_path : NodePath
 export var port_hud_scene : PackedScene
+export var inputs_path : NodePath
+export var outputs_path : NodePath
+export var inputs_container_path : NodePath
+export var outputs_container_path :NodePath
 
 onready var io_box = get_node_or_null(io_box_path)
-onready var inputs = $VBoxContainer/Inputs
-onready var outputs = $VBoxContainer/Outputs
+onready var inputs = get_node(inputs_path)
+onready var outputs = get_node(outputs_path)
+onready var inputs_container = get_node(inputs_container_path)
+onready var outputs_container = get_node(outputs_container_path)
 
 signal port_selected(port, state, is_input)
 
@@ -27,10 +33,10 @@ func set_display(val):
 	display()
 
 func show_inputs(val):
-	inputs.visible = val
+	inputs_container.visible = val
 
 func show_outputs(val):
-	outputs.visible = val
+	outputs_container.visible = val
 
 func set_io_box(box):
 	io_box = box

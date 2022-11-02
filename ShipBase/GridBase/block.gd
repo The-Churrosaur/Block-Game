@@ -110,7 +110,8 @@ func get_save_data() -> Dictionary :
 	dict["block_id"] = block_id
 	
 	return dict
-	
+
+# TODO should I do a load_saved_data ala shipbody?
 
 # depreciatedish below here
 #func on_save_blocks(folder, ship_folder):

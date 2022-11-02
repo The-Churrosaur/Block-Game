@@ -21,35 +21,3 @@ shape = SubResource( 1 )
 [node name="Block_Storage" parent="." instance=ExtResource( 3 )]
 
 [node name="IOBox" parent="." instance=ExtResource( 4 )]
-initial_inputs = [ {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-} ]
-initial_outputs = [ {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-} ]

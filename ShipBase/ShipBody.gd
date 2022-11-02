@@ -1,6 +1,6 @@
-# physics and editor wrapper for a block grid
+# physics and editor wrapper for a block grid, the big salami
 
-# TODO, do things with an assigned hash shipID instead of by name 
+# TODO, do things with an assigned hash shipID instead of by name maybe?
 
 class_name ShipBody
 extends RigidBody2D
@@ -11,16 +11,20 @@ export var default_mass = 0.01
 
 #onready var ship_save = load("res://ShipBase/ShipSave.gdns").new()
 # TESTING GDSCRIPT
-
 onready var ship_save = Ship_SaverLoader_GDS.new()
-
 
 func call_test(param):
 	print("method called: ", param)
 
-onready var save_name = display_name + "0"
+#onready var save_name = display_name + "0"
+#onready var storage = $ShipBase_Storage
 
-onready var storage = $ShipBase_Storage
+# ship specific subship ID
+# 0 for base ship, subships iterate, 0001 for second subship thrice nested
+# injected by parent ship on prompting from pinblock
+# TODO maybe this is terrible
+onready var subShip_id = 0
+
 onready var grid = $GridBase
 # ShipBody changes position with COM because godot
 # grid position moves with ShipBody BUT
@@ -45,7 +49,7 @@ signal on_clicked(shipBody, block)
 signal shipBody_saved(shipBody, name, file)
 signal new_subShip(shipBody, subShip, pinBlock)
 
-var supergrid = null
+var superShip = null
 
 # dict of subships, node paths repopulated on load
 var subShips = {}
@@ -54,6 +58,7 @@ var subShips = {}
 func get_subShips():
 	return subShips
 var subShip_counter = 0
+
 
 func _ready():
 	
@@ -79,9 +84,11 @@ func _ready():
 	# currently just io
 	io_manager.setup(self)
 
+
 func connect_to_grid(grid):
 	grid.connect("block_added", self, "on_grid_block_added")
 	grid.connect("block_removed", self, "on_grid_block_removed")
+
 
 func _integrate_forces(state):
 #	int_forces_reposition()
@@ -90,6 +97,7 @@ func _integrate_forces(state):
 		collision_pos = state.get_contact_local_position(0)
 		collision_normal = state.get_contact_local_normal(0)
 	pass
+
 
 #func _input_event(viewport, event, shape_idx): # test func
 #
@@ -119,23 +127,30 @@ func _unhandled_input(event):
 				var clicked_block = grid.get_blockFromPoint(get_global_mouse_position())
 				emit_signal("on_clicked", self, clicked_block)
 
-func is_shipBody() -> bool: # lul
+
+func is_shipBody() -> bool: # quack quack quack
 	return true
+
 
 # SUBSHIPS AND ROOT SHIP =======================================================
 
-func get_rootShip() -> ShipBody:
-	if supergrid: return self
-	else: return supergrid.get_rootShip()
 
-func get_subShip(subShip_name):
+func get_rootShip() -> ShipBody:
+	if superShip == null: return self
+	else: return superShip.get_rootShip()
+
+
+# ONLY returns current level subships
+func get_subShip(subShip_name) -> ShipBody:
 	if subShip_name == self.name: 
 		return self
 	else:
 		return subShips.get(subShip_name)
 
+
+# returns any lower level subhip
 # recursive dfs
-func get_subShip_recursive(subShip_name):
+func get_subShip_recursive(subShip_name) -> ShipBody:
 	
 	if subShip_name == self.name: return self
 
@@ -145,13 +160,24 @@ func get_subShip_recursive(subShip_name):
 	
 	return null
 
+
+# get any ship in tree, traverses to root then finds subship
+func get_ship_in_tree(ship_name) -> ShipBody:
+	return get_rootShip().get_subShip_recursive(ship_name)
+
+
 func on_new_subShip(ship, pinBlock, pinHead): # called by pinblocks
+	
 	print("ship:", self, "new subship received: ", ship)
 	# hacky, but keeps names unique for now
 	ship.name = name + "_subship" + str(subShip_counter) + "_" + ship.name
 	subShips[ship.name] = ship
-	ship.supergrid = self # this needs to be saved as name and populated
+	ship.superShip = self # this needs to be saved as name and populated
 	# TODO this will break ships that are saved when a subship is selected
+	
+	# append subShip id
+	ship.subShip_id = str(subShip_id) + str(subShip_counter)
+	
 	print("subships:", subShips)
 	print("subships:", subShips)
 	subShip_counter += 1
@@ -162,17 +188,21 @@ func on_new_subShip(ship, pinBlock, pinHead): # called by pinblocks
 		
 	emit_signal("new_subShip", self, ship, pinBlock)
 
+
 func on_subShip_removed(ship, pinBlock, pinHead):
 	subShips.erase(ship.name)
 	print("SUBSHIP REMOVED, ship: ", name, " subships ",subShips)
 	subShip_counter -= 1
 
+
 # BLOCK PLACEMENT ==============================================================
+
 
 func on_grid_block_added(coord, block, grid, update_com):
 	
 	# edit COM/position, append mass
 	if update_com : update_com(block)
+
 
 func update_com(block, invert = false): # also updates mass
 	if !(block is Block):
@@ -229,11 +259,13 @@ func update_com(block, invert = false): # also updates mass
 #	print("mass shifting ship position", position, global_position)
 #	print("grid position: ", grid.position, grid.global_position)
 
+
 func on_grid_block_removed(coord, block, grid, update_com):
 	
 	# update com in reverse
 	
 	if update_com: update_com(block, true)
+
 
 # gets block from coordinate
 func get_block(coord : Vector2):
@@ -241,6 +273,7 @@ func get_block(coord : Vector2):
 		return grid.block_dict[coord]
 	else:
 		 return null
+
 
 func post_load_block_setup():
 	grid.post_load_block_setup()
@@ -252,9 +285,9 @@ func post_load_block_setup():
 func on_force_requested(pos, magnitude, central = false):
 	print("force requested")
 	if central:
-		add_central_force(magnitude)
+		apply_central_impulse(magnitude)
 	else:
-		add_force(grid.position + pos, magnitude)
+		apply_impulse(grid.position + pos, magnitude)
 	pass
 
 
@@ -275,6 +308,7 @@ func on_body_shape_entered (body_id, body, body_shape, local_shape):
 	
 	pass
 
+
 # SAVING AND LOADING ===========================================================
 
 
@@ -289,14 +323,36 @@ func save(name = self.name, dir = save_directory):
 	emit_signal("shipBody_saved", self, name, file)
 
 
-# specify data to be serialized here
+# specify data to be serialized here, same as for blocks
 func get_save_data() -> Dictionary :
 	
 	var data = {}
 	
 	data["displacement"] = grid.get_position() # look into this
+	data["mass"] = mass
+	data["io_connections"] = io_manager.connections
+	data["subShip_counter"] = subShip_counter
 	
 	return data
+
+
+# specify what to do with returned data
+# called by loader 
+func load_saved_data(data : Dictionary):
+	
+	mass = data["mass"]
+	# TODO weird interaction with IO - maybe initial inputs?
+	
+	# restore iomanager connections
+	io_manager.connections = data["io_connections"]
+	print("IO MANAGER CONNECTIONS RESTORED")
+	print(io_manager.connections)
+	
+	# temp TODO reeeeee
+	io_manager.spawn_strings()
+	
+	# restore subship counter to properly track new subships
+	subShip_counter = data["subShip_counter"]
 
 
 #func save_as_subShip(dir = save_directory, name = self.name):

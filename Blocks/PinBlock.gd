@@ -12,16 +12,18 @@ func _physics_process(delta):
 	if subShip:
 		# direction * power
 		subShip.apply_torque_impulse(io_box.get_input(1) * io_box.get_input(0) * 10000)
-		
-		# braking force
+#
+#		# braking force
 		var relative_velocity = subShip.angular_velocity - shipBody.angular_velocity
-		subShip.apply_torque_impulse(relative_velocity * -0.2)
+		subShip.apply_torque_impulse(relative_velocity * -4)
 		
 #		print(subShip.applied_torque)
 
 		
 #		print(self, io_box)
 #		print(self, io_box.inputs)
+
+		pass
 
 	# debug - test connection on self
 	
@@ -45,6 +47,7 @@ func _physics_process(delta):
 #		$IOHud.toggle_display()
 	
 #	print("test", io_box.get_output(0))
+	pass
 
 func _input(event):
 #	if event.is_action_pressed("ui_alt_select"):

@@ -90,6 +90,7 @@ func create_subship_pinhead() -> Node2D: # returns pinhead
 	
 	# setup
 	subShip_name = ship.name
+	ship.superShip = shipBody
 	ship.connect("shipBody_saved", self, "on_subShip_saved")
 	
 	# pinhead

@@ -15,3 +15,11 @@ func _physics_process(delta):
 	if Input.is_action_pressed("ui_left"):
 		lr_vel -= 1
 	io_box.set_output(1,lr_vel)
+	
+	# main
+	var ud_vel = 0
+	if Input.is_action_pressed("ui_up"):
+		ud_vel += 1
+	if Input.is_action_pressed("ui_down"):
+		ud_vel -= 1
+	io_box.set_output(2,ud_vel)

@@ -1,0 +1,52 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PinBlock": true,
+"PinHead": true,
+"TestBlock": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( 0, 0 ),
+"type": "PinHead"
+}, {
+"block_id": 1,
+"facing": 0,
+"pos": Vector2( 0, -1 ),
+"type": "TestBlock"
+}, {
+"block_id": 2,
+"facing": 0,
+"pos": Vector2( 0, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 3,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 0, -3 ),
+"subShip_name": "ShipBody",
+"subShip_resource_path": "res://Ships/iotestnested/SubShips/ShipBody_subship0_ShipBody/SubShips/iotestnest/iotestnest.tres",
+"type": "PinBlock"
+}, {
+"block_id": 4,
+"facing": 0,
+"pos": Vector2( 1, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 5,
+"facing": 0,
+"pos": Vector2( 2, -3 ),
+"type": "TestBlock"
+} ]
+ship_data = {
+"displacement": Vector2( -38, 153 ),
+"io_connections": {
+[ Vector2( -1, -3 ), 1, "ShipBody" ]: [ Vector2( 0, -3 ), 1, "ShipBody_subship0_ShipBody" ]
+},
+"subShip_counter": 1
+}

@@ -42,8 +42,9 @@ func save(ship : Node2D, name : String, directory : String) -> String:
 		print("Save already exists, renaming")
 		name = name + "_1"
 		# TODO properly append numbers use regex lol
+		# TODO this will break things looking for subship name
+		# TODO TODO TODO (or just leave it to users)
 	
-
 	# make folder
 	dir.make_dir(name)
 	
@@ -136,6 +137,16 @@ func load_ship(ship_base : Node2D, save_resource : Resource) -> Node2D:
 	var grid = ship_base.grid
 	print("block grid retrieved")
 	
+	# HANDLE SHIP SAVE DATA
+	
+	# set position from data
+	var displacement = save_resource.ship_data["displacement"]
+	print("grid displacement: ", displacement)
+	grid.set_position(displacement)
+	print("grid position: ", grid.get_position())
+	
+	ship_base.load_saved_data(save_resource.ship_data)
+	
 	# add blocks to ship
 	for block_dict in save_resource.blocks :
 		
@@ -167,12 +178,6 @@ func load_ship(ship_base : Node2D, save_resource : Resource) -> Node2D:
 		
 		# block, pos, facing, check collision, check com
 		grid.add_block(block, pos, facing, false, false)
-	
-	# set position from data
-	var displacement = save_resource.ship_data["displacement"]
-	print("grid displacement: ", displacement)
-	grid.set_position(displacement)
-	print("grid position: ", grid.get_position())
 	
 	# return built ship
 	return ship_base

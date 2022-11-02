@@ -7,6 +7,7 @@
 
 [node name="ContolBlock" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
+class_type = "ControlBlock"
 io_box_path = NodePath("IOBox")
 
 [node name="IOBox" parent="." index="3" instance=ExtResource( 3 )]
@@ -33,7 +34,7 @@ initial_outputs = [ {
 "name": "Strafe",
 "value": 0.0
 }, {
-"name": "",
+"name": "Up/Down",
 "value": 0.0
 }, {
 "name": "",
