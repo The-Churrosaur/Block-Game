@@ -25,6 +25,12 @@ var storage
 #export var storage_type = "Block_Storage"
 var saved_name
 
+
+# BLOCK SYSTEMS
+
+export var block_systems_manager_path : NodePath
+onready var block_systems_manager = get_node_or_null(block_systems_manager_path)
+
 # owned by grid, no touch vvv
 
 var grid : Node2D = null
@@ -50,6 +56,8 @@ func sanitize_name():
 	var chars = name
 	name = chars
 
+
+#TODO currently overridden by tilemap 
 func set_hitbox_collision_shapes():
 	for node in get_children():
 		if (node is CollisionShape2D) and (node.name == hitbox_names_string):
@@ -97,7 +105,17 @@ func post_load_setup():
 func ship_body_entered(body, pos):
 	pass
 
+
+# BLOCK SYSTEMS ================================================================
+
+
+func get_system(system_id : String):
+	if !block_systems_manager : return null
+	return block_systems_manager.get_system(system_id)
+
+
 # SAVING AND LOADING ===========================================================
+
 
 # called by gridSave, gets dict of data to serialize
 func get_save_data() -> Dictionary :

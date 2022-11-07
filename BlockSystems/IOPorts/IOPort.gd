@@ -3,3 +3,7 @@
 class_name IOPort
 extends Node2D
 
+
+# unique name
+export var port_id : String
+
