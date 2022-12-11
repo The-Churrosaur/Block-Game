@@ -29,6 +29,7 @@ export var is_output = false
 onready var data = 0.0
 
 # occupying cable (injected by cable)
+# also used for determing availability
 onready var cable = null
 
 
@@ -42,6 +43,7 @@ onready var select_button = $Button
 
 # label
 onready var label = $Label
+onready var label2 = $Label2
 
 
 # CALLBACKS --------------------------------------------------------------------
@@ -63,6 +65,11 @@ func tool_selected():
 
 func tool_deselected():
 	select_button.visible = false
+
+
+# for testing purposes rn
+func set_label(text):
+	label2.text = text
 
 
 # PRIVATE ----------------------------------------------------------------------

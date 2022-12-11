@@ -33,8 +33,10 @@ onready var grid = $GridBase
 
 onready var tilemap : TileMap = $ShipTileMap
 
-# TODO ship systems 
+# DEPREC
 onready var io_manager = $IOManager
+
+onready var ship_systems = $ShipSystems
 
 # use grid position for ship local coordinates/origin
 var grid_origin setget ,grid_origin

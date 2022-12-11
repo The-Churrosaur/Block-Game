@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://ShipBase/ShipBody.gd" type="Script" id=1]
 [ext_resource path="res://ShipBase/GridBase/GridBase.tscn" type="PackedScene" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://ShipBase/Depreciated/ShipBase_Storage.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ShipBase/ShipTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://BlockSystems/IO/IOManager.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ShipBase/ShipSystemsManager.tscn" type="PackedScene" id=8]
+[ext_resource path="res://BlockSystems/IOPorts/IOCableManager.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -37,5 +39,9 @@ ship_path = NodePath("..")
 
 [node name="GravityCollider" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="ShipSystems" parent="." instance=ExtResource( 8 )]
+
+[node name="IOCableManager" parent="ShipSystems" instance=ExtResource( 9 )]
 
 [editable path="GridBase"]

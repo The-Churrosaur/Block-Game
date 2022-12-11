@@ -16,6 +16,14 @@ export var cable_scene : PackedScene
 onready var cables = {}
 
 
+# CALLBACKS --------------------------------------------------------------------
+
+
+# TODO think about how to trigger this more regularly
+func _physics_process(delta):
+	_transmit_cable_data()
+
+
 # PUBLIC -----------------------------------------------------------------------
 
 
@@ -58,6 +66,8 @@ func new_cable(sender_port, receiver_port):
 	cable.receiver_port = receiver_port
 	
 	cables[cable] = true
+	
+	print("CABLEMANAGER NEW CABLE")
 
 
 func remove_cable(cable):
@@ -88,3 +98,9 @@ func _get_port(dict):
 	
 	var port_manager = block.block_systems_manager.get_system("PortManager")
 	return port_manager.get_port(dict["port"])
+
+
+# transmits data on all cables
+func _transmit_cable_data():
+	for cable in cables.keys():
+		cable.send_data()

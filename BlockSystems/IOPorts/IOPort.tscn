@@ -6,7 +6,10 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="IOPort" type="Node2D"]
+z_index = 2
 script = ExtResource( 1 )
+port_id = "default"
+port_display_name = "PORT"
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
@@ -36,3 +39,13 @@ margin_left = -14.0
 margin_right = 14.0
 margin_bottom = 20.0
 text = "[  ]"
+
+[node name="Label2" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = 7.68347
+margin_right = 20.0
+margin_bottom = 21.6835

@@ -6,9 +6,11 @@ onready var test_grid
 
 onready var io_tool = $IOPicker
 onready var selector_tool = $ShipSelector
+onready var cable_tool = $IOCableTool
 
 onready var io_tool_button = $MarginContainer/VBoxContainer/HBoxContainer/IOToolButton
 onready var selector_tool_button = $MarginContainer/VBoxContainer/HBoxContainer/SelectorButton
+onready var cable_tool_button = $MarginContainer/VBoxContainer/HBoxContainer/CableToolButton
 
 var subShip = 0
 var block_facing = 0
@@ -73,6 +75,9 @@ func setup_tools():
 	io_tool.setup(self)
 	selector_tool.setup(self)
 	selector_tool.connect("new_ship_selected", self, "on_selector_new_ship")
+	cable_tool.setup(self)
+	
+	cable_tool.active = true
 
 func on_selector_new_ship(ship):
 	select_ship(ship)

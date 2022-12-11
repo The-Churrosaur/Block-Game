@@ -9,7 +9,7 @@ extends BlockSystem
 
 
 # listened to by tool
-signal port_button_pressed(port)
+signal port_button_pressed(port, block)
 
 # ports, filled from children on ready
 onready var ports = {}
@@ -36,7 +36,8 @@ func get_port(port : String):
 
 
 # call this when port tool is selected
-func tool_selected(port_tool):
+# TODO track state and toggle
+func tool_selected():
 	
 	for port in ports.values():
 		port.tool_selected()
@@ -55,5 +56,5 @@ func tool_deselected():
 
 # propagates signal upwards to selector tool (tool is listener)
 func _on_port_button(port):
-	emit_signal("port_button_pressed", port)
+	emit_signal("port_button_pressed", port, block)
 	

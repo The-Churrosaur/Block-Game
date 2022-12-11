@@ -33,7 +33,7 @@ func _process(delta):
 
 # sends from input to output
 func send_data():
-	pass
+	receiver_port.data = sender_port.data
 
 
 # PRIVATE ----------------------------------------------------------------------
