@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "Node2D",
 "class": "Block",
 "language": "GDScript",
 "path": "res://ShipBase/GridBase/block.gd"
@@ -19,7 +19,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ControlSystems/BlockPlacer.gd"
 }, {
-"base": "Reference",
+"base": "Node",
+"class": "BlockSystem",
+"language": "GDScript",
+"path": "res://BlockSystems/BlockSystem.gd"
+}, {
+"base": "Node2D",
 "class": "BlockSystemsManager",
 "language": "GDScript",
 "path": "res://BlockSystems/BlockSystems_Manager.gd"
@@ -28,6 +33,11 @@ _global_script_classes=[ {
 "class": "Block_Storage",
 "language": "GDScript",
 "path": "res://ShipBase/GridBase/Block_Storage.gd"
+}, {
+"base": "IOBlock",
+"class": "BodyPinBase",
+"language": "GDScript",
+"path": "res://ShipBase/GridBase/PinBlock/BodyPinBase.gd"
 }, {
 "base": "Reference",
 "class": "BouncingBullet",
@@ -48,11 +58,6 @@ _global_script_classes=[ {
 "class": "CharacterRig",
 "language": "GDScript",
 "path": "res://Scenes/character/BlueTest/blue_rig.gd"
-}, {
-"base": "GunBase",
-"class": "DefaultGun",
-"language": "GDScript",
-"path": "res://Weapons/DefaultGun.gd"
 }, {
 "base": "Reference",
 "class": "EnemyController",
@@ -99,11 +104,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ShipBase/GridBase/GridBase_Storage.gd"
 }, {
-"base": "Node2D",
-"class": "GunBase",
-"language": "GDScript",
-"path": "res://WeaponBase/GunBase.gd"
-}, {
 "base": "Reference",
 "class": "GunBlock",
 "language": "GDScript",
@@ -139,10 +139,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://BlockSystems/IOPorts/IOCable.gd"
 }, {
-"base": "Reference",
+"base": "ShipSystem",
 "class": "IOCableManager",
 "language": "GDScript",
 "path": "res://BlockSystems/IOPorts/IOCableManager.gd"
+}, {
+"base": "Reference",
+"class": "IOCableTool",
+"language": "GDScript",
+"path": "res://ControlSystems/IOCableTool.gd"
 }, {
 "base": "ShipBuilderTool",
 "class": "IOConnector",
@@ -154,7 +159,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://BlockSystems/IO/IOManager.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "IOPort",
 "language": "GDScript",
 "path": "res://BlockSystems/IOPorts/IOPort.gd"
@@ -199,6 +204,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Blocks/PinBlock_Storage.gd"
 }, {
+"base": "PinHeadBase",
+"class": "PinHead",
+"language": "GDScript",
+"path": "res://Blocks/PinHead.gd"
+}, {
 "base": "Block",
 "class": "PinHeadBase",
 "language": "GDScript",
@@ -219,15 +229,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/character/player_controller.gd"
 }, {
-"base": "Node2D",
+"base": "BlockSystem",
 "class": "PortManager",
 "language": "GDScript",
 "path": "res://BlockSystems/IOPorts/PortManager.gd"
-}, {
-"base": "RigidBody2D",
-"class": "Projectile",
-"language": "GDScript",
-"path": "res://WeaponBase/ProjectileBase.gd"
 }, {
 "base": "Reference",
 "class": "Rig",
@@ -284,6 +289,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ShipBase/Depreciated/ShipStorage.gd"
 }, {
+"base": "Node",
+"class": "ShipSystem",
+"language": "GDScript",
+"path": "res://BlockSystems/ShipSystem.gd"
+}, {
 "base": "TileMap",
 "class": "ShipTileMap",
 "language": "GDScript",
@@ -324,6 +334,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/character/weapons/weapon.gd"
 }, {
+"base": "PinBlockBase",
+"class": "WheelBlock",
+"language": "GDScript",
+"path": "res://Blocks/WheelBlock.gd"
+}, {
+"base": "PinHeadBase",
+"class": "WheelHead",
+"language": "GDScript",
+"path": "res://Blocks/WheelHead.gd"
+}, {
 "base": "Reference",
 "class": "ik_2d",
 "language": "GDScript",
@@ -332,13 +352,14 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Block": "",
 "BlockPlacer": "",
+"BlockSystem": "",
 "BlockSystemsManager": "",
 "Block_Storage": "",
+"BodyPinBase": "",
 "BouncingBullet": "",
 "Bullet": "",
 "CharacterHealth": "",
 "CharacterRig": "",
-"DefaultGun": "",
 "EnemyController": "",
 "EnemyGrenadierController": "",
 "EnemyShotgunController": "",
@@ -348,7 +369,6 @@ _global_script_class_icons={
 "Grenade": "",
 "GridBase": "",
 "GridBase_Storage": "",
-"GunBase": "",
 "GunBlock": "",
 "HealthBar": "",
 "HealthPickup": "",
@@ -357,6 +377,7 @@ _global_script_class_icons={
 "IOBox": "",
 "IOCable": "",
 "IOCableManager": "",
+"IOCableTool": "",
 "IOConnector": "",
 "IOManager": "",
 "IOPort": "",
@@ -368,12 +389,12 @@ _global_script_class_icons={
 "Pickup": "",
 "PinBlockBase": "",
 "PinBlock_Storage": "",
+"PinHead": "",
 "PinHeadBase": "",
 "PlayerBase": "",
 "PlayerCamera": "",
 "PlayerController": "",
 "PortManager": "",
-"Projectile": "",
 "Rig": "",
 "SceneSwitcher": "",
 "ScreenShaker": "",
@@ -385,6 +406,7 @@ _global_script_class_icons={
 "ShipSaveResource": "",
 "ShipSelector": "",
 "ShipStorage": "",
+"ShipSystem": "",
 "ShipTileMap": "",
 "Ship_SaverLoader_GDS": "",
 "StorageBase": "",
@@ -393,6 +415,8 @@ _global_script_class_icons={
 "ThrusterBlock": "",
 "ThrusterBlockIO": "",
 "Weapon": "",
+"WheelBlock": "",
+"WheelHead": "",
 "ik_2d": ""
 }
 

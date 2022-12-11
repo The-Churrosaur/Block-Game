@@ -1,0 +1,49 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"TestBlock": true,
+"WheelBlock": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 4, -2 ),
+"subShip_name": "ShipBody",
+"subShip_resource_path": "res://Ships/wheelie8/SubShips/ShipBody_subship0_ShipBody/ShipBody_subship0_ShipBody.tres",
+"type": "WheelBlock"
+}, {
+"block_id": 1,
+"facing": 0,
+"pos": Vector2( 5, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 2,
+"facing": 0,
+"pos": Vector2( 6, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 3,
+"facing": 0,
+"pos": Vector2( 7, -2 ),
+"type": "TestBlock"
+}, {
+"block_id": 4,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 8, -2 ),
+"subShip_name": "ShipBody",
+"subShip_resource_path": "res://Ships/wheelie8/SubShips/ShipBody_subship1_ShipBody/ShipBody_subship1_ShipBody.tres",
+"type": "WheelBlock"
+} ]
+ship_data = {
+"displacement": Vector2( -383, 127 ),
+"io_connections": {
+},
+"mass": 501.0,
+"subShip_counter": 2
+}

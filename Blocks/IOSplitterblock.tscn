@@ -6,37 +6,3 @@
 [node name="IOSplitterblock" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 io_box_path = NodePath("IOBox")
-
-[node name="IOBox" parent="." index="3"]
-initial_inputs = [ {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-} ]
-initial_outputs = [ {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-} ]

@@ -4,35 +4,3 @@
 
 [node name="IOBox" type="Node"]
 script = ExtResource( 1 )
-initial_inputs = [ {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-} ]
-initial_outputs = [ {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-} ]

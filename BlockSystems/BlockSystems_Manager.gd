@@ -9,9 +9,11 @@ onready var systems = {}
 
 
 func _ready():
-	pass
 	
-	# get children as systems
+	# get children as systms
+	for child in get_children():
+		if child is BlockSystem:
+			systems[child.system_id] = child
 
 
 # returns system or null

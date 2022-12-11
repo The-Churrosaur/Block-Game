@@ -1,19 +1,39 @@
 
-# holds and stores port
+# holds two ports and propagates data from A to B on command
 class_name IOCable
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# FIELDS -----------------------------------------------------------------------
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+# visual line
+onready var line = $Line2D
+
+# temp
+onready var button = $Button
+
+# block reference
+# injected by manager
+var sender_port : IOPort
+var receiver_port : IOPort
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+# CALLBACKS --------------------------------------------------------------------
+
+
+func _process(delta):
+	
+	# draw line
+	line.set_point_position(0, to_local(sender_port.global_position))
+	line.set_point_position(1, to_local(receiver_port.global_position))
+
+
+# PUBLIC -----------------------------------------------------------------------
+
+
+# sends from input to output
+func send_data():
+	pass
+
+
+# PRIVATE ----------------------------------------------------------------------

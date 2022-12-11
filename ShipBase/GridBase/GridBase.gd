@@ -89,15 +89,18 @@ func add_block(block, center_coord, facing, check_blocked = true, update_com = t
 	gross_blocks += 1
 	return true
 
+
 func add_block_at_point(block : Block, point : Vector2, facing : int):
 	
 	var coord = get_gridFromPoint(point)
 	add_block(block, coord, facing)
 
+
 func new_block_id() -> int:
 	
 	# this is eh but w/e for now
 	return gross_blocks;
+
 
 func remove_block(pos : Vector2) -> bool:
 	if block_dict.has(pos):

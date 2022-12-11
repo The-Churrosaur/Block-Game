@@ -20,6 +20,7 @@ func call_test(param):
 #onready var storage = $ShipBase_Storage
 
 # ship specific subship ID
+# CURRENTLY UNUSED
 # 0 for base ship, subships iterate, 0001 for second subship thrice nested
 # injected by parent ship on prompting from pinblock
 # TODO maybe this is terrible
@@ -61,10 +62,6 @@ var subShip_counter = 0
 
 
 func _ready():
-	
-	# test gdns 
-#	ship_save.test(self, self)
-#	print("shipsave blockspath: ", ship_save.blocksFilepath)
 	
 	print("NEW SHIP READY")
 	

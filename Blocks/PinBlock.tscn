@@ -42,22 +42,6 @@ initial_inputs = [ {
 "name": "",
 "value": 0.0
 } ]
-initial_outputs = [ {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-} ]
 block_path = NodePath("..")
 
 [node name="IOHud" parent="." instance=ExtResource( 5 )]

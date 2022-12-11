@@ -9,6 +9,7 @@ export var size_grid = [Vector2(0,0)]
 # I would like this to be a const but it needs to be inherited
 
 export var mass = 100
+# TODO does this try to match this with the scene name? Redundant/bad?
 export var class_type = "Block"
 export var tile_id = 0
 
@@ -36,7 +37,7 @@ onready var block_systems_manager = get_node_or_null(block_systems_manager_path)
 var grid : Node2D = null
 var grid_coord = [] # DEFUNCT just in case self-reference to find itself through grid
 var center_grid_coord : Vector2 # center coordinate of block
-var shipBody
+var shipBody : RigidBody2D
 
 # overloads default to return specific block type 
 # for serialization etc.
