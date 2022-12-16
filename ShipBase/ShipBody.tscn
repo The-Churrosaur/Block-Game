@@ -14,7 +14,7 @@
 
 [node name="ShipBody" type="RigidBody2D" groups=["Platform"]]
 collision_layer = 7
-collision_mask = 7
+collision_mask = 0
 input_pickable = true
 contacts_reported = 5
 contact_monitor = true
@@ -41,6 +41,7 @@ ship_path = NodePath("..")
 shape = SubResource( 1 )
 
 [node name="ShipSystems" parent="." instance=ExtResource( 8 )]
+shipBody_path = NodePath("..")
 
 [node name="IOCableManager" parent="ShipSystems" instance=ExtResource( 9 )]
 

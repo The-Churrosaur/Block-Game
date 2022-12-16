@@ -4,6 +4,7 @@
 class_name IOCableManager
 extends ShipSystem
 
+
 # FIELDS -----------------------------------------------------------------------
 
 
@@ -27,39 +28,47 @@ func _physics_process(delta):
 # PUBLIC -----------------------------------------------------------------------
 
 
-# saving and loading
+# -- SAVING LOADING
 
 
-# save cables to dictionary
-# ["cables"] -> array of cables with: sender_port, receiver_port 
-func save_cables() -> Dictionary:
+# called by manager -> ship
+# ["cables"] -> array of cables, each element is : {sender_port, receiver_port} 
+# each port is {"ship" -> name, "block" -> coord, "port" -> id}
+func save_data() -> Dictionary:
+	.save_data()
 	
-	var cables = []
+	var save_cables = []
 	
 	for cable in cables.keys():
 		var cable_dict = {}
-		cable_dict["sender_port"] = cable.sender_port
-		cable_dict["receiver_port"] = cable.receiver_port
-		cables.append(cable_dict)
+		cable_dict["sender_port"] = _get_address(cable.sender_port)
+		cable_dict["receiver_port"] = _get_address(cable.receiver_port)
+		save_cables.append(cable_dict)
 	
 	var dict = {}
-	dict["cables"] = cables
+	dict["cables"] = save_cables
 	return dict
 
 
 # load cables from dictionary
-# called by ship
-func load_cables(dict):
+# called by manager -> ship
+func load_data(dict):
+	.load_data(dict)
 	
 	for cable in dict["cables"]:
+		print("CABLE MANAGER LOADING CABLE: ", cable)
 		_new_from_address(cable)
 
 
-# add remove cables
+# -- ADD REMOVE CABLES
 
 
 # insantiate new cable and add to dict
 func new_cable(sender_port, receiver_port):
+	
+	if (sender_port == null) or (receiver_port == null):
+		print("CABLEMANAGER, INVALID CABLE")
+		return 
 	
 	var cable = cable_scene.instance()
 	cable.sender_port = sender_port
@@ -77,12 +86,19 @@ func remove_cable(cable):
 # PRIVATE ----------------------------------------------------------------------
 
 
+# -- SAVING LOADING
+
+
 # calls new_cable after finding ports from addresses
 # takes cable dict
 func _new_from_address(dict):
 	
+	print("CABLEMANAGER PORT ADDRESSES: ", dict["sender_port"])
+	
 	var sender_port = _get_port(dict["sender_port"])
 	var receiver_port = _get_port(dict["receiver_port"])
+	
+	print("CABLEMANAGER PORTS FROM ADDRESS: ", sender_port, ", ", receiver_port)
 	
 	new_cable(sender_port, receiver_port)
 
@@ -90,14 +106,40 @@ func _new_from_address(dict):
 # from port address dict
 func _get_port(dict):
 	
-	var ship = shipbody.get_ship_in_tree(dict["ship"])
+	print ("CBM SHIPBODY: ", shipBody)
+	print ("CBM PORT SHIP ID: ", dict["ship"])
+	var ship = shipBody.get_ship_in_tree(dict["ship"])
+	print("PORT SHIP FOUND: ", ship)
 	if ship == null: return null
 	
+	print ("CBM BLOCK: ", dict["block"])
+	print (ship.grid.block_dict)
 	var block = ship.get_block(dict["block"])
+	print("CBM BLOCK: ", block)
 	if block == null: return null
 	
-	var port_manager = block.block_systems_manager.get_system("PortManager")
+	var port_manager = block.block_systems_manager.get_system("port_manager")
 	return port_manager.get_port(dict["port"])
+
+
+# get address from port
+# {"ship" -> ship_id, "block" -> coord, "port" -> id}
+func _get_address(port : IOPort) -> Dictionary:
+	
+	var manager = port.manager
+	var block = manager.block
+	var ship = block.shipBody 
+	
+	var dict = {}
+	
+	dict["ship"] = ship.ship_id
+	dict["block"] = block.center_grid_coord
+	dict["port"] = port.port_id
+	
+	return dict
+
+
+# -- CABLE DATA TRANSMISSION
 
 
 # transmits data on all cables

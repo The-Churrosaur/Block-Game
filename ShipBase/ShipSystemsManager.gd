@@ -7,6 +7,11 @@ extends Node
 # FIELDS ----------------------------------------------------------------------
 
 
+# parent shipbody
+export var shipBody_path : NodePath
+onready var shipBody = get_node(shipBody_path)
+
+
 # systems, id -> system
 var systems = {}
 
@@ -22,7 +27,7 @@ func _ready():
 			systems[child.system_id] = child
 			
 			# setup
-			
+			child.shipBody = shipBody
 
 
 # PUBLIC -----------------------------------------------------------------------
@@ -32,6 +37,27 @@ func _ready():
 func get_system(system_id : String):
 	if !systems.has(system_id) : return null
 	return systems[system_id]
+
+
+# -- SAVING AND LOADING
+
+
+# called by ship, collates savedata into system_id -> dictionary
+func save_systems_data() -> Dictionary:
+	
+	var dict = {}
+	for system in systems.values():
+		dict[system.system_id] = system.save_data()
+	
+	return dict
+
+
+func load_systems_data(dict : Dictionary):
+	
+	for id in dict.keys():
+		var system = get_system(id)
+		if system == null: continue
+		system.load_data(dict[id])
 
 
 # PRIVATE ----------------------------------------------------------------------

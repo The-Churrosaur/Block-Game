@@ -15,8 +15,12 @@ blocks = [ {
 } ]
 ship_data = {
 "displacement": Vector2( 0, 0 ),
+"id": "pin_head",
 "io_connections": {
 },
+"is_subShip": true,
 "mass": 100.0,
-"subShip_counter": 0
+"name": "pinhead",
+"subShip_counter": 0,
+"subShip_id": "00"
 }

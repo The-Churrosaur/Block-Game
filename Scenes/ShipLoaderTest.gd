@@ -41,10 +41,8 @@ func on_text_entered(var text):
 	var res = ResourceLoader.load(address)
 	print("ship save loaded: ", address)
 	
-	var ship = loader.load_ship(res, owner)
-	
-	ship.position = Vector2(700,500)
-	ship.linear_velocity += Vector2(30,0)
-	print("grid position: ", ship.grid.position)
-	
+	var ship = loader.load_ship(res, owner, false, Vector2(700,500))
 	owner.on_new_ship(ship)
+	
+	print("grid position: ", ship.grid.position)
+

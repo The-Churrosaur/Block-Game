@@ -1,0 +1,88 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PortBlockTester": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( -1, -4 ),
+"type": "PortBlockTester"
+}, {
+"block_id": 1,
+"facing": 0,
+"pos": Vector2( 5, -3 ),
+"type": "PortBlockTester"
+}, {
+"block_id": 2,
+"facing": 0,
+"pos": Vector2( 0, -1 ),
+"type": "PortBlockTester"
+}, {
+"block_id": 3,
+"facing": 0,
+"pos": Vector2( 3, -1 ),
+"type": "PortBlockTester"
+} ]
+ship_data = {
+"displacement": Vector2( -112, 144 ),
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 401.0,
+"name": "pbtest12",
+"ship_systems": {
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 5, -3 ),
+"port": "test_in",
+"ship": "pbtest12"
+},
+"sender_port": {
+"block": Vector2( -1, -4 ),
+"port": "test_out",
+"ship": "pbtest12"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -1, -4 ),
+"port": "test_in",
+"ship": "pbtest12"
+},
+"sender_port": {
+"block": Vector2( 5, -3 ),
+"port": "test_out",
+"ship": "pbtest12"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 3, -1 ),
+"port": "test_in",
+"ship": "pbtest12"
+},
+"sender_port": {
+"block": Vector2( 0, -1 ),
+"port": "test_out",
+"ship": "pbtest12"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 0, -1 ),
+"port": "test_in",
+"ship": "pbtest12"
+},
+"sender_port": {
+"block": Vector2( 3, -1 ),
+"port": "test_out",
+"ship": "pbtest12"
+}
+} ]
+}
+},
+"subShip_counter": 0
+}

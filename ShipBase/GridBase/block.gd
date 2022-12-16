@@ -32,7 +32,7 @@ var saved_name
 export var block_systems_manager_path : NodePath
 onready var block_systems_manager = get_node_or_null(block_systems_manager_path)
 
-# owned by grid, no touch vvv
+# injected by grid, no touch vvv
 
 var grid : Node2D = null
 var grid_coord = [] # DEFUNCT just in case self-reference to find itself through grid

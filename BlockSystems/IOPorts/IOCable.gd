@@ -33,6 +33,7 @@ func _process(delta):
 
 # sends from input to output
 func send_data():
+	if (receiver_port == null) or (sender_port == null): return 
 	receiver_port.data = sender_port.data
 
 

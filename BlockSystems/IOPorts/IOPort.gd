@@ -8,7 +8,8 @@ extends Node2D
 # FIELDS -----------------------------------------------------------------------
 
 
-# Signals
+# -- SIGNALS
+
 
 # hooked up to manager
 signal port_button_pressed(port)
@@ -32,8 +33,12 @@ onready var data = 0.0
 # also used for determing availability
 onready var cable = null
 
+# this port's manager (injected by manager)
+var manager= null 
 
-# UI
+
+# -- UI
+
 
 # area for registering selection DEPREC
 onready var select_area = $Area2D

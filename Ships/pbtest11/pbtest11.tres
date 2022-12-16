@@ -1,0 +1,56 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PortBlockTester": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( 0, -2 ),
+"type": "PortBlockTester"
+}, {
+"block_id": 1,
+"facing": 0,
+"pos": Vector2( 6, -2 ),
+"type": "PortBlockTester"
+} ]
+ship_data = {
+"displacement": Vector2( -191, 127 ),
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 201.0,
+"name": "pbtest11",
+"ship_systems": {
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 6, -2 ),
+"port": "test_in",
+"ship": "pbtest11"
+},
+"sender_port": {
+"block": Vector2( 0, -2 ),
+"port": "test_out",
+"ship": "pbtest11"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 0, -2 ),
+"port": "test_in",
+"ship": "pbtest11"
+},
+"sender_port": {
+"block": Vector2( 6, -2 ),
+"port": "test_out",
+"ship": "pbtest11"
+}
+} ]
+}
+},
+"subShip_counter": 0
+}

@@ -111,10 +111,18 @@ func save_subShips(ship : Node2D, directory : String):
 
 
 # load ship
-func load_ship(ship_base : Node2D, save_resource : Resource) -> Node2D:
+func load_ship(	ship_base : RigidBody2D, 
+				save_resource : Resource, 
+				subShip = false 
+				) -> Node2D:
+	
+	# just for safety
+	ship_base.mode = RigidBody2D.MODE_STATIC
 	
 	# populate dict with loaded block scenes, will instantiate from dict later
 	var block_factory = {}
+	
+	print("SAVER LOADING RESOURCE: ", save_resource)
 	
 	# iterate through blocktypes from resource and populate
 	for type in save_resource.block_types.keys() :
@@ -136,16 +144,6 @@ func load_ship(ship_base : Node2D, save_resource : Resource) -> Node2D:
 	# get grid
 	var grid = ship_base.grid
 	print("block grid retrieved")
-	
-	# HANDLE SHIP SAVE DATA
-	
-	# set position from data
-	var displacement = save_resource.ship_data["displacement"]
-	print("grid displacement: ", displacement)
-	grid.set_position(displacement)
-	print("grid position: ", grid.get_position())
-	
-	ship_base.load_saved_data(save_resource.ship_data)
 	
 	# add blocks to ship
 	for block_dict in save_resource.blocks :
@@ -178,6 +176,19 @@ func load_ship(ship_base : Node2D, save_resource : Resource) -> Node2D:
 		
 		# block, pos, facing, check collision, check com
 		grid.add_block(block, pos, facing, false, false)
+	
+	# HANDLE SHIP SAVE DATA
+	
+	# set position from data
+	var displacement = save_resource.ship_data["displacement"]
+	print("grid displacement: ", displacement)
+	grid.set_position(displacement)
+	print("grid position: ", grid.get_position())
+	
+	ship_base.load_saved_data(save_resource.ship_data)
+	
+	# unfreeze
+	ship_base.mode = RigidBody2D.MODE_RIGID
 	
 	# return built ship
 	return ship_base

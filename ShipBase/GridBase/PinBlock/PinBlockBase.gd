@@ -12,7 +12,7 @@ onready var ship_loader = get_node("/root/ShipLoader")
 
 var pinHead_coord = null
 var subShip_resource = null
-var subShip_name = null
+var subShip_id = null
 var subShip_resource_path = null
 
 var subShip = null
@@ -43,8 +43,8 @@ func _input(event):
 func post_load_setup():
 	.post_load_setup()
 	# wow I hate this so much but it works for now TODO TODO
-	yield(get_tree().create_timer(0.0001), "timeout")
-	setup_load_subship()
+#	yield(get_tree().create_timer(0.0001), "timeout")
+#	setup_load_subship()
 
 func on_added_to_grid(center_coord, block, grid):
 	.on_added_to_grid(center_coord, block, grid)
@@ -52,9 +52,7 @@ func on_added_to_grid(center_coord, block, grid):
 	connect("subShip_pinned", shipBody, "on_new_subShip")
 	connect("subShip_removed", shipBody, "on_subShip_removed")
 	
-	# if new block
-	if subShip_resource_path == null:
-		setup_load_subship()
+	setup_load_subship()
 
 func on_removed_from_grid(center_coord, block, grid):
 	.on_removed_from_grid(center_coord, block, grid)
@@ -86,10 +84,10 @@ func create_subship_pinhead() -> Node2D: # returns pinhead
 	
 	# ship
 	# TODO place in tree through level singleton
-	var ship = ship_loader.load_ship(subShip_resource, get_tree().root)
+	var ship = ship_loader.load_ship(subShip_resource, get_tree().root, false)
 	
 	# setup
-	subShip_name = ship.name
+	subShip_id = ship.ship_id
 	ship.superShip = shipBody
 	ship.connect("shipBody_saved", self, "on_subShip_saved")
 	
@@ -98,6 +96,7 @@ func create_subship_pinhead() -> Node2D: # returns pinhead
 	return pinHead
 
 func attach(pinHead): 
+	
 	print("attaching pinhead")
 	# should be placed on grid before attaching
 	
@@ -112,6 +111,8 @@ func attach(pinHead):
 	# move subship to align pinhead with current position
 	reposition_subShip(pinHead)
 	
+#	yield(get_tree().create_timer(0.0001), "timeout")
+	
 	# TODO
 #	print("?!?!", global_position, subShip.global_position, subShip.grid.global_position)
 #	for block in subShip.grid.block_dict.values():
@@ -123,8 +124,8 @@ func attach(pinHead):
 	pinHead_coord = pinHead.center_grid_coord
 	
 #	print("***AJDSFKASpre-pin position: ", pinJoint.global_position, global_position)
-	queue_pin = true
-#	pin_subShip()
+#	queue_pin = true
+	pin_subShip()
 #	subShip.angular_velocity = 1
 	
 	emit_signal("subShip_pinned", subShip, self, pinHead)
@@ -147,7 +148,7 @@ func pin_subShip():
 	
 	queue_pin = false
 	
-#	subShip.angular_velocity = 1.0 # for shits
+	subShip.angular_velocity = 1.0 # for shits
 	
 	print("subship physics pinned")
 
@@ -185,13 +186,13 @@ func _physics_process(delta):
 
 # SAVING AND LOADING ===========================================================
 
-func on_subShip_saved(ship, name, file):
+func on_subShip_saved(ship, id, file):
 	subShip_resource_path = file
 
 func get_save_data() -> Dictionary:
 	var dict = .get_save_data()
 	
-	dict["subShip_name"] = subShip_name
+	dict["subShip_id"] = subShip_id
 	dict["pinHead_coord"] = pinHead_coord
 	dict["subShip_resource_path"] = subShip_resource_path
 	

@@ -1,0 +1,48 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PinHead": true,
+"PortBlockTester": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( 0, 0 ),
+"type": "PinHead"
+}, {
+"block_id": 1,
+"facing": 0,
+"pos": Vector2( 1, -3 ),
+"type": "PortBlockTester"
+} ]
+ship_data = {
+"displacement": Vector2( -32, 96 ),
+"id": "pin_head",
+"io_connections": {
+},
+"is_subShip": true,
+"mass": 200.0,
+"name": "pinhead",
+"ship_systems": {
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 1, -3 ),
+"port": "test_in",
+"ship": "pin_head"
+},
+"sender_port": {
+"block": Vector2( 0, -2 ),
+"port": "test_out",
+"ship": ""
+}
+} ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": "00"
+}

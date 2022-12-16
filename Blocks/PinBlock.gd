@@ -11,7 +11,7 @@ func test_connect():
 func _physics_process(delta):
 	if subShip:
 		# direction * power
-		subShip.apply_torque_impulse(io_box.get_input(1) * io_box.get_input(0) * 10000)
+#		subShip.apply_torque_impulse(io_box.get_input(1) * io_box.get_input(0) * 10000 +1)
 #
 #		# braking force
 		var relative_velocity = subShip.angular_velocity - shipBody.angular_velocity

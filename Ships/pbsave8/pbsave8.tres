@@ -1,0 +1,59 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PinBlock": true,
+"PortBlockTester": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 1, -3 ),
+"subShip_name": "pin_head",
+"subShip_resource_path": "res://Ships/pbsave8/SubShips/pbsave7/pbsave7.tres",
+"type": "PinBlock"
+}, {
+"block_id": 1,
+"facing": 0,
+"pos": Vector2( 4, -3 ),
+"type": "PortBlockTester"
+} ]
+ship_data = {
+"displacement": Vector2( -159, 191 ),
+"io_connections": {
+},
+"mass": 201.0,
+"name": "pbsave8",
+"ship_systems": {
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 4, -3 ),
+"port": "test_in",
+"ship": "pbsave8"
+},
+"sender_port": {
+"block": Vector2( 0, -2 ),
+"port": "test_out",
+"ship": "pbsave7"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 0, -2 ),
+"port": "test_in",
+"ship": "pbsave7"
+},
+"sender_port": {
+"block": Vector2( 4, -3 ),
+"port": "test_out",
+"ship": "pbsave8"
+}
+} ]
+}
+},
+"subShip_counter": 1
+}

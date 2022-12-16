@@ -24,7 +24,10 @@ func _ready():
 	for child in get_children():
 		if child is IOPort:
 			ports[child.port_id] = child
+			
+			# setup
 			child.connect("port_button_pressed", self, "_on_port_button")
+			child.manager = self
 
 
 # PUBLIC -----------------------------------------------------------------------

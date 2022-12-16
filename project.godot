@@ -536,6 +536,10 @@ ui_rotate_right={
  ]
 }
 
+[network]
+
+limits/debugger_stdout/max_chars_per_second=4096
+
 [physics]
 
 2d/default_gravity=0

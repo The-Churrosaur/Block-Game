@@ -1,0 +1,56 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"Block": true,
+"PortBlockTester": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( 0, 0 ),
+"type": "Block"
+}, {
+"block_id": 2,
+"facing": 0,
+"pos": Vector2( 1, 0 ),
+"type": "PortBlockTester"
+} ]
+ship_data = {
+"displacement": Vector2( -32, 1 ),
+"io_connections": {
+},
+"mass": 201.0,
+"name": "pbsave4",
+"ship_systems": {
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 1, 0 ),
+"port": "test_in",
+"ship": "pbsave4"
+},
+"sender_port": {
+"block": Vector2( 3, -1 ),
+"port": "test_out",
+"ship": "ShipBody"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 3, -1 ),
+"port": "test_in",
+"ship": "ShipBody"
+},
+"sender_port": {
+"block": Vector2( 1, 0 ),
+"port": "test_out",
+"ship": "pbsave4"
+}
+} ]
+}
+},
+"subShip_counter": 0
+}

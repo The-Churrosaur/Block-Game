@@ -8,5 +8,9 @@ extends Node
 # unique string
 export var system_id : String
 
+
 # injected by manager
 var block = null
+
+
+

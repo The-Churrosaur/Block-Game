@@ -1,3 +1,5 @@
+# level singleton for loading ships into the correct place in the nodetree
+
 extends Node
 
 export var new_ship_path = "res://ShipBase/ShipBody.tscn"
@@ -10,11 +12,16 @@ var start_time
 
 signal ship_loaded(ship)
 
-func load_ship(var ship_save : Resource, var target_parent : Node) -> Node2D:
+func load_ship(	var ship_save : Resource, 
+				var target_parent : Node,
+				var subShip = false,
+				var position = Vector2.ZERO
+				) -> Node2D:
 	
 	# load ship
 	print("LOADING SHIP")
 	ship = load(new_ship_path).instance()
+	ship.position = position
 	target_parent.add_child(ship)
 	
 	start_time = OS.get_ticks_msec()
@@ -25,15 +32,15 @@ func load_ship(var ship_save : Resource, var target_parent : Node) -> Node2D:
 #	loading_thread = Thread.new()
 #	loading_thread.start(self, "thread_load", ship_save)
 	
-	thread_load(ship_save)
+	thread_load(ship_save, subShip)
 	
 	# doing this here instead of in save res for flexibility
 	ship.post_load_block_setup()
 	
 	return ship
 
-func thread_load(var ship_save : Resource):
-	ship_loader.load_ship(ship, ship_save)
+func thread_load(var ship_save : Resource, subship = false):
+	ship_loader.load_ship(ship, ship_save, subship)
 	
 	print("SHIP LOADING TIME func: ", OS.get_ticks_msec() - start_time)
 	emit_signal("ship_loaded", ship)

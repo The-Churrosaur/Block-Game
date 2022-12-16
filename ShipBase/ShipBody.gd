@@ -1,12 +1,18 @@
 # physics and editor wrapper for a block grid, the big salami
 
-# TODO, do things with an assigned hash shipID instead of by name maybe?
+# TODO, do things with an assigned shipID instead of by name maybe?
+# please please
+
+# TODO this class is a mess
 
 class_name ShipBody
 extends RigidBody2D
 
 export var save_directory = "res://Ships/"
 export var display_name = "MyShip" # set by player, ingame name
+# UNIQUE, set by player or by root ship for subships
+# used for save directory
+export var ship_id : String 
 export var default_mass = 0.01
 
 #onready var ship_save = load("res://ShipBase/ShipSave.gdns").new()
@@ -20,7 +26,8 @@ func call_test(param):
 #onready var storage = $ShipBase_Storage
 
 # ship specific subship ID
-# CURRENTLY UNUSED
+# local address to find subships (used for cables etc)
+
 # 0 for base ship, subships iterate, 0001 for second subship thrice nested
 # injected by parent ship on prompting from pinblock
 # TODO maybe this is terrible
@@ -53,14 +60,19 @@ signal shipBody_saved(shipBody, name, file)
 signal new_subShip(shipBody, subShip, pinBlock)
 
 var superShip = null
+var is_subShip = false
 
 # dict of subships, node paths repopulated on load
 var subShips = {}
-# name -> ship
+# ship_id -> ship
 # TODO, subships save parent ship as a valid subship maybe
 func get_subShips():
 	return subShips
 var subShip_counter = 0
+
+# loaded information
+# store at block building pass to use for systems / connection pass
+var loaded_data : Dictionary
 
 
 func _ready():
@@ -98,20 +110,6 @@ func _integrate_forces(state):
 	pass
 
 
-#func _input_event(viewport, event, shape_idx): # test func
-#
-#	# when clicked, emits signal that has been clicked
-#
-#	if event.is_action("ui_lclick"):
-#		print("ship: input click ", self)
-#		print("at: ", get_global_mouse_position())
-#		var clicked_block = grid.get_blockFromPoint(get_global_mouse_position())
-#		emit_signal("on_clicked", self, clicked_block)
-#		#get_tree().set_input_as_handled()
-
-# look, ^he's being a shit so we're here now
-# TODO this would be far more elegant under the picker instead of the pickee
-# it's under both now, yay
 func _unhandled_input(event):
 	
 	if event.is_action("ui_lclick"):
@@ -140,41 +138,47 @@ func get_rootShip() -> ShipBody:
 
 
 # ONLY returns current level subships
-func get_subShip(subShip_name) -> ShipBody:
-	if subShip_name == self.name: 
+func get_subShip(id) -> ShipBody:
+	if id == ship_id: 
 		return self
 	else:
-		return subShips.get(subShip_name)
+		return subShips.get(id)
 
 
 # returns any lower level subhip
 # recursive dfs
-func get_subShip_recursive(subShip_name) -> ShipBody:
+func get_subShip_recursive(id) -> ShipBody:
 	
-	if subShip_name == self.name: return self
+	if id == ship_id: return self
 
 	for s in subShips.values():
-		var out = s.get_subShip_recursive(subShip_name)
+		var out = s.get_subShip_recursive(id)
 		if out != null: return out
 	
 	return null
 
 
 # get any ship in tree, traverses to root then finds subship
-func get_ship_in_tree(ship_name) -> ShipBody:
-	return get_rootShip().get_subShip_recursive(ship_name)
+func get_ship_in_tree(id) -> ShipBody:
+	return get_rootShip().get_subShip_recursive(id)
 
 
 func on_new_subShip(ship, pinBlock, pinHead): # called by pinblocks
 	
 	print("ship:", self, "new subship received: ", ship)
-	# hacky, but keeps names unique for now
-	ship.name = name + "_subship" + str(subShip_counter) + "_" + ship.name
-	subShips[ship.name] = ship
-	ship.superShip = self # this needs to be saved as name and populated
+	
+	# repeats will trigger on new subships (from pinblock)
+	if subShips.has(ship.ship_id):
+		ship.ship_id = new_subShip_ship_id(ship)
+	
+	subShips[ship.ship_id] = ship
+	ship.superShip = self
+	ship.is_subShip = true
+	
 	# TODO this will break ships that are saved when a subship is selected
 	
 	# append subShip id
+	# TODO? currently overriden on each load
 	ship.subShip_id = str(subShip_id) + str(subShip_counter)
 	
 	print("subships:", subShips)
@@ -192,6 +196,15 @@ func on_subShip_removed(ship, pinBlock, pinHead):
 	subShips.erase(ship.name)
 	print("SUBSHIP REMOVED, ship: ", name, " subships ",subShips)
 	subShip_counter -= 1
+
+
+# hacky, but keeps ids  unique for now
+func new_subShip_ship_id(ship) -> String:
+	return ship_id + "_subship" + str(subShip_counter) + "_" + ship.ship_id
+
+
+# moves ship AND ALL SUBSHIPS to target pos
+ 
 
 
 # BLOCK PLACEMENT ==============================================================
@@ -311,15 +324,15 @@ func on_body_shape_entered (body_id, body, body_shape, local_shape):
 # SAVING AND LOADING ===========================================================
 
 
-func save(name = self.name, dir = save_directory):
+func save(id, dir = save_directory):
 	
 	# set self name (for reference and loading)
-	self.name = name
-	display_name = name # probably redundant
-	print("ship saving: " + name)
+	name = id
+	ship_id = id
+	print("ship saving: " + id)
 	
-	var file = ship_save.save(self, name, dir)
-	emit_signal("shipBody_saved", self, name, file)
+	var file = ship_save.save(self, id, dir)
+	emit_signal("shipBody_saved", self, id, file)
 
 
 # specify data to be serialized here, same as for blocks
@@ -327,20 +340,38 @@ func get_save_data() -> Dictionary :
 	
 	var data = {}
 	
+	data["name"] = self.name
+	data["id"] = ship_id
 	data["displacement"] = grid.get_position() # look into this
 	data["mass"] = mass
 	data["io_connections"] = io_manager.connections
 	data["subShip_counter"] = subShip_counter
+	data["subShip_id"] = subShip_id
+	data["is_subShip"] = is_subShip
+	
+	# all shipsystems under the shipsystem manager saved here
+	# as a dict of dicts
+	data["ship_systems"] = ship_systems.save_systems_data()
 	
 	return data
 
 
 # specify what to do with returned data
-# called by loader 
+# called by loader after blocks are loaded
 func load_saved_data(data : Dictionary):
 	
-	mass = data["mass"]
+	# store this for later use (connections pass)
+	loaded_data = data
+	
+	# make sure this is loaded first so that other systems can reference it
+	name = data["name"]
+	name = str(name)
+	# PLEASE
+	ship_id = data["id"]
+	subShip_id = data["subShip_id"]
+	
 	# TODO weird interaction with IO - maybe initial inputs?
+	mass = data["mass"]
 	
 	# restore iomanager connections
 	io_manager.connections = data["io_connections"]
@@ -352,92 +383,22 @@ func load_saved_data(data : Dictionary):
 	
 	# restore subship counter to properly track new subships
 	subShip_counter = data["subShip_counter"]
+	
+	# restore this to know if this ship is root/base case
+	is_subShip = data["is_subShip"]
+	print("THIS SHIP IS SUBSHIP: ", is_subShip)
+	
+	# if this ship is the root, do systems connection pass
+	if !is_subShip: load_systems_after_blocks()
 
 
-#func save_as_subShip(dir = save_directory, name = self.name):
-#	pass
-#
-#signal saving_ship(ship, dir)
-#signal saved (name, address)
-#signal save_to_storage(ship)
-#
-#func save_old(name, dir = save_directory):
-#
-#	# set self name (for reference and loading)
-#	self.name = name
-#	display_name = name
-#	print("ship saving: " + name)
-#
-#	# navigate a directory, make new folder
-#
-#	var directory = Directory.new()
-#	directory.open(dir)
-#	directory.make_dir(name) 
-#	directory.change_dir(name)
-#	var folder = directory.get_current_dir()
-#
-#	# make auxiliary folders
-#	directory.make_dir("SubShips")
-#
-#	# announce
-#	emit_signal("saving_ship", self, folder)
-#
-#	# start chain of children saving 
-#	# -> save grid -> save blocks
-#	grid.save(folder)
-#
-#	# save ship data
-#	print("ship storage: " + storage.name)
-#	storage.save(self, folder)
-#	print("storage saved")
-#	# save scene under folder
-#
-#	var address = folder + "/" + name + ".tscn"
-#	var packed_scene = PackedScene.new()
-#	packed_scene.pack(self)
-#	ResourceSaver.save(address, packed_scene)
-#
-#	emit_signal("saved", name, address)
-#	print(name + " saved")
-#
-#func load_in_old(folder):
-#
-#	# reset mass before reloading grid/blocks
-#	mass = default_mass
-#
-#	# set name
-#
-#	# load grid
-#
-#	# seach and destroy false grid
-#	grid = $GridBase
-#	if (grid != null):
-#		grid.free() # not queue_free() since queue would fire after resetting
-#
-#	# load grid (+ add child and get grid reference)
-#	var grid_packed = load(folder + "/GridBase.tscn")
-#	grid = grid_packed.instance()
-#	add_child(grid)
-#	grid.owner = self
-#	connect_to_grid(grid)
-#
-#	# tell grid to load in
-#	grid.load_in(folder, self)
-#	print("!!!grid new:", grid, position, grid.position, grid.global_position)
-#	# load storage
-#
-#	# remove false storage
-#	storage = $ShipBase_Storage
-#	if (storage != null):
-#		storage.free()
-#
-#	# load storage
-#	var storage_packed = load(folder + "/" + name + "_storage.tscn")
-#	storage = storage_packed.instance()
-#	add_child(storage)
-#
-#	# get stored data
-#	storage.load_data(self)
-#
-#	# testo
-#	print("loaded", global_position)
+# called only by main ship after all blocks and subship blocks have been 
+# recursively loaded in (for ie. io connections across ships)
+func load_systems_after_blocks():
+	
+	print("SHIP LOADING SYSTEMS")
+	
+	# restore data for shipsystems
+	ship_systems.load_systems_data(loaded_data["ship_systems"])
+	
+	for ship in subShips.values(): ship.load_systems_after_blocks() 

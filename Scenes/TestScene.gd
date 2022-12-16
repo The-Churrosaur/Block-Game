@@ -60,11 +60,14 @@ func select_ship(ship):
 	current_ship.modulate = Color(1,0.7,0.7,0.7)
 
 func on_new_ship(ship):
+	
 	add_child(ship)
 	print("CONNECTING SIGNALS ", ship)
 	ship.connect("on_clicked", self, "on_ship_clicked")
 	ship.connect("new_subShip", self, "on_new_subShip")
 	ship.input_pickable = true
+	
+	yield(get_tree().create_timer(0.5), "timeout")
 
 func on_new_subShip(ship, subShip, pinBlock):
 	on_new_ship(subShip)
@@ -129,4 +132,6 @@ func _process(delta):
 			display_block.queue_free()
 			display_block = null
 			block_template = null
-
+	
+	if (Input.is_action_just_pressed("ui_accept")):
+		current_ship.linear_velocity += Vector2(10,0)
