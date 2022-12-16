@@ -78,16 +78,34 @@ func new_cable(sender_port, receiver_port):
 	cable.sender_port = sender_port
 	cable.receiver_port = receiver_port
 	
+	sender_port.cable = cable
+	receiver_port.cable = cable
+	
+	# listen for deletion
+	cable.connect("_cable_cut", self, "_on_cable_cut")
+	
 	cables[cable] = true
 	
 	print("CABLEMANAGER NEW CABLE")
 
 
 func remove_cable(cable):
+	
 	cables.erase(cable)
+	
+	cable.sender_port.cable = null
+	cable.receiver_port.cable = null
+	
+	cable.queue_free()
 
 
 # PRIVATE ----------------------------------------------------------------------
+
+
+# signal listener, listens to cables
+func _on_cable_cut(cable):
+	print("manager heard cable cut request")
+	remove_cable(cable)
 
 
 # -- SAVING LOADING
