@@ -11,6 +11,9 @@ extends ShipBuilderTool
 # FIELDS -----------------------------------------------------------------------
 
 
+# for drawing
+onready var line = $Line2D
+
 # a port has previously been selected, this is that port
 var selected_port = null
 
@@ -22,7 +25,14 @@ func _unhandled_input(event):
 	
 	# cancel
 	if event.is_action_pressed("ui_cancel"):
-		clear_selected_port()
+		_clear_selected_port()
+
+
+func _process(delta):
+	
+	# line
+	_draw_helper_line()
+
 
 
 # PRIVATE ----------------------------------------------------------------------
@@ -90,12 +100,23 @@ func _on_listening_pressed(port : IOPort, block : Block):
 	
 	# cleanup
 	# cleanup drawing
-	clear_selected_port()
+	_clear_selected_port()
 	return
 
 
 # -- HELPERS / UI ENTRY POINTS
 
 
-func clear_selected_port():
+func _draw_helper_line():
+	
+	# draw line
+	if selected_port == null:
+		line.visible = false
+	else:
+		line.visible = true
+		line.set_point_position(0, selected_port.global_position)
+		line.set_point_position(1, get_global_mouse_position())
+
+
+func _clear_selected_port():
 	selected_port = null

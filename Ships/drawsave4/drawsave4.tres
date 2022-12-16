@@ -1,0 +1,83 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PinBlock": true,
+"PortBlockTester": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( -2, -3 ),
+"type": "PortBlockTester"
+}, {
+"block_id": 1,
+"facing": 0,
+"pos": Vector2( 4, -3 ),
+"type": "PortBlockTester"
+}, {
+"block_id": 2,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 1, -1 ),
+"subShip_id": "pin_head",
+"subShip_resource_path": "res://Ships/drawsave4/SubShips/pinhead/pinhead.tres",
+"type": "PinBlock"
+}, {
+"block_id": 3,
+"facing": 0,
+"pos": Vector2( 1, -5 ),
+"type": "PortBlockTester"
+} ]
+ship_data = {
+"displacement": Vector2( -64, 192 ),
+"id": "drawsave4",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 401.0,
+"name": "drawsave4",
+"ship_systems": {
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 4, -3 ),
+"port": "test_in",
+"ship": "drawsave4"
+},
+"sender_port": {
+"block": Vector2( -2, -3 ),
+"port": "test_out",
+"ship": "drawsave4"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -2, -3 ),
+"port": "test_in",
+"ship": "drawsave4"
+},
+"sender_port": {
+"block": Vector2( 4, -3 ),
+"port": "test_out",
+"ship": "drawsave4"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 1, -5 ),
+"port": "test_in",
+"ship": "drawsave4"
+},
+"sender_port": {
+"block": Vector2( 1, 1 ),
+"port": "test_out",
+"ship": "pinhead"
+}
+} ]
+}
+},
+"subShip_counter": 1,
+"subShip_id": 0
+}

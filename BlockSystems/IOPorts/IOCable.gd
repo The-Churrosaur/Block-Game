@@ -26,6 +26,8 @@ func _process(delta):
 	# draw line
 	line.set_point_position(0, to_local(sender_port.global_position))
 	line.set_point_position(1, to_local(receiver_port.global_position))
+	
+#	print(line)
 
 
 # PUBLIC -----------------------------------------------------------------------

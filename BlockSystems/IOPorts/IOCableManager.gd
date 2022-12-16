@@ -71,6 +71,10 @@ func new_cable(sender_port, receiver_port):
 		return 
 	
 	var cable = cable_scene.instance()
+	
+	# TODO should this be somewhere better in the nodetree? 
+	add_child(cable)
+	
 	cable.sender_port = sender_port
 	cable.receiver_port = receiver_port
 	
