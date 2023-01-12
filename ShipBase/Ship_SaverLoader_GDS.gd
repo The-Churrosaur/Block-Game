@@ -176,6 +176,10 @@ func load_ship(	ship_base : RigidBody2D,
 		
 		# block, pos, facing, check collision, check com
 		grid.add_block(block, pos, facing, false, false)
+		
+		# RESTORE BLOCK DATA
+		
+		block.load_saved_data(block_dict)
 	
 	# HANDLE SHIP SAVE DATA
 	

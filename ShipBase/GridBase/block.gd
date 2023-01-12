@@ -130,7 +130,11 @@ func get_save_data() -> Dictionary :
 	
 	return dict
 
-# TODO should I do a load_saved_data ala shipbody?
+
+# called by loader returns saved dict
+func load_saved_data(dict : Dictionary):
+	
+	pass
 
 # depreciatedish below here
 #func on_save_blocks(folder, ship_folder):

@@ -1,0 +1,121 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PortInputBlock": true,
+"ThrusterBlockPorts": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( 2, -2 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 5,
+"facing": 0,
+"pos": Vector2( 2, 0 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 9,
+"facing": 2,
+"pos": Vector2( 2, -5 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 10,
+"facing": 2,
+"pos": Vector2( 2, -3 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 12,
+"facing": 1,
+"pos": Vector2( 6, -3 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 13,
+"facing": 1,
+"pos": Vector2( 6, -2 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 17,
+"facing": 3,
+"pos": Vector2( -2, -3 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 18,
+"facing": 3,
+"pos": Vector2( -2, -2 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 19,
+"facing": 3,
+"pos": Vector2( 0, -2 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 20,
+"facing": 3,
+"pos": Vector2( 4, -2 ),
+"type": "PortInputBlock"
+} ]
+ship_data = {
+"displacement": Vector2( -128, 153 ),
+"id": "firstship",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 1001.0,
+"name": "firstship",
+"ship_systems": {
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 2, 0 ),
+"port": "fire_thruster",
+"ship": "firstship"
+},
+"sender_port": {
+"block": Vector2( 2, -2 ),
+"port": "key_out",
+"ship": "firstship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 2, -5 ),
+"port": "fire_thruster",
+"ship": "firstship"
+},
+"sender_port": {
+"block": Vector2( 2, -3 ),
+"port": "key_out",
+"ship": "firstship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -2, -2 ),
+"port": "fire_thruster",
+"ship": "firstship"
+},
+"sender_port": {
+"block": Vector2( 0, -2 ),
+"port": "key_out",
+"ship": "firstship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 6, -2 ),
+"port": "fire_thruster",
+"ship": "firstship"
+},
+"sender_port": {
+"block": Vector2( 4, -2 ),
+"port": "key_out",
+"ship": "firstship"
+}
+} ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": 0
+}

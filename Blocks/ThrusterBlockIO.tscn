@@ -9,27 +9,12 @@ script = ExtResource( 2 )
 class_type = "ThrusterBlock"
 tile_id = 3
 io_box_path = NodePath("IOBox")
+magnitude = 10
 flame_sprite = NodePath("FlameSprite")
 
 [node name="IOBox" parent="." index="3"]
 initial_inputs = [ {
 "name": "Fire Thruster",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-}, {
-"name": "",
-"value": 0.0
-} ]
-initial_outputs = [ {
-"name": "",
 "value": 0.0
 }, {
 "name": "",

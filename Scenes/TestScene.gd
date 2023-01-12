@@ -133,5 +133,5 @@ func _process(delta):
 			display_block = null
 			block_template = null
 	
-	if (Input.is_action_just_pressed("ui_accept")):
-		current_ship.linear_velocity += Vector2(10,0)
+#	if (Input.is_action_just_pressed("ui_accept")):
+#		current_ship.linear_velocity += Vector2(10,0)
