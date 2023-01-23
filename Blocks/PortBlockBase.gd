@@ -7,7 +7,9 @@ extends Block
 # FIELDS ----------------------------------------------------------------------
 
 
+export var port_manager_path : NodePath = "BlockSystems/PortManager"
 
+onready var port_manager = get_node(port_manager_path)
 
 
 # CALLBACKS --------------------------------------------------------------------
@@ -30,7 +32,12 @@ func _process(delta):
 # PRIVATE ----------------------------------------------------------------------
 
 
-
+# tell manager to cut all cables on removal
+func on_removed_from_grid(center_grid_coord, block, grid):
+	.on_removed_from_grid(center_grid_coord, block, grid)
+	
+	var ports = port_manager.get_ports()
+	for port in ports: port.cut_cable()
 
 
 # -- SUBSECTION

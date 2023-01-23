@@ -6,6 +6,7 @@
 
 [node name="PortInputBlock" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+mass = 10
 class_type = "PortInputBlock"
 line_path = NodePath("Node2D/VBoxContainer/LineEdit")
 port_path = NodePath("BlockSystems/PortManager/IOPort")

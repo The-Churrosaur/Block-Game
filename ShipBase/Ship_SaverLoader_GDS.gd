@@ -154,6 +154,9 @@ func load_ship(	ship_base : RigidBody2D,
 		
 		# instance block from resources
 		var block_name = block_dict["type"]
+		
+		assert(block_name != "Block", "Block subtype is default, rename block")
+		
 		var block = block_factory[block_name].instance()
 		
 		# add all keys as fields back to block 

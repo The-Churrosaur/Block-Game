@@ -6,6 +6,7 @@
 script = ExtResource( 1 )
 block_types = {
 "PortInputBlock": true,
+"PortSplitterBlock": true,
 "ThrusterBlockPorts": true
 }
 blocks = [ {
@@ -52,60 +53,135 @@ blocks = [ {
 "facing": 1,
 "pos": Vector2( 2, -2 ),
 "type": "ThrusterBlockPorts"
+}, {
+"block_id": 8,
+"facing": 0,
+"input_string": "ui_rotate_left",
+"pos": Vector2( 3, -1 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 9,
+"facing": 0,
+"input_string": "ui_rotate_right",
+"pos": Vector2( 5, -1 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 10,
+"facing": 0,
+"pos": Vector2( 3, -3 ),
+"type": "PortSplitterBlock"
+}, {
+"block_id": 11,
+"facing": 0,
+"pos": Vector2( 5, -3 ),
+"type": "PortSplitterBlock"
+}, {
+"block_id": 12,
+"facing": 1,
+"pos": Vector2( 2, -4 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 13,
+"facing": 1,
+"pos": Vector2( 2, 0 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 14,
+"facing": 3,
+"pos": Vector2( 6, -4 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 15,
+"facing": 3,
+"pos": Vector2( 6, 0 ),
+"type": "ThrusterBlockPorts"
 } ]
 ship_data = {
-"displacement": Vector2( -255, 128 ),
-"id": "crossship",
+"displacement": Vector2( -256, 128 ),
+"id": "rotatoship",
 "io_connections": {
 },
 "is_subShip": false,
-"mass": 80.0,
-"name": "crossship",
+"mass": 160.0,
+"name": "rotatoship",
 "ship_systems": {
 "io_cable_manager": {
 "cables": [ {
 "receiver_port": {
 "block": Vector2( 4, -4 ),
 "port": "fire_thruster",
-"ship": "crossship"
+"ship": "rotatoship"
 },
 "sender_port": {
 "block": Vector2( 4, -3 ),
 "port": "key_out",
-"ship": "crossship"
+"ship": "rotatoship"
 }
 }, {
 "receiver_port": {
 "block": Vector2( 6, -2 ),
 "port": "fire_thruster",
-"ship": "crossship"
+"ship": "rotatoship"
 },
 "sender_port": {
 "block": Vector2( 5, -2 ),
 "port": "key_out",
-"ship": "crossship"
+"ship": "rotatoship"
 }
 }, {
 "receiver_port": {
 "block": Vector2( 4, 0 ),
 "port": "fire_thruster",
-"ship": "crossship"
+"ship": "rotatoship"
 },
 "sender_port": {
 "block": Vector2( 4, -1 ),
 "port": "key_out",
-"ship": "crossship"
+"ship": "rotatoship"
 }
 }, {
 "receiver_port": {
 "block": Vector2( 2, -2 ),
 "port": "fire_thruster",
-"ship": "crossship"
+"ship": "rotatoship"
 },
 "sender_port": {
 "block": Vector2( 3, -2 ),
 "port": "key_out",
-"ship": "crossship"
+"ship": "rotatoship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 3, -3 ),
+"port": "split_in",
+"ship": "rotatoship"
+},
+"sender_port": {
+"block": Vector2( 3, -1 ),
+"port": "key_out",
+"ship": "rotatoship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 5, -3 ),
+"port": "split_in",
+"ship": "rotatoship"
+},
+"sender_port": {
+"block": Vector2( 5, -1 ),
+"port": "key_out",
+"ship": "rotatoship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 6, -4 ),
+"port": "fire_thruster",
+"ship": "rotatoship"
+},
+"sender_port": {
+"block": Vector2( 3, -3 ),
+"port": "split_out_1",
+"ship": "medalship"
 }
 } ]
 }

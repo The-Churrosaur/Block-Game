@@ -1,5 +1,5 @@
 class_name PinBlockBase
-extends IOBlock
+extends PortBlockBase
 
 # spawns subship and pins when added to grid
 # saves location of ship resource

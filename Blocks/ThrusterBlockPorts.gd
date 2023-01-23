@@ -48,7 +48,7 @@ func on_added_to_grid(center_coord, block, grid):
 
 
 func fire_thruster():
-	var force = Vector2.UP.rotated(rotation) * magnitude
+	var force = Vector2.UP.rotated(global_rotation) * magnitude
 	emit_signal("emit_force", position, force, false)
 
 

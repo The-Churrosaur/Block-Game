@@ -56,7 +56,7 @@ func load_data(dict):
 	.load_data(dict)
 	
 	for cable in dict["cables"]:
-		print("CABLE MANAGER LOADING CABLE: ", cable)
+#		print("CABLE MANAGER LOADING CABLE: ", cable)
 		_new_from_address(cable)
 
 
@@ -86,7 +86,7 @@ func new_cable(sender_port, receiver_port):
 	
 	cables[cable] = true
 	
-	print("CABLEMANAGER NEW CABLE")
+#	print("CABLEMANAGER NEW CABLE")
 
 
 func remove_cable(cable):
@@ -115,12 +115,12 @@ func _on_cable_cut(cable):
 # takes cable dict
 func _new_from_address(dict):
 	
-	print("CABLEMANAGER PORT ADDRESSES: ", dict["sender_port"])
+#	print("CABLEMANAGER PORT ADDRESSES: ", dict["sender_port"])
 	
 	var sender_port = _get_port(dict["sender_port"])
 	var receiver_port = _get_port(dict["receiver_port"])
 	
-	print("CABLEMANAGER PORTS FROM ADDRESS: ", sender_port, ", ", receiver_port)
+#	print("CABLEMANAGER PORTS FROM ADDRESS: ", sender_port, ", ", receiver_port)
 	
 	new_cable(sender_port, receiver_port)
 
@@ -128,16 +128,16 @@ func _new_from_address(dict):
 # from port address dict
 func _get_port(dict):
 	
-	print ("CBM SHIPBODY: ", shipBody)
-	print ("CBM PORT SHIP ID: ", dict["ship"])
+#	print ("CBM SHIPBODY: ", shipBody)
+#	print ("CBM PORT SHIP ID: ", dict["ship"])
 	var ship = shipBody.get_ship_in_tree(dict["ship"])
-	print("PORT SHIP FOUND: ", ship)
+#	print("PORT SHIP FOUND: ", ship)
 	if ship == null: return null
 	
-	print ("CBM BLOCK: ", dict["block"])
-	print (ship.grid.block_dict)
+#	print ("CBM BLOCK: ", dict["block"])
+#	print (ship.grid.block_dict)
 	var block = ship.get_block(dict["block"])
-	print("CBM BLOCK: ", block)
+#	print("CBM BLOCK: ", block)
 	if block == null: return null
 	
 	var port_manager = block.block_systems_manager.get_system("port_manager")

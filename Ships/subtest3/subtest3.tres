@@ -16,3 +16,4 @@ blocks = [ {
 "subShip_resource_path": "res://Ships/subtest3/SubShips/ShipBody/ShipBody.tres",
 "type": "PinBlock"
 } ]
+gridDisplacement = Vector2( 0, 0 )

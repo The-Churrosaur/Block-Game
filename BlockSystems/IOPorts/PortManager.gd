@@ -38,6 +38,13 @@ func get_port(port : String):
 	return null
 
 
+# get all ports
+func get_ports() -> Array:
+	var array = []
+	for port in ports.values() : array.append(port)
+	return array
+
+
 # call this when port tool is selected
 # TODO track state and toggle
 func tool_selected():

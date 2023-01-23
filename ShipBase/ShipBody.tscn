@@ -1,14 +1,15 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://ShipBase/ShipBody.gd" type="Script" id=1]
 [ext_resource path="res://ShipBase/GridBase/GridBase.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ShipBase/ShipInfo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ShipBase/Depreciated/ShipInfo.tscn" type="PackedScene" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
 [ext_resource path="res://ShipBase/Depreciated/ShipBase_Storage.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ShipBase/ShipTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://BlockSystems/IO/IOManager.tscn" type="PackedScene" id=7]
 [ext_resource path="res://ShipBase/ShipSystemsManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://BlockSystems/IOPorts/IOCableManager.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ShipBase/BumpDetector.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -46,5 +47,8 @@ shape = SubResource( 1 )
 shipBody_path = NodePath("..")
 
 [node name="IOCableManager" parent="ShipSystems" instance=ExtResource( 9 )]
+
+[node name="BumpDetector" parent="." instance=ExtResource( 10 )]
+ship_path = NodePath("..")
 
 [editable path="GridBase"]

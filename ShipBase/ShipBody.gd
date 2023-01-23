@@ -75,6 +75,7 @@ var subShip_counter = 0
 var loaded_data : Dictionary
 
 
+
 func _ready():
 	
 	print("NEW SHIP READY")
@@ -295,7 +296,6 @@ func post_load_block_setup():
 
 
 func on_force_requested(pos, magnitude, central = false):
-	print("force requested")
 	if central:
 		apply_central_impulse(magnitude)
 	else:
@@ -317,6 +317,8 @@ func on_body_shape_entered (body_id, body, body_shape, local_shape):
 #
 #	# notify block
 #	block.ship_body_entered(body, pos)
+
+	print("SHIPBODY SHAPE ENTERED ", body)
 	
 	pass
 

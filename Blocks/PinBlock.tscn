@@ -14,7 +14,6 @@ extents = Vector2( 32, 32 )
 script = ExtResource( 2 )
 class_type = "PinBlock"
 block_systems_manager_path = NodePath("BlockSystems")
-io_box_path = NodePath("IOBox")
 default_subShip_resource = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]

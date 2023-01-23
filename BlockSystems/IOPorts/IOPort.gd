@@ -72,6 +72,13 @@ func tool_deselected():
 	select_button.visible = false
 
 
+# cuts cable if there is one
+func cut_cable():
+	if !cable : return false
+	cable.cut_cable()
+	return true
+
+
 # for testing purposes rn
 func set_label(text):
 	label2.text = text

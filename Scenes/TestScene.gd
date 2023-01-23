@@ -8,9 +8,11 @@ onready var io_tool = $IOPicker
 onready var selector_tool = $ShipSelector
 onready var cable_tool = $IOCableTool
 
-onready var io_tool_button = $MarginContainer/VBoxContainer/HBoxContainer/IOToolButton
-onready var selector_tool_button = $MarginContainer/VBoxContainer/HBoxContainer/SelectorButton
-onready var cable_tool_button = $MarginContainer/VBoxContainer/HBoxContainer/CableToolButton
+onready var io_tool_button = $CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/IOToolButton
+onready var selector_tool_button = $CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/SelectorButton
+onready var cable_tool_button = $CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/CableToolButton
+
+onready var camera = $CameraBase
 
 var subShip = 0
 var block_facing = 0
@@ -59,13 +61,20 @@ func select_ship(ship):
 	# color new ship
 	current_ship.modulate = Color(1,0.7,0.7,0.7)
 
-func on_new_ship(ship):
+func on_new_ship(ship : RigidBody2D):
 	
 	add_child(ship)
 	print("CONNECTING SIGNALS ", ship)
 	ship.connect("on_clicked", self, "on_ship_clicked")
 	ship.connect("new_subShip", self, "on_new_subShip")
 	ship.input_pickable = true
+	
+	ship.mode = RigidBody2D.MODE_KINEMATIC
+	
+	select_ship(ship)
+	camera.set_target(ship)
+	
+#	ship.rotation = PI
 	
 	yield(get_tree().create_timer(0.5), "timeout")
 

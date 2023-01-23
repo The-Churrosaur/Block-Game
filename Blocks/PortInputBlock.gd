@@ -36,7 +36,7 @@ func _input(event):
 	
 	if input_string == null: return
 	
-	print(input_string)
+#	print(input_string)
 	
 	if event.is_action_pressed(input_string):
 		port.data = 100

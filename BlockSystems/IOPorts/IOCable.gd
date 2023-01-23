@@ -46,17 +46,18 @@ func send_data():
 	_line_color(sender_port.data)
 
 
+# requests cut cable
+func cut_cable():
+	emit_signal("_cable_cut", self)
+
+
 # PRIVATE ----------------------------------------------------------------------
 
 
 # manages the button, tempish
 func _on_button():
 	print("button pressed")
-	_cut_cable()
-
-# requests cut cable
-func _cut_cable():
-	emit_signal("_cable_cut", self)
+	cut_cable()
 
 
 # -- DRAWING

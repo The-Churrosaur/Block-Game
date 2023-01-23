@@ -1,0 +1,225 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"Block": true,
+"PortInputBlock": true,
+"PortSplitterBlock": true,
+"ThrusterBlockPorts": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"input_string": "ui_up",
+"pos": Vector2( 4, -1 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 1,
+"facing": 0,
+"input_string": "ui_right",
+"pos": Vector2( 3, -2 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 2,
+"facing": 0,
+"input_string": "ui_left",
+"pos": Vector2( 5, -2 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 3,
+"facing": 0,
+"input_string": "ui_down",
+"pos": Vector2( 4, -3 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 4,
+"facing": 0,
+"pos": Vector2( 4, 0 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 5,
+"facing": 2,
+"pos": Vector2( 4, -4 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 6,
+"facing": 3,
+"pos": Vector2( 6, -2 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 7,
+"facing": 1,
+"pos": Vector2( 2, -2 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 8,
+"facing": 0,
+"pos": Vector2( 3, -3 ),
+"type": "PortSplitterBlock"
+}, {
+"block_id": 9,
+"facing": 0,
+"pos": Vector2( 5, -1 ),
+"type": "PortSplitterblock"
+}, {
+"block_id": 10,
+"facing": 0,
+"input_string": "ui_rotate_left",
+"pos": Vector2( 3, -1 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 11,
+"facing": 0,
+"input_string": "ui_rotate_right",
+"pos": Vector2( 5, -3 ),
+"type": "PortInputBlock"
+}, {
+"block_id": 12,
+"facing": 1,
+"pos": Vector2( 2, -4 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 13,
+"facing": 1,
+"pos": Vector2( 2, 0 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 14,
+"facing": 3,
+"pos": Vector2( 6, -4 ),
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 15,
+"facing": 3,
+"pos": Vector2( 6, 0 ),
+"type": "ThrusterBlockPorts"
+} ]
+ship_data = {
+"displacement": Vector2( -256, 128 ),
+"id": "squareship",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 70.0,
+"name": "squareship",
+"ship_systems": {
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 4, -4 ),
+"port": "fire_thruster",
+"ship": "squareship"
+},
+"sender_port": {
+"block": Vector2( 4, -3 ),
+"port": "key_out",
+"ship": "squareship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 6, -2 ),
+"port": "fire_thruster",
+"ship": "squareship"
+},
+"sender_port": {
+"block": Vector2( 5, -2 ),
+"port": "key_out",
+"ship": "squareship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 4, 0 ),
+"port": "fire_thruster",
+"ship": "squareship"
+},
+"sender_port": {
+"block": Vector2( 4, -1 ),
+"port": "key_out",
+"ship": "squareship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 2, -2 ),
+"port": "fire_thruster",
+"ship": "squareship"
+},
+"sender_port": {
+"block": Vector2( 3, -2 ),
+"port": "key_out",
+"ship": "squareship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 3, -3 ),
+"port": "split_in",
+"ship": "squareship"
+},
+"sender_port": {
+"block": Vector2( 3, -1 ),
+"port": "key_out",
+"ship": "squareship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 2, 0 ),
+"port": "fire_thruster",
+"ship": "squareship"
+},
+"sender_port": {
+"block": Vector2( 3, -3 ),
+"port": "split_out_two",
+"ship": "squareship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 6, -4 ),
+"port": "fire_thruster",
+"ship": "squareship"
+},
+"sender_port": {
+"block": Vector2( 3, -3 ),
+"port": "split_out_1",
+"ship": "squareship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 5, -1 ),
+"port": "split_in",
+"ship": "squareship"
+},
+"sender_port": {
+"block": Vector2( 5, -3 ),
+"port": "key_out",
+"ship": "squareship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 2, -4 ),
+"port": "fire_thruster",
+"ship": "squareship"
+},
+"sender_port": {
+"block": Vector2( 5, -1 ),
+"port": "split_out_1",
+"ship": "squareship"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 6, 0 ),
+"port": "fire_thruster",
+"ship": "squareship"
+},
+"sender_port": {
+"block": Vector2( 5, -1 ),
+"port": "split_out_two",
+"ship": "squareship"
+}
+} ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": 0
+}

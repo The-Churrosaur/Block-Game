@@ -3,10 +3,7 @@ extends PinBlockBase
 func _ready():
 	pass
 
-func test_connect():
-	if shipBody:
-		shipBody.io_manager.add_connection(center_grid_coord, 0, center_grid_coord, 1)
-		shipBody.io_manager.add_connection(center_grid_coord, 1, center_grid_coord, 0)
+
 
 func _physics_process(delta):
 	if subShip:
