@@ -128,13 +128,21 @@ func get_save_data() -> Dictionary :
 	dict["facing"] = block_facing  # special name key for resource
 	dict["block_id"] = block_id
 	
+	# get data from system manager 
+	if block_systems_manager:
+		dict["systems"] = block_systems_manager.get_save_data()
+	
 	return dict
 
 
 # called by loader returns saved dict
+# called after block is initialized
 func load_saved_data(dict : Dictionary):
 	
-	pass
+	# pass data back to systems manager
+	if block_systems_manager:
+		block_systems_manager.load_saved_data(dict["systems"])
+
 
 # depreciatedish below here
 #func on_save_blocks(folder, ship_folder):

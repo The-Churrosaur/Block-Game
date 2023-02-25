@@ -13,4 +13,16 @@ export var system_id : String
 var block = null
 
 
+# -- LOADING AND SAVING
+# -- called by manager, called by block, saves to block data
+
+
+# override me
+func get_save_data() -> Dictionary:
+	return {}
+
+
+# also override me
+func load_saved_data(dict : Dictionary):
+	pass
 

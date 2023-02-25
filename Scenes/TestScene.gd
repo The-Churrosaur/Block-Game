@@ -7,6 +7,7 @@ onready var test_grid
 onready var io_tool = $IOPicker
 onready var selector_tool = $ShipSelector
 onready var cable_tool = $IOCableTool
+onready var fuel_tool = $FuelCableTool
 
 onready var io_tool_button = $CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/IOToolButton
 onready var selector_tool_button = $CanvasLayer/MarginContainer/VBoxContainer/HBoxContainer/SelectorButton
@@ -88,8 +89,9 @@ func setup_tools():
 	selector_tool.setup(self)
 	selector_tool.connect("new_ship_selected", self, "on_selector_new_ship")
 	cable_tool.setup(self)
-	
 	cable_tool.active = true
+	fuel_tool.setup(self)
+	fuel_tool.active = true
 
 func on_selector_new_ship(ship):
 	select_ship(ship)

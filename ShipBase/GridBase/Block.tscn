@@ -21,3 +21,4 @@ shape = SubResource( 1 )
 [node name="Block_Storage" parent="." instance=ExtResource( 3 )]
 
 [node name="BlockSystems" parent="." instance=ExtResource( 4 )]
+block_path = null

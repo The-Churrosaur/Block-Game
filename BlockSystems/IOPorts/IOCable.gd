@@ -12,6 +12,9 @@ signal _cable_cut(cable)
 # visual line
 onready var line = $Line2D
 
+onready var segment_1 = $Area2D/SegmentShape1
+onready var segment_2 = $Area2D/SegmentShape2
+
 # temp
 onready var button = $Button
 
@@ -75,10 +78,35 @@ func _set_lines():
 	
 	# draw line
 	line.set_point_position(0, to_local(send_pos))
-	line.set_point_position(1, to_local(joint))
-	line.set_point_position(2, to_local(receive_pos))
+	line.set_point_position(2, to_local(joint))
+	line.set_point_position(4, to_local(receive_pos))
+	
+	# set segments
+	
+	
+	
+	# check collisions and set elbows
+	
+	var colliding = _check_collisions()
+	
+	if colliding.empty(): 
+		line.set_point_position(1, to_local(send_pos))
+		line.set_point_position(3, to_local(receive_pos))
+	
+	else:
+		pass
 	
 	button.set_global_position(joint) 
+
+
+# returns colliding cables
+func _check_collisions() -> Array:
+	
+	var colliding = []
+	
+	return colliding
+	
+	
 
 
 # for fun

@@ -1,7 +1,7 @@
 class_name ShipBuilderTool
 extends Node2D
 
-onready var active = false
+export var active = false
 
 var scene = null
 

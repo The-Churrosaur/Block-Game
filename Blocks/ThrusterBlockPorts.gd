@@ -1,5 +1,5 @@
 
-# 
+# thruster triggered by port
 class_name ThrusterBlockPorts
 extends PortBlockBase
 
