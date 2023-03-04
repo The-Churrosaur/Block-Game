@@ -124,6 +124,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://BlockSystems/FuelPorts/FuelTankGauge.gd"
 }, {
+"base": "BlockSystem",
+"class": "FuelTankManager",
+"language": "GDScript",
+"path": "res://BlockSystems/FuelPorts/FuelTankManager.gd"
+}, {
+"base": "PortBlockBase",
+"class": "FuelTestBlock",
+"language": "GDScript",
+"path": "res://Blocks/FuelTestBlock.gd"
+}, {
 "base": "Reference",
 "class": "GrappleGun",
 "language": "GDScript",
@@ -463,6 +473,8 @@ _global_script_class_icons={
 "FuelPortManager": "",
 "FuelTank": "",
 "FuelTankGauge": "",
+"FuelTankManager": "",
+"FuelTestBlock": "",
 "GrappleGun": "",
 "GravityArea": "",
 "Grenade": "",

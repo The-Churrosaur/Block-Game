@@ -4,6 +4,8 @@
 
 [node name="FuelCableTool" type="Node2D"]
 script = ExtResource( 1 )
+port_system_id = "fuel_port_manager"
+cable_system_id = "fuel_cable_manager"
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 0, 0 )

@@ -13,7 +13,7 @@ extends IOCable
 # FIELDS -----------------------------------------------------------------------
 
 
-export var resistance = 20.5
+export var resistance = 3
 
 
 # CALLBACKS --------------------------------------------------------------------
@@ -24,8 +24,8 @@ func _ready():
 	
 	# double check ports are fuelports
 	# should hopefully be caught by tool already
-	if !(sender_port is FuelPort) or !(receiver_port is FuelPort):
-		assert(false, "Fuel Cable not attached to fuelports")
+	var not_fuel = !(sender_port is FuelPort) or !(receiver_port is FuelPort)
+	assert(not_fuel, "Fuel Cable not attached to fuelports")
 
 
 # PUBLIC -----------------------------------------------------------------------
@@ -33,6 +33,12 @@ func _ready():
 
 # overriding send_data to calculate and send fuel
 func send_data():
+	
+	# check null
+	if (receiver_port == null) or (sender_port == null): return 
+	
+	# check active
+	if !(receiver_port.is_active) or !(sender_port.is_active): return
 	
 	var p1 = sender_port.get_tank_pressure()
 	var p2 = receiver_port.get_tank_pressure()
@@ -43,10 +49,11 @@ func send_data():
 	# positive: sender->receiver
 	# negative: reciever->sender
 	
-	if flow > 0: 
-		receiver_port.add_tank_fuel(flow)
-	elif flow < 0:
-		sender_port.add_tank_fuel(flow)
+#	print("FUEL CABLE SENDING DATA: ", flow, " ", self)
+	
+	# being cute and using the sign for directionality
+	sender_port.add_tank_fuel(-flow)
+	receiver_port.add_tank_fuel(flow)
 	
 	# color by flow
 	_line_color(flow)

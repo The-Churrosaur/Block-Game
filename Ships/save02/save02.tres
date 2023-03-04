@@ -1,0 +1,60 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PortInputBlock": true,
+"ThrusterBlockPorts": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( -3, -3 ),
+"systems": {
+"port_manager": {
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"block_id": 1,
+"facing": 0,
+"input_string": "ui_up",
+"pos": Vector2( -1, -4 ),
+"systems": {
+"port_manager": {
+}
+},
+"type": "PortInputBlock"
+} ]
+ship_data = {
+"displacement": Vector2( 122, 214 ),
+"id": "save02",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 21.0,
+"name": "save02",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( -3, -3 ),
+"port": "fire_thruster",
+"ship": "save02"
+},
+"sender_port": {
+"block": Vector2( -1, -4 ),
+"port": "key_out",
+"ship": "save02"
+}
+} ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": 0
+}

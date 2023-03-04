@@ -11,6 +11,12 @@ extends ShipBuilderTool
 # FIELDS -----------------------------------------------------------------------
 
 
+# asks blocksystem manger for port system
+export var port_system_id = "port_manager"
+
+# asks shipsystem manager for cable system
+export var cable_system_id = "io_cable_manager"
+
 # for drawing
 onready var line = $Line2D
 
@@ -51,10 +57,10 @@ func on_ship_reported_clicked(ship, block):
 	# TODO blocks should all inherit or something
 	var systems_manager = block.block_systems_manager
 	if systems_manager == null: return
-	var port_manager = systems_manager.get_system("port_manager")
+	var port_manager = systems_manager.get_system(port_system_id)
 	if port_manager == null: return
 	
-	print("CABLETOOL ACTIVATING BLOCK PORTS")
+	print("CABLETOOL ACTIVATING BLOCK PORTS: ", block)
 	
 	# listen for ports on this block	
 	port_manager.connect("port_button_pressed", self, "_on_listening_pressed")
@@ -81,7 +87,7 @@ func _on_listening_pressed(port : IOPort, block : Block):
 	# get port's ship's cablemanger
 	var ship = block.shipBody
 	var cable_manager : IOCableManager 
-	cable_manager = ship.ship_systems.get_system("io_cable_manager")
+	cable_manager = ship.ship_systems.get_system(cable_system_id)
 	
 	# call connection
 	

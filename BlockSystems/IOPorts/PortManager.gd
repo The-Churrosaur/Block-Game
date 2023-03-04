@@ -28,6 +28,16 @@ func _ready():
 			# setup
 			child.connect("port_button_pressed", self, "_on_port_button")
 			child.manager = self
+		
+			# FORWARDS COMPATIBILITY: also puts ports into elements{} and paths
+			# get_element, get_elements, save data etc. should work
+			
+			var id = child.port_id
+			if !elements.has(id):
+				elements[id] = child
+			var path = get_path_to(child)
+			if !element_paths.has(path):
+				element_paths.append(path)
 
 
 # PUBLIC -----------------------------------------------------------------------
@@ -48,6 +58,8 @@ func get_ports() -> Array:
 # call this when port tool is selected
 # TODO track state and toggle
 func tool_selected():
+	
+	print("portmanager, tool selected, ports: ", ports)
 	
 	for port in ports.values():
 		port.tool_selected()

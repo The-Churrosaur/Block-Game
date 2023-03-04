@@ -11,6 +11,9 @@ extends ShipSystem
 # resource for instantiation
 export var cable_scene : PackedScene
 
+# asks blocksystems for port manager
+export var port_system_id = "port_manager"
+
 
 # holds the cable objects
 # cable -> bool
@@ -56,7 +59,7 @@ func load_data(dict):
 	.load_data(dict)
 	
 	for cable in dict["cables"]:
-#		print("CABLE MANAGER LOADING CABLE: ", cable)
+		print("CABLE MANAGER LOADING CABLE: ", cable)
 		_new_from_address(cable)
 
 
@@ -86,7 +89,7 @@ func new_cable(sender_port, receiver_port):
 	
 	cables[cable] = true
 	
-#	print("CABLEMANAGER NEW CABLE")
+	print("CABLEMANAGER NEW CABLE")
 
 
 func remove_cable(cable):
@@ -140,7 +143,7 @@ func _get_port(dict):
 #	print("CBM BLOCK: ", block)
 	if block == null: return null
 	
-	var port_manager = block.block_systems_manager.get_system("port_manager")
+	var port_manager = block.block_systems_manager.get_system(port_system_id)
 	return port_manager.get_port(dict["port"])
 
 

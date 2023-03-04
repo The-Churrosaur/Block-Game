@@ -1,0 +1,62 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"FuelTestBlock": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( -4, -2 ),
+"systems": {
+"fuel_port_manager": {
+},
+"port_manager": {
+}
+},
+"type": "FuelTestBlock"
+}, {
+"block_id": 1,
+"facing": 0,
+"pos": Vector2( -2, -3 ),
+"systems": {
+"fuel_port_manager": {
+},
+"port_manager": {
+}
+},
+"type": "FuelTestBlock"
+} ]
+ship_data = {
+"displacement": Vector2( 191, 159 ),
+"id": "fuel03",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 201.0,
+"name": "fuel03",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( -4, -2 ),
+"port": "FuelPort1",
+"ship": "fuel03"
+},
+"sender_port": {
+"block": Vector2( -2, -3 ),
+"port": "FuelPort1",
+"ship": "fuel03"
+}
+} ]
+},
+"io_cable_manager": {
+"cables": [  ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": 0
+}

@@ -20,3 +20,16 @@ extends IOCableManager
 # PUBLIC -----------------------------------------------------------------------
 
 
+func save_data():
+	var dict = .save_data()
+	print("FUELCABLEMANAGER SAVING: ", dict)
+	return dict
+
+func load_data(dict):
+	print("FUELCABLEMANAGER LOADING: ", dict)
+	.load_data(dict)
+
+
+# PRIVATE ----------------------------------------------------------------------
+
+

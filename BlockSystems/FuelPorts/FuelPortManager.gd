@@ -12,23 +12,19 @@ extends PortManager
 
 # CALLBACKS --------------------------------------------------------------------
 
-
-# only hold fuelports instead of all ioports
 func _ready():
+	._ready()
 	
-	# get children as ports and set up ports
-	for child in get_children():
-		if child is FuelPort:
-			ports[child.port_id] = child
-			
-			# setup
-			child.connect("port_button_pressed", self, "_on_port_button")
-			child.manager = self
+	print("fuelports: ", ports)
 
 
 # PUBLIC -----------------------------------------------------------------------
 
 
+func tool_selected():
+	.tool_selected()
+	
+	print("fuelport: tool selected. ports: ", ports)
 
 
 # PRIVATE ----------------------------------------------------------------------

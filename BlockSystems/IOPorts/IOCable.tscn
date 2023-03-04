@@ -24,6 +24,9 @@ margin_top = -10.0
 margin_right = 14.0
 margin_bottom = 10.0
 text = "[X]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Area2D" type="Area2D" parent="."]
 

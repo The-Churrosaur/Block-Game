@@ -26,6 +26,9 @@ export var port_display_name : String = port_id
 export var is_input = false
 export var is_output = false
 
+# port is functional
+export var is_active = true 
+
 # the data associated with this port
 onready var data = 0.0
 
@@ -65,6 +68,7 @@ func _ready():
 # called by manager when selection tool is activated
 
 func tool_selected():
+	print("port: tool selected")
 	select_button.visible = true
 
 
@@ -82,6 +86,25 @@ func cut_cable():
 # for testing purposes rn
 func set_label(text):
 	label2.text = text
+
+
+# -- LOADING/SAVING 
+# -- called by manager
+
+func get_save_data() -> Dictionary:
+	
+	var dict = {}
+	
+	dict["text"] = label2.text
+	dict["active"] = is_active
+	
+	return dict
+
+
+func load_saved_data(dict):
+#	print("port loading saved data: ", dict["text"])
+	set_label(dict["text"])
+	is_active = dict["active"]
 
 
 # PRIVATE ----------------------------------------------------------------------

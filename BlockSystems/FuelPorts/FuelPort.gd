@@ -40,6 +40,13 @@ func get_tank_pressure() -> float:
 	return fuel_tank.get_pressure()
 
 
+# -- LOADING/SAVING
+# -- called by manager
+
+func get_saved_data() -> Dictionary:
+	return .get_saved_data()
+
+
 # PRIVATE ----------------------------------------------------------------------
 
 

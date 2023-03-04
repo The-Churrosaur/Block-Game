@@ -25,6 +25,9 @@ margin_top = -14.0
 margin_right = 20.0
 text = "PORT"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Area2D" type="Area2D" parent="."]
 

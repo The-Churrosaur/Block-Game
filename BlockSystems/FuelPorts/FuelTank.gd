@@ -13,8 +13,11 @@ extends Node2D
 
 # -- SIGNALS
 
-signal fuel_level_changed(new_amount, new_pressure)
+signal fuel_amount_changed(new_amount, new_pressure)
 
+
+# system id
+export var fuel_tank_id : String
 
 export var volume : float
 export var max_pressure : float
@@ -53,6 +56,25 @@ func get_pressure() -> float:
 	return pressure
 
 
+# -- LOADING SAVING
+# -- called by blocksystem
+
+
+func get_save_data() -> Dictionary:
+	
+	var dict = {}
+	
+	dict["amount"] = gas_amount
+	dict["pressure"] = pressure
+	
+	return dict
+
+func load_saved_data(dict):
+	
+	gas_amount = dict["amount"]
+	pressure = dict["pressure"]
+
+
 # PRIVATE ----------------------------------------------------------------------
 
 
@@ -62,6 +84,8 @@ func _set_gas_pressure(amount : float):
 	
 	# mass / volume 
 	pressure = gas_amount / volume
+	
+#	print("gas set: ", amount, " pressure: ", pressure, " max: ", max_pressure)
 	
 	emit_signal("fuel_amount_changed", gas_amount, pressure)
 

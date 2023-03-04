@@ -28,6 +28,9 @@ func _ready():
 	# listen for tank changes
 	fuel_tank.connect("fuel_amount_changed", self, "_on_fuel_amount_changed")
 	
+	# set bar
+	pressure_bar.max_value = fuel_tank.max_pressure
+	
 	# initial values
 	_update_bars(fuel_tank.initial_amount, fuel_tank.initial_pressure)
 
@@ -50,7 +53,9 @@ func _on_fuel_amount_changed(fuel_amount, fuel_pressure):
 
 
 func _update_bars(amount, pressure):
-	pressure_bar.percent_visible = pressure
+	
+	pressure_bar.value = pressure / pressure_bar.max_value
+#	print(pressure_bar.value)
 	mass_display.text = "MASS: " + str(amount)
 
 

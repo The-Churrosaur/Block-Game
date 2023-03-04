@@ -43,7 +43,13 @@ func _process(delta):
 
 # sends from input to output
 func send_data():
+	
+	# check null
 	if (receiver_port == null) or (sender_port == null): return 
+	
+	# check active
+	if !(receiver_port.is_active) or !(sender_port.is_active): return
+	
 	receiver_port.data = sender_port.data
 	
 	_line_color(sender_port.data)
