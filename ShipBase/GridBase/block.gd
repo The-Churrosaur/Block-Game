@@ -1,5 +1,13 @@
+
+# the humble block
 class_name Block
 extends Node2D
+
+
+
+# FIELDS -----------------------------------------------------------------------
+
+
 
 enum block_facing_direction {UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3}
 
@@ -7,64 +15,97 @@ enum block_facing_direction {UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3}
 export var size_grid = [Vector2(0,0)] 
 # ie. a 1x2 spire would be [0,0 , 0,1]
 # I would like this to be a const but it needs to be inherited
+# TODO this sucks to use - make some kind of editor helper
 
-export var mass = 100
-# TODO does this try to match this with the scene name? Redundant/bad?
+export var mass = 10
+# TODO this tries to match this with the scene name? Redundant/bad?
 export var class_type = "Block"
 export var tile_id = 0
 
-var block_id : int = 0
 var block_facing : int = block_facing_direction.RIGHT
 
-# public array of collisionshapes, populated on load *depreciated
-var hitbox_collision_shapes = [] 
-export var hitbox_names_string = "Hitbox"
 
-# if block has storage *deprecited
-var storage
-#export var data_block = true 
-#export var storage_type = "Block_Storage"
+# -- COLLISION
+
+
+# array of collisionshapes, read by ship
+var hitbox_collision_shapes = [] 
+
+# for populating the array
+export (Array, NodePath) var hitbox_colliders
+
+# keeping this for forwards compatibility I guess
+# (legacy: populates hitbox array by name)
+export var hitbox_string_old = "Hitbox"
+
 var saved_name
 
 
-# BLOCK SYSTEMS
+# -- BLOCK SYSTEMS
+
 
 export var block_systems_manager_path : NodePath
 onready var block_systems_manager = get_node_or_null(block_systems_manager_path)
 
-# injected by grid, no touch vvv
+
+# -- INJECTED PARAMETERS
+# -- injected by grid, no touch vvv
+
 
 var grid : Node2D = null
 var grid_coord = [] # DEFUNCT just in case self-reference to find itself through grid
 var center_grid_coord : Vector2 # center coordinate of block
 var shipBody : RigidBody2D
+var block_id : int = 0
+
+
 
 # overloads default to return specific block type 
 # for serialization etc.
 func get_class():
 	return class_type
 
-func _ready():
-#	storage = get_node(storage_type)
-	sanitize_name()
-	set_hitbox_collision_shapes()
 
-	#print("CLASSNAME", self.class)
+
+# CALLBACKS --------------------------------------------------------------------
+
+
+
+func _ready():
+	_sanitize_name()
+	_set_hitbox_collision_shapes()
+
+
+
+# PUBLIC -----------------------------------------------------------------------
+
+
 
 # removes the @node@ from node name
 # don't ask...
-func sanitize_name():
+func _sanitize_name():
 	var chars = name
 	name = chars
 
 
-#TODO currently overridden by tilemap 
-func set_hitbox_collision_shapes():
-	for node in get_children():
-		if (node is CollisionShape2D) and (node.name == hitbox_names_string):
+func _set_hitbox_collision_shapes():
+	
+	# append from export list
+	for path in hitbox_colliders:
+		var node = get_node(path)
+		if node is CollisionShape2D:
 			hitbox_collision_shapes.append(node)
-			node.disabled = true
-	pass
+	
+	
+	# for forward compatibility
+	for node in get_children():
+		if (node is CollisionShape2D) and (node.name == hitbox_string_old):
+			# if not already in array
+			if !hitbox_collision_shapes.has(node):
+				hitbox_collision_shapes.append(node)
+	
+	print("block: hitboxes set: ", hitbox_collision_shapes)
+
 
 func set_facing(facing : int):
 	
@@ -85,6 +126,7 @@ func set_facing(facing : int):
 func rotate_facing_right():
 	set_facing(block_facing + 1)
 
+
 # TODO give full coordinates for deletion (or should it recreate from local?)
 func on_added_to_grid(center_coord, block, grid):
 	# vars from grid
@@ -94,6 +136,7 @@ func on_added_to_grid(center_coord, block, grid):
 #	print("block added: shipbody: ", shipBody, " grid: ", self.grid)
 	# grid signals
 	grid.connect("save_blocks", self, "on_save_blocks")
+
 
 func on_removed_from_grid(center_coord, block, grid):
 	pass
@@ -107,7 +150,7 @@ func ship_body_entered(body, pos):
 	pass
 
 
-# BLOCK SYSTEMS ================================================================
+# -- BLOCK SYSTEMS
 
 
 func get_system(system_id : String):
@@ -115,7 +158,7 @@ func get_system(system_id : String):
 	return block_systems_manager.get_system(system_id)
 
 
-# SAVING AND LOADING ===========================================================
+# -- SAVING AND LOADING 
 
 
 # called by gridSave, gets dict of data to serialize
@@ -144,51 +187,3 @@ func load_saved_data(dict : Dictionary):
 		block_systems_manager.load_saved_data(dict["systems"])
 
 
-# depreciatedish below here
-#func on_save_blocks(folder, ship_folder):
-#
-#	print("block saving: " + name)
-#
-#	# new folder
-#
-#	var directory = Directory.new()
-#	directory.open(folder)
-#	directory.make_dir(self.name)
-#	directory.change_dir(self.name)
-#	var new_folder = directory.get_current_dir()
-#
-#	# save data
-#	storage.save(self, new_folder)
-#
-#	# save self 
-#
-#	var address = new_folder + "/" + self.name + ".tscn"
-#	var packed_scene = PackedScene.new()
-#	packed_scene.pack(self)
-#	ResourceSaver.save(address, packed_scene)
-#
-#	return new_folder # for inheriting blocks
-#
-#func load_in(folder, grid, ship_folder, old_name):
-#	set_name(old_name)
-#	print("block loading: " + name)
-#
-#	# vars should be recreated from data/when grid adds block
-#
-#	# load storage
-#	load_storage(folder)
-
-#func load_storage(folder):
-#
-#	# remove false storage
-#	storage = get_node_or_null(storage_type)
-#	if (storage != null):
-#		storage.free()
-#
-#	# load storage
-#	var storage_packed = load(folder + "/" + name + "_storage.tscn")
-#	storage = storage_packed.instance()
-#	add_child(storage)
-#
-#	# get data from storage
-#	storage.load_data(self)

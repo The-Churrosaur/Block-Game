@@ -448,6 +448,11 @@ _global_script_classes=[ {
 "class": "ik_2d",
 "language": "GDScript",
 "path": "res://Scenes/utils/ik_2d.gd"
+}, {
+"base": "Node2D",
+"class": "shapemover",
+"language": "GDScript",
+"path": "res://Scenes/Hitboxtester/shapemover.gd"
 } ]
 _global_script_class_icons={
 "Block": "",
@@ -537,7 +542,8 @@ _global_script_class_icons={
 "Weapon": "",
 "WheelBlock": "",
 "WheelHead": "",
-"ik_2d": ""
+"ik_2d": "",
+"shapemover": ""
 }
 
 [application]

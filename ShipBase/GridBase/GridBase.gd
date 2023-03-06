@@ -53,8 +53,8 @@ func get_block(pos : Vector2) -> Node2D:
 func add_block(block, center_coord, facing, check_blocked = true, update_com = true):
 	
 	# add tile to tilemap
-	tilemap.set_cellv(center_coord, block.tile_id)
-	tilemap.rotate_tilev(center_coord, facing)
+#	tilemap.set_cellv(center_coord, block.tile_id)
+#	tilemap.rotate_tilev(center_coord, facing)
 	
 	# creates array of grid coords from block sizegrid, centered on found coord
 	var coord_ary = []

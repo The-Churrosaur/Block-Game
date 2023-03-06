@@ -55,6 +55,13 @@ func grid_origin():
 var collision_pos : Vector2
 var collision_normal : Vector2
 
+# dictionary of collision shapes: shape->block
+var collision_shapes = {}
+
+# reverse dictionary of collision shapes: block->array of shapes
+# used on block removal, this whole system is kept anonymous from block
+var block_collisions = {}
+
 signal on_clicked(shipBody, block)
 signal shipBody_saved(shipBody, name, file)
 signal new_subShip(shipBody, subShip, pinBlock)
@@ -211,12 +218,62 @@ func new_subShip_ship_id(ship) -> String:
 # BLOCK PLACEMENT ==============================================================
 
 
+
 func on_grid_block_added(coord, block, grid, update_com):
+	
+	# add shapes
+	add_block_colliders(block)
 	
 	# edit COM/position, append mass
 	if update_com : update_com(block)
 
 
+# append block colliders to ship
+func add_block_colliders(block):
+	
+	var shapes = []
+	for shape in block.hitbox_collision_shapes:
+		var new_shape = add_shape(shape, shape.global_position)
+#		print("shape placing position: ", position+block.position+shape.position)
+#		print("shape old position: ", shape.global_position)
+		shapes.append(new_shape)
+		
+		# disable shape on block
+		shape.queue_free()
+		
+		# add each shape to dict
+		collision_shapes[new_shape] = block
+	
+	# add all shapes to block dict
+	block_collisions[block] = shapes
+
+
+# appends a collisionshape to the ship
+# creates and returns new collisionshape2D as child
+# pos is global position (a little inelegant, think about this TODO)
+func add_shape(col_shape : CollisionShape2D, pos : Vector2) -> CollisionShape2D:
+	
+	print("shipbody adding shape: ", col_shape)
+	
+	var shape_2d = col_shape.shape
+	
+	# add collisionshape2d as child
+	
+	var collision_shape = CollisionShape2D.new()
+	collision_shape.shape = shape_2d
+	collision_shape.position = .to_local(pos)
+	
+	add_child(collision_shape)
+	collision_shape.owner = self
+	
+	print("shipbody new shape: ", collision_shape)
+	
+	return collision_shape
+
+
+# moves grid, also updates mass, and updates colliders
+# returns old position
+# everything that moves when the grid moves is in here for now
 func update_com(block, invert = false): # also updates mass
 	if !(block is Block):
 		return
@@ -260,9 +317,16 @@ func update_com(block, invert = false): # also updates mass
 	# rotationally, both grid and com vec are in reference frame under ship
 	grid.position -= com_relative
 	
+	# move colliders along with grid
+	for collider in collision_shapes.keys():
+		print("shifting collider: ", collider)
+		collider.position -= com_relative
+	
+	var old_pos = position
+	
 	# put com vector in reference frame alongside ship
-	var com_rotated = com_relative.rotated(rotation)
-	position += com_rotated
+	var com_global = com_relative.rotated(rotation)
+	position += com_global
 	
 	mass = combined_mass
 	
@@ -271,6 +335,8 @@ func update_com(block, invert = false): # also updates mass
 #	print("mass: ", block.mass)
 #	print("mass shifting ship position", position, global_position)
 #	print("grid position: ", grid.position, grid.global_position)
+
+	return old_pos
 
 
 func on_grid_block_removed(coord, block, grid, update_com):
@@ -344,7 +410,7 @@ func get_save_data() -> Dictionary :
 	
 	data["name"] = self.name
 	data["id"] = ship_id
-	data["displacement"] = grid.get_position() # look into this
+	data["displacement"] = grid.get_position() # relative to ship
 	data["mass"] = mass
 	data["io_connections"] = io_manager.connections
 	data["subShip_counter"] = subShip_counter
@@ -362,26 +428,24 @@ func get_save_data() -> Dictionary :
 # called by loader after blocks are loaded
 func load_saved_data(data : Dictionary):
 	
-	# store this for later use (connections pass)
+	# store data for later use (connections pass)
 	loaded_data = data
 	
 	# make sure this is loaded first so that other systems can reference it
 	name = data["name"]
-	name = str(name)
-	# PLEASE
+	name = str(name) # PLEASE
+	
 	ship_id = data["id"]
 	subShip_id = data["subShip_id"]
 	
-	# TODO weird interaction with IO - maybe initial inputs?
 	mass = data["mass"]
 	
+	# get deprecated mf
 	# restore iomanager connections
-	io_manager.connections = data["io_connections"]
-	print("IO MANAGER CONNECTIONS RESTORED")
-	print(io_manager.connections)
-	
-	# temp TODO reeeeee
-	io_manager.spawn_strings()
+#	io_manager.connections = data["io_connections"]
+#	print("IO MANAGER CONNECTIONS RESTORED")
+#	print(io_manager.connections)
+
 	
 	# restore subship counter to properly track new subships
 	subShip_counter = data["subShip_counter"]
@@ -389,6 +453,10 @@ func load_saved_data(data : Dictionary):
 	# restore this to know if this ship is root/base case
 	is_subShip = data["is_subShip"]
 	print("THIS SHIP IS SUBSHIP: ", is_subShip)
+	
+	# restore collider positions from displacement
+	for collider in collision_shapes:
+		collider.position += data["displacement"]
 	
 	# if this ship is the root, do systems connection pass
 	if !is_subShip: load_systems_after_blocks()
