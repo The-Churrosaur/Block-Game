@@ -102,6 +102,8 @@ func _ready():
 	# setup systems / children 
 	# currently just io
 	io_manager.setup(self)
+	
+	inertia = 0
 
 
 func connect_to_grid(grid):
@@ -118,6 +120,7 @@ func _integrate_forces(state):
 	pass
 
 
+# TODO breaks when hitbox > grid 
 func _unhandled_input(event):
 	
 	if event.is_action("ui_lclick"):

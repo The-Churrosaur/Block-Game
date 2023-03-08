@@ -19,7 +19,7 @@ ship_data = {
 "io_connections": {
 },
 "is_subShip": true,
-"mass": 100.0,
+"mass": 10.0,
 "name": "pinhead",
 "subShip_counter": 0,
 "subShip_id": "00"

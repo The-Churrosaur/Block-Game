@@ -13,13 +13,16 @@ script = ExtResource( 2 )
 class_type = "PinHead"
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 3 )
 
 [node name="Sprite4" type="Sprite" parent="."]
+visible = false
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
 [node name="Sprite2" type="Sprite" parent="."]
+visible = false
 scale = Vector2( 1, 0.2 )
 texture = ExtResource( 3 )
 

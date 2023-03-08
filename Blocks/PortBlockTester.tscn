@@ -6,7 +6,6 @@
 
 [node name="PortBlockTester" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-mass = 10
 class_type = "PortBlockTester"
 
 [node name="Sprite" parent="." index="0"]

@@ -124,8 +124,8 @@ func attach(pinHead):
 	pinHead_coord = pinHead.center_grid_coord
 	
 #	print("***AJDSFKASpre-pin position: ", pinJoint.global_position, global_position)
-#	queue_pin = true
-	pin_subShip()
+	queue_pin = true
+#	pin_subShip()
 #	subShip.angular_velocity = 1
 	
 	emit_signal("subShip_pinned", subShip, self, pinHead)
@@ -141,8 +141,12 @@ func pin_subShip():
 	pinJoint.name = "PinJoint2D" # fine godot have it your way
 	pinJoint.disable_collision = true
 	
-	pinJoint.node_a = grid.anchor.get_path() # pin to grid anchor
-	print("anchor position: ", grid.anchor.global_position)
+	# well well well...
+#	pinJoint.node_a = grid.anchor.get_path() # pin to grid anchor
+#	print("anchor position: ", grid.anchor.global_position)
+	
+	pinJoint.node_a = shipBody.get_path()
+	
 #	print("pin position: ", pinJoint.global_position)
 	pinJoint.node_b = subShip.get_path() # pin to subship
 	
@@ -182,6 +186,7 @@ func shift_subship_pos_to_pinhead(pinHead):
 func _physics_process(delta):
 	if (queue_pin):
 #		print("POSITION", global_position, subShip.position)
+		reposition_subShip(pinHead)
 		pin_subShip()
 
 # SAVING AND LOADING ===========================================================

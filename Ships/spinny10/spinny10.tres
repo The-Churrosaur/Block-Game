@@ -1,0 +1,78 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PinBlock": true,
+"PortBlockTester": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( -3, 0 ),
+"systems": {
+"port_manager": {
+"elements": {
+"test_in": {
+"active": true,
+"text": ""
+},
+"test_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortBlockTester"
+}, {
+"block_id": 1,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 0, 0 ),
+"subShip_id": "pin_head",
+"subShip_resource_path": "res://Ships/spinny10/SubShips/pinhead/pinhead.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PinBlock"
+} ]
+ship_data = {
+"displacement": Vector2( 92, 0 ),
+"id": "spinny10",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 2.1,
+"name": "spinny10",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 0, 0 ),
+"port": "throttle",
+"ship": "spinny10"
+},
+"sender_port": {
+"block": Vector2( -3, 0 ),
+"port": "test_out",
+"ship": "spinny10"
+}
+} ]
+}
+},
+"subShip_counter": 1,
+"subShip_id": 0
+}

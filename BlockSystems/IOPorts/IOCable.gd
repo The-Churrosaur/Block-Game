@@ -50,7 +50,7 @@ func send_data():
 	# check active
 	if !(receiver_port.is_active) or !(sender_port.is_active): return
 	
-	receiver_port.data = sender_port.data
+	receiver_port.set_data(sender_port.get_data())
 	
 	_line_color(sender_port.data)
 

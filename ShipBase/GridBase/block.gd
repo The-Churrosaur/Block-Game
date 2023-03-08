@@ -172,7 +172,7 @@ func get_save_data() -> Dictionary :
 	dict["block_id"] = block_id
 	
 	# get data from system manager 
-	if block_systems_manager:
+	if block_systems_manager != null:
 		dict["systems"] = block_systems_manager.get_save_data()
 	
 	return dict
@@ -183,7 +183,8 @@ func get_save_data() -> Dictionary :
 func load_saved_data(dict : Dictionary):
 	
 	# pass data back to systems manager
-	if block_systems_manager:
+	if block_systems_manager != null:
+		print(name)
 		block_systems_manager.load_saved_data(dict["systems"])
 
 

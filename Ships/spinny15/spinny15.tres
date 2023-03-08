@@ -1,0 +1,98 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PinBlock": true,
+"TestBlock": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( 1, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 1,
+"facing": 0,
+"pos": Vector2( 2, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 2,
+"facing": 0,
+"pos": Vector2( 3, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 3,
+"facing": 0,
+"pos": Vector2( 4, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 4,
+"facing": 0,
+"pos": Vector2( 5, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 5,
+"facing": 0,
+"pos": Vector2( 6, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 6,
+"facing": 0,
+"pos": Vector2( 7, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 7,
+"facing": 0,
+"pos": Vector2( 8, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 8,
+"facing": 0,
+"pos": Vector2( 9, 0 ),
+"type": "TestBlock"
+}, {
+"block_id": 9,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 0, 0 ),
+"subShip_id": "pinhead",
+"subShip_resource_path": "res://Ships/spinny15/SubShips/pinhead/pinhead.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PinBlock"
+}, {
+"block_id": 10,
+"facing": 0,
+"pos": Vector2( 9, -1 ),
+"type": "TestBlock"
+} ]
+ship_data = {
+"displacement": Vector2( -550, 58 ),
+"id": "spinny15",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 11.0,
+"name": "spinny15",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [  ]
+}
+},
+"subShip_counter": 1,
+"subShip_id": 0
+}

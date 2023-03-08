@@ -70,7 +70,7 @@ func on_new_ship(ship : RigidBody2D):
 	ship.connect("new_subShip", self, "on_new_subShip")
 	ship.input_pickable = true
 	
-	ship.mode = RigidBody2D.MODE_KINEMATIC
+#	ship.mode = RigidBody2D.MODE_KINEMATIC
 	
 	select_ship(ship)
 	camera.set_target(ship)

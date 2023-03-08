@@ -29,6 +29,9 @@ export var is_output = false
 # port is functional
 export var is_active = true 
 
+# maximum level this port can transmit
+export var max_data = 100
+
 # the data associated with this port
 onready var data = 0.0
 
@@ -63,6 +66,13 @@ func _ready():
 
 
 # PUBLIC -----------------------------------------------------------------------
+
+
+func set_data(level):
+	data = min(level, max_data)
+
+func get_data() -> float:
+	return min(data, max_data)
 
 
 # called by manager when selection tool is activated
