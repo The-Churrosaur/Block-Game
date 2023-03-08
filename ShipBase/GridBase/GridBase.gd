@@ -86,6 +86,8 @@ func add_block(block, center_coord, facing, check_blocked = true, update_com = t
 	# COM recalcing (also picked up by block systems) 
 	emit_signal("block_added", center_coord, block, self, update_com)
 	
+	print("grid: block added at: ", coord_ary)
+	
 	num_blocks += 1
 	gross_blocks += 1
 	return true

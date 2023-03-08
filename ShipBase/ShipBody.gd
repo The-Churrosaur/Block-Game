@@ -259,6 +259,19 @@ func add_block_colliders(block):
 	block_collisions[block] = shapes
 
 
+func remove_block_colliders(block):
+	
+	# remove from dicts
+	var colliders = block_collisions[block]
+	for collider in colliders:
+		collision_shapes.erase(collider)
+	block_collisions.erase(block)
+	
+	# delete
+	for collider in colliders:
+		collider.queue_free()
+
+
 # appends a collisionshape to the ship
 # creates and returns new collisionshape2D as child
 # pos is global position (a little inelegant, think about this TODO)
@@ -360,6 +373,8 @@ func on_grid_block_removed(coord, block, grid, update_com):
 	# update com in reverse
 	
 	if update_com: update_com(block, true)
+	
+	remove_block_colliders(block)
 
 
 # gets block from coordinate

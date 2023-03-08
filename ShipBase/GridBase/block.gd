@@ -12,10 +12,10 @@ extends Node2D
 enum block_facing_direction {UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3}
 
 # relative grid of block positions
-export var size_grid = [Vector2(0,0)] 
-# ie. a 1x2 spire would be [0,0 , 0,1]
+export(Array, Vector2) var size_grid = [Vector2(0,0)] 
+# ie. a 1x2 spire would be [0,0 , 0,-1] (y values increase going down vvv)
 # I would like this to be a const but it needs to be inherited
-# TODO this sucks to use - make some kind of editor helper
+# injected into by editor helper
 
 export var mass = 10
 # TODO this tries to match this with the scene name? Redundant/bad?
