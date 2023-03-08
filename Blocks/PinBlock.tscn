@@ -18,7 +18,6 @@ port_manager_path = NodePath("../PinBlockBase/BlockSystems/PortManager")
 default_subShip_resource = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
 texture = ExtResource( 1 )
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
@@ -34,6 +33,5 @@ bias = 0.9
 element_id_field = "port_id"
 
 [node name="IOPort" parent="BlockSystems/PortManager" instance=ExtResource( 5 )]
-visible = false
 port_id = "throttle"
 is_input = true

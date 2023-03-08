@@ -65,6 +65,7 @@ var block_collisions = {}
 signal on_clicked(shipBody, block)
 signal shipBody_saved(shipBody, name, file)
 signal new_subShip(shipBody, subShip, pinBlock)
+signal ship_com_shifted(old_pos, relative_displacement)
 
 var superShip = null
 var is_subShip = false
@@ -133,6 +134,7 @@ func _unhandled_input(event):
 				print("ship: input click ", self)
 				print("at: ", get_global_mouse_position())
 				var clicked_block = grid.get_blockFromPoint(get_global_mouse_position())
+				if clicked_block == null: return
 				emit_signal("on_clicked", self, clicked_block)
 
 
@@ -212,6 +214,12 @@ func on_subShip_removed(ship, pinBlock, pinHead):
 # hacky, but keeps ids  unique for now
 func new_subShip_ship_id(ship) -> String:
 	return ship_id + "_subship" + str(subShip_counter) + "_" + ship.ship_id
+
+
+# called by supership when moved (new block)
+func on_superShip_moved(super):
+	grid.on_superShip_moved(super)
+	# just useful for now
 
 
 # moves ship AND ALL SUBSHIPS to target pos
@@ -338,7 +346,12 @@ func update_com(block, invert = false): # also updates mass
 #	print("mass: ", block.mass)
 #	print("mass shifting ship position", position, global_position)
 #	print("grid position: ", grid.position, grid.global_position)
-
+	
+	
+	# tells whoever else needs to know that we moved
+	# ie. pinblocks
+	emit_signal("ship_com_shifted", old_pos, com_relative)
+	
 	return old_pos
 
 

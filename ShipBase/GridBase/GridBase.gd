@@ -26,6 +26,7 @@ var block_dict = {} # master dictionary of grid
 
 signal block_added(coord, block, grid, update_com)
 signal block_removed(coord, block, grid, update_com) 
+signal superShip_moved(super)
 # be wary of holding the reference to a dying block
 
 func _ready():
@@ -166,6 +167,12 @@ func post_load_block_setup():
 	# iterate through blocks, call setup
 	for pos in block_dict.keys():
 		block_dict[pos].post_load_setup()
+
+
+# called by ship
+func on_superShip_moved(super):
+	emit_signal("superShip_moved", super)
+
 
 # SAVING AND LOADING ===========================================================
 # this is all defunct old shit

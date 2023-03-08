@@ -25,12 +25,21 @@ var queue_pin = false
 signal subShip_pinned(subShip, pinBlock, pinHead)
 signal subShip_removed(subShip, pinBlock, pinHead)
 
+
 func _ready():
 	._ready()
 	
 	pinJoint = $PinJoint2D
 	
 	print("pinjoint loading!")
+
+
+func _physics_process(delta):
+	if (queue_pin):
+#		print("POSITION", global_position, subShip.position)
+		reposition_subShip(pinHead)
+		pin_subShip()
+
 
 func _input(event):
 	
@@ -51,6 +60,7 @@ func on_added_to_grid(center_coord, block, grid):
 	
 	connect("subShip_pinned", shipBody, "on_new_subShip")
 	connect("subShip_removed", shipBody, "on_subShip_removed")
+	shipBody.connect("ship_com_shifted", self, "on_ship_com_shifted")
 	
 	setup_load_subship()
 
@@ -109,7 +119,8 @@ func attach(pinHead):
 	
 	# move subship to current position
 	# move subship to align pinhead with current position
-	reposition_subShip(pinHead)
+#	reposition_subShip(pinHead)
+	# THIS IS DONE IN PHYSICS PROCESS NOW (queue pin)
 	
 #	yield(get_tree().create_timer(0.0001), "timeout")
 	
@@ -158,9 +169,14 @@ func pin_subShip():
 
 # pinhead reattaching ----------------------------------------------------------
 
+
 func on_pin_grid_changed(pinHead):
 	reattach(pinHead)
-	pass
+
+
+func on_ship_com_shifted(old_pos, relative_displacement):
+	reattach(pinHead)
+
 
 # reattaches to pinHead position (for shifting subship)
 func reattach(pinHead):
@@ -169,25 +185,26 @@ func reattach(pinHead):
 	
 	queue_pin = true
 
+
 func reposition_subShip(pinHead): 
 	# first centers subship on self
-	subShip.global_position = get_parent().to_global(position)
+	subShip.global_position = global_position
 	
 	# moves subship to place pinhead on old center
 	shift_subship_pos_to_pinhead(pinHead)
 
-# moves subship to place pinhead on old center
-func shift_subship_pos_to_pinhead(pinHead):
-	# shifts subship along inverse of pinhead relative position vector 
-	var from_subship = subShip.grid.position + pinHead.position 
-	print("subship repos: ", from_subship)
-	subShip.position -= from_subship
 
-func _physics_process(delta):
-	if (queue_pin):
-#		print("POSITION", global_position, subShip.position)
-		reposition_subShip(pinHead)
-		pin_subShip()
+# moves subship to place pinhead where com was
+func shift_subship_pos_to_pinhead(pinHead):
+	
+	# gets subship(com) -> pinhead in global coords
+	var disp = pinHead.pin_point.global_position - subShip.global_position
+	
+	# moves subship inverse of this displacement
+	subShip.position -= disp
+	
+	print("subship moved: ", disp)
+
 
 # SAVING AND LOADING ===========================================================
 

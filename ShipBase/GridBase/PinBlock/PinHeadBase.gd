@@ -4,6 +4,11 @@ extends Block
 # notifies pinblock
 signal pin_grid_changed(pinHead)
 
+export var pin_point_path : NodePath = "PinPoint"
+
+# pinblock will pin this ship at the position of the pinpoint node
+onready var pin_point = get_node(pin_point_path)
+
 func on_added_to_grid(center_coord, block, grid):
 	.on_added_to_grid(center_coord, block, grid)
 	

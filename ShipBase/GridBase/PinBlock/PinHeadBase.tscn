@@ -27,3 +27,5 @@ visible = false
 shape = SubResource( 1 )
 
 [node name="Block_Storage" parent="." instance=ExtResource( 2 )]
+
+[node name="PinPoint" type="Node2D" parent="."]
