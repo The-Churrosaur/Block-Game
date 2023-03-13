@@ -10,7 +10,7 @@ extends TileMap
 # FIELDS ----------------------------------------------------------------------
 
 
-export var block_path : NodePath
+export var block_path : NodePath = ".."
 
 var block
 
@@ -20,7 +20,9 @@ var block
 
 func _ready():
 	
-#	connect("settings_changed", self, "_on_tilemap_changed")
+	# delete self on ingame run
+	if !Engine.editor_hint:
+		queue_free()
 	
 	pass
 

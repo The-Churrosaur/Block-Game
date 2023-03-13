@@ -63,6 +63,8 @@ onready var label2 = $Label2
 func _ready():
 	label.text = port_display_name
 	select_button.connect("pressed", self, "_on_button_pressed")
+	
+	visible = false
 
 
 # PUBLIC -----------------------------------------------------------------------
@@ -79,10 +81,12 @@ func get_data() -> float:
 
 func tool_selected():
 	print("port: tool selected")
+	visible = true
 	select_button.visible = true
 
 
 func tool_deselected():
+	visible = false
 	select_button.visible = false
 
 

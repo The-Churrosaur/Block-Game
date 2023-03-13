@@ -20,6 +20,7 @@ export(Array, Vector2) var size_grid = [Vector2(0,0)]
 export var mass = 10
 # TODO this tries to match this with the scene name? Redundant/bad?
 export var class_type = "Block"
+export(String) var display_name
 export var tile_id = 0
 
 var block_facing : int = block_facing_direction.RIGHT
@@ -74,7 +75,6 @@ func get_class():
 func _ready():
 	_sanitize_name()
 	_set_hitbox_collision_shapes()
-
 
 
 # PUBLIC -----------------------------------------------------------------------
@@ -169,6 +169,7 @@ func get_save_data() -> Dictionary :
 	dict["type"] = class_type # special name key for resource
 	dict["pos"] = center_grid_coord # special name key for resource
 	dict["facing"] = block_facing  # special name key for resource
+	dict["address"] = filename # for loading
 	dict["block_id"] = block_id
 	
 	# get data from system manager 

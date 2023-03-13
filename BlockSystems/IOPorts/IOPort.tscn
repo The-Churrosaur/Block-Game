@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="IOPort" type="Node2D"]
-z_index = 2
+z_index = 3
 script = ExtResource( 1 )
 port_id = "default"
 port_display_name = "PORT"

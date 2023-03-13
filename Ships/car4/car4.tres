@@ -1,0 +1,143 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PortInputBlock": "IOPortBlocks/PortInputBlock",
+"PortSplitterBlock": "IOPortBlocks/PortSplitterBlock",
+"WheelBlock": "LandingBlocks/WheelBlock"
+}
+blocks = [ {
+"address": "LandingBlocks/WheelBlock",
+"block_id": 0,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( -4, 0 ),
+"subShip_id": "wheel_head",
+"subShip_resource_path": "res://Ships/car4/SubShips/wheel_head/wheel_head.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "WheelBlock"
+}, {
+"address": "LandingBlocks/WheelBlock",
+"block_id": 1,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 0, 0 ),
+"subShip_id": "wheel_head",
+"subShip_resource_path": "res://Ships/car4/SubShips/wheel_head19/wheel_head19.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "WheelBlock"
+}, {
+"address": "IOPortBlocks/PortSplitterBlock",
+"block_id": 2,
+"facing": 0,
+"pos": Vector2( -2, -1 ),
+"systems": {
+"port_manager": {
+"elements": {
+"split_in": {
+"active": true,
+"text": ""
+},
+"split_out_1": {
+"active": true,
+"text": ""
+},
+"split_out_two": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortSplitterBlock"
+}, {
+"address": "IOPortBlocks/PortInputBlock",
+"block_id": 3,
+"facing": 0,
+"input_string": "ui_right",
+"pos": Vector2( -1, -1 ),
+"systems": {
+"port_manager": {
+"elements": {
+"key_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortInputBlock"
+} ]
+ship_data = {
+"displacement": Vector2( 109, 31 ),
+"id": "car4",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 41.0,
+"name": "car4",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( -2, -1 ),
+"port": "split_in",
+"ship": "car4"
+},
+"sender_port": {
+"block": Vector2( -1, -1 ),
+"port": "key_out",
+"ship": "car4"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -4, 0 ),
+"port": "throttle",
+"ship": "car4"
+},
+"sender_port": {
+"block": Vector2( -2, -1 ),
+"port": "split_out_two",
+"ship": "car4"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 0, 0 ),
+"port": "throttle",
+"ship": "car4"
+},
+"sender_port": {
+"block": Vector2( -2, -1 ),
+"port": "split_out_1",
+"ship": "car4"
+}
+} ]
+}
+},
+"subShip_counter": 2,
+"subShip_id": 0
+}

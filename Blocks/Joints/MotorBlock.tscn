@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Blocks/Joints/PinBlock.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Blocks/Joints/MotorBlock.gd" type="Script" id=2]
+[ext_resource path="res://BlockSystems/IOPorts/IOPort.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Blocks/BlockSizeHelper.tscn" type="PackedScene" id=4]
+
+[node name="MotorBlock" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+class_type = "MotorBlock"
+display_name = "Motor"
+port_manager_path = NodePath("BlockSystems/PortManager")
+default_subShip_resource = null
+braking_impulse = 40000
+
+[node name="ThrottlePort" parent="BlockSystems/PortManager" index="0"]
+position = Vector2( 0, -18.73 )
+
+[node name="ReversePort" parent="BlockSystems/PortManager" index="1" instance=ExtResource( 3 )]
+position = Vector2( 0, 16.0543 )
+is_input = true
+
+[node name="SizeHelper" parent="." index="4" instance=ExtResource( 4 )]
+tile_data = PoolIntArray( 0, 0, 0 )

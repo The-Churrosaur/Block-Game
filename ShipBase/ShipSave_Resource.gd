@@ -4,7 +4,7 @@ class_name ShipSaveResource
 extends Resource
 
 # pre-store all types of blocks for quick instantiation
-# dict blocktype string -> bool
+# dict blocktype string -> address
 # TODO is this the best way to do this?
 export var block_types : Dictionary
 

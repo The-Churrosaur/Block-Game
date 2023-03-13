@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://BlockSystems/FuelPorts/FuelPortManager.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Blocks/PortBlockBase.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Blocks/IOPortBlocks/PortBlockBase.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Blocks/FuelTestBlock.gd" type="Script" id=3]
 [ext_resource path="res://BlockSystems/FuelPorts/FuelTank.tscn" type="PackedScene" id=4]
 [ext_resource path="res://BlockSystems/FuelPorts/FuelPort.tscn" type="PackedScene" id=5]
@@ -65,6 +65,5 @@ shape = SubResource( 1 )
 
 [node name="SizeHelper" parent="." index="6"]
 tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0 )
-block_path = NodePath("..")
 
 [connection signal="text_entered" from="Node2D/VBoxContainer/LineEdit" to="." method="_on_LineEdit_text_entered"]

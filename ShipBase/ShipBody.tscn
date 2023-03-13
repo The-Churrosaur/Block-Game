@@ -40,7 +40,6 @@ collision_use_parent = false
 [node name="ShipBase_Storage" parent="." instance=ExtResource( 5 )]
 
 [node name="COM Sprite" type="Sprite" parent="."]
-visible = false
 rotation = 0.785398
 texture = ExtResource( 4 )
 

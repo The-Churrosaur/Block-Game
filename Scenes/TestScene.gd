@@ -61,8 +61,11 @@ func select_ship(ship):
 	
 	# color new ship
 	current_ship.modulate = Color(1,0.7,0.7,0.7)
+	
+	# look at ship
+	camera.set_target(ship)
 
-func on_new_ship(ship : RigidBody2D):
+func on_new_ship(ship : RigidBody2D, select = true):
 	
 	add_child(ship)
 	print("CONNECTING SIGNALS ", ship)
@@ -72,15 +75,16 @@ func on_new_ship(ship : RigidBody2D):
 	
 #	ship.mode = RigidBody2D.MODE_KINEMATIC
 	
-	select_ship(ship)
-	camera.set_target(ship)
+	if select: 
+		select_ship(ship)
 	
 #	ship.rotation = PI
 	
 	yield(get_tree().create_timer(0.5), "timeout")
 
 func on_new_subShip(ship, subShip, pinBlock):
-	on_new_ship(subShip)
+	print("TESTSCENE NEW SUBSHIP")
+	on_new_ship(subShip, false)
 
 func setup_tools():
 	

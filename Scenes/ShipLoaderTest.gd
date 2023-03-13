@@ -42,6 +42,7 @@ func on_text_entered(var text):
 	print("ship save loaded: ", address)
 	
 	var ship = loader.load_ship(res, owner, false, Vector2(700,500))
+	print("SCENE LOADED NEW SHIP")
 	owner.on_new_ship(ship)
 	
 	print("grid position: ", ship.grid.position)

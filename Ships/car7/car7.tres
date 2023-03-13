@@ -1,0 +1,203 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"MotorWheel": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"PortInputBlock": "res://Blocks/IOPortBlocks/PortInputBlock.tscn",
+"PortSplitterBlock": "res://Blocks/IOPortBlocks/PortSplitterBlock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/IOPortBlocks/PortInputBlock.tscn",
+"block_id": 0,
+"facing": 0,
+"input_string": "ui_right",
+"pos": Vector2( -2, -1 ),
+"systems": {
+"port_manager": {
+"elements": {
+"key_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortInputBlock"
+}, {
+"address": "res://Blocks/IOPortBlocks/PortInputBlock.tscn",
+"block_id": 1,
+"facing": 0,
+"input_string": "ui_left",
+"pos": Vector2( -2, 0 ),
+"systems": {
+"port_manager": {
+"elements": {
+"key_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortInputBlock"
+}, {
+"address": "res://Blocks/IOPortBlocks/PortSplitterBlock.tscn",
+"block_id": 2,
+"facing": 0,
+"pos": Vector2( -1, -1 ),
+"systems": {
+"port_manager": {
+"elements": {
+"split_in": {
+"active": true,
+"text": ""
+},
+"split_out_1": {
+"active": true,
+"text": ""
+},
+"split_out_two": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortSplitterBlock"
+}, {
+"address": "res://Blocks/IOPortBlocks/PortSplitterBlock.tscn",
+"block_id": 3,
+"facing": 0,
+"pos": Vector2( -1, 0 ),
+"systems": {
+"port_manager": {
+"elements": {
+"split_in": {
+"active": true,
+"text": ""
+},
+"split_out_1": {
+"active": true,
+"text": ""
+},
+"split_out_two": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortSplitterBlock"
+}, {
+"address": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"block_id": 4,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( -4, 1 ),
+"subShip_id": "wheel_head",
+"subShip_resource_path": "res://Ships/car7/SubShips/wheel_head/wheel_head.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"default": {
+"active": true,
+"text": ""
+},
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "MotorWheel"
+}, {
+"address": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"block_id": 5,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 1, 1 ),
+"subShip_id": "wheel_head",
+"subShip_resource_path": "res://Ships/car7/SubShips/wheel_head36/wheel_head36.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"default": {
+"active": true,
+"text": ""
+},
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "MotorWheel"
+} ]
+ship_data = {
+"displacement": Vector2( 94, 0 ),
+"id": "car7",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 61.0,
+"name": "car7",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( -1, -1 ),
+"port": "split_in",
+"ship": "car7"
+},
+"sender_port": {
+"block": Vector2( -2, -1 ),
+"port": "key_out",
+"ship": "car7"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -1, 0 ),
+"port": "split_in",
+"ship": "car7"
+},
+"sender_port": {
+"block": Vector2( -2, 0 ),
+"port": "key_out",
+"ship": "car7"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -4, 1 ),
+"port": "throttle",
+"ship": "car7"
+},
+"sender_port": {
+"block": Vector2( -1, -1 ),
+"port": "split_out_two",
+"ship": "car7"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 1, 1 ),
+"port": "throttle",
+"ship": "car7"
+},
+"sender_port": {
+"block": Vector2( -1, -1 ),
+"port": "split_out_1",
+"ship": "car7"
+}
+} ]
+}
+},
+"subShip_counter": 2,
+"subShip_id": 0
+}

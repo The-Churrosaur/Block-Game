@@ -136,6 +136,7 @@ func _unhandled_input(event):
 				var clicked_block = grid.get_blockFromPoint(get_global_mouse_position())
 				if clicked_block == null: return
 				emit_signal("on_clicked", self, clicked_block)
+				print("signal emitted")
 
 
 func is_shipBody() -> bool: # quack quack quack
@@ -277,7 +278,7 @@ func remove_block_colliders(block):
 # pos is global position (a little inelegant, think about this TODO)
 func add_shape(col_shape : CollisionShape2D, pos : Vector2) -> CollisionShape2D:
 	
-	print("shipbody adding shape: ", col_shape)
+#	print("shipbody adding shape: ", col_shape)
 	
 	var shape_2d = col_shape.shape
 	
@@ -290,7 +291,7 @@ func add_shape(col_shape : CollisionShape2D, pos : Vector2) -> CollisionShape2D:
 	add_child(collision_shape)
 	collision_shape.owner = self
 	
-	print("shipbody new shape: ", collision_shape)
+#	print("shipbody new shape: ", collision_shape)
 	
 	return collision_shape
 
@@ -416,6 +417,8 @@ func on_body_shape_entered (body_id, body, body_shape, local_shape):
 #	block.ship_body_entered(body, pos)
 
 	print("SHIPBODY SHAPE ENTERED ", body)
+	print("hit shape: ", local_shape)
+	if collision_shapes.has(local_shape): print(collision_shapes[local_shape])
 	
 	pass
 

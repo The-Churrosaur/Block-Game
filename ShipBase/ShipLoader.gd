@@ -7,7 +7,6 @@ onready var ship_template = load(new_ship_path)
 onready var ship_loader = Ship_SaverLoader_GDS.new() # TODO temp
 
 var loading_thread : Thread
-var ship
 var start_time
 
 signal ship_loaded(ship)
@@ -19,8 +18,9 @@ func load_ship(	var ship_save : Resource,
 				) -> Node2D:
 	
 	# load ship
-	print("LOADING SHIP")
-	ship = load(new_ship_path).instance()
+	print("LOADING SHIP...")
+	var ship = load(new_ship_path).instance()
+	print("NEW SHIP BASE: ", ship)
 	ship.position = position
 	target_parent.add_child(ship)
 	
@@ -32,16 +32,17 @@ func load_ship(	var ship_save : Resource,
 #	loading_thread = Thread.new()
 #	loading_thread.start(self, "thread_load", ship_save)
 	
-	thread_load(ship_save, subShip)
+	thread_load(ship, ship_save, subShip)
 	
 	# doing this here instead of in save res for flexibility
 	ship.post_load_block_setup()
 	
 	return ship
 
-func thread_load(var ship_save : Resource, subship = false):
+func thread_load(ship, ship_save : Resource, subship = false):
 	ship_loader.load_ship(ship, ship_save, subship)
 	
+	print("SHIP FINISHED LOADING: ", ship)
 	print("SHIP LOADING TIME func: ", OS.get_ticks_msec() - start_time)
 	emit_signal("ship_loaded", ship)
 

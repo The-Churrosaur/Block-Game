@@ -1,0 +1,186 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PortInputBlock": "res://Blocks/IOPortBlocks/PortInputBlock.tscn",
+"ThrusterBlockPorts": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( -2, 0 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 1,
+"facing": 1,
+"pos": Vector2( -5, -1 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 2,
+"facing": 3,
+"pos": Vector2( 1, -1 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/IOPortBlocks/PortInputBlock.tscn",
+"block_id": 5,
+"facing": 0,
+"input_string": "ui_right",
+"pos": Vector2( -3, -2 ),
+"systems": {
+"port_manager": {
+"elements": {
+"key_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortInputBlock"
+}, {
+"address": "res://Blocks/IOPortBlocks/PortInputBlock.tscn",
+"block_id": 6,
+"facing": 0,
+"input_string": "ui_up",
+"pos": Vector2( -2, -2 ),
+"systems": {
+"port_manager": {
+"elements": {
+"key_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortInputBlock"
+}, {
+"address": "res://Blocks/IOPortBlocks/PortInputBlock.tscn",
+"block_id": 7,
+"facing": 0,
+"input_string": "ui_left",
+"pos": Vector2( -1, -2 ),
+"systems": {
+"port_manager": {
+"elements": {
+"key_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortInputBlock"
+} ]
+ship_data = {
+"displacement": Vector2( 126, 84 ),
+"id": "simplehopper",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 61.0,
+"name": "simplehopper",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 1, -1 ),
+"port": "fire_thruster",
+"ship": "simplehopper"
+},
+"sender_port": {
+"block": Vector2( -1, -2 ),
+"port": "key_out",
+"ship": "simplehopper"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -2, 0 ),
+"port": "fire_thruster",
+"ship": "simplehopper"
+},
+"sender_port": {
+"block": Vector2( -2, -2 ),
+"port": "key_out",
+"ship": "simplehopper"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -5, -1 ),
+"port": "fire_thruster",
+"ship": "simplehopper"
+},
+"sender_port": {
+"block": Vector2( -3, -2 ),
+"port": "key_out",
+"ship": "simplehopper"
+}
+} ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": 0
+}

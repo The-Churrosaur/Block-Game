@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Blocks/IOPortBlocks/PortInputBlock.gd" type="Script" id=1]
+[ext_resource path="res://Blocks/IOPortBlocks/PortBlockBase.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BlockSystems/IOPorts/IOPort.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 64 )
+
+[node name="VAxisInputBlock" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+size_grid = [ Vector2( 0, 0 ), Vector2( 0, 1 ) ]
+class_type = "v_axis_input_block"
+display_name = "V axis input"
+hitbox_colliders = [ NodePath("CollisionShape2D") ]
+input_strings = [ "ui_up", "ui_down" ]
+port_paths = [ NodePath("BlockSystems/PortManager/IOPortUp"), NodePath("BlockSystems/PortManager/IOPortDown") ]
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, 32 )
+scale = Vector2( 1, 2 )
+
+[node name="IOPortUp" parent="BlockSystems/PortManager" index="0" instance=ExtResource( 3 )]
+position = Vector2( 0, -9.12756 )
+port_id = "up_out"
+port_display_name = "UP"
+is_output = true
+
+[node name="IOPortDown" parent="BlockSystems/PortManager" index="1" instance=ExtResource( 3 )]
+position = Vector2( 0, 75.5087 )
+port_id = "down_out"
+port_display_name = "DOWN"
+is_output = true
+
+[node name="Node2D" type="Node2D" parent="." index="3"]
+position = Vector2( 0, 32 )
+z_index = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node2D" index="0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -29.0
+margin_top = -21.0
+margin_right = 29.0
+margin_bottom = 21.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Node2D/VBoxContainer" index="0"]
+margin_right = 58.0
+margin_bottom = 48.0
+text = "^
+INPUT
+V"
+align = 1
+
+[node name="SizeHelper" parent="." index="4"]
+tile_data = PoolIntArray( 0, 0, 0, 65536, 0, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="5"]
+position = Vector2( 0, 32 )
+shape = SubResource( 1 )

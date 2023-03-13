@@ -19,6 +19,7 @@ func set_active(state):
 
 # listens for ships self-reporting being clicked
 func on_ship_reported_clicked(ship, block):
+#	print("BUILDER TOOL: ship reported clicked, ", ship)
 	pass
 
 # attempts to manually find ships at position

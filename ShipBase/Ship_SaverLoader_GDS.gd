@@ -71,8 +71,8 @@ func save(ship : Node2D, name : String, directory : String) -> String:
 		var block_data = block.get_save_data()
 		# store block
 		resource_blocks.append(block.get_save_data()) # save data from node
-		# store type
-		resource_types[block_data["type"]] = true
+		# store type and address
+		resource_types[block_data["type"]] = block_data["address"]
 	
 	# get ship data
 	save_resource.ship_data = ship.get_save_data()
@@ -125,9 +125,19 @@ func load_ship(	ship_base : RigidBody2D,
 	print("SAVER LOADING RESOURCE: ", save_resource)
 	
 	# iterate through blocktypes from resource and populate
-	for type in save_resource.block_types.keys() :
+	var block_types = save_resource.block_types
+	for type in block_types.keys() :
 		
-		var address = blocks_directory + type + ".tscn"
+		# get address
+		var address
+		
+		# backwards compat.
+		if block_types[type] is bool:
+			address = blocks_directory + type + ".tscn"
+		
+		# updated way using filenames
+		elif block_types[type] is String:
+			address = block_types[type]
 		
 		print("saver loading blockres:")
 		print(type)

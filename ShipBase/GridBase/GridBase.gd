@@ -36,6 +36,8 @@ func _ready():
 	tilemap_remote.remote_path = tilemap.get_path()
 	# to upper corner of 0,0 block : ergo tile pos == block pos
 	tilemap_remote.position -= Vector2(grid_size/2, grid_size/2)
+	
+	shipBody.connect("on_clicked", self, "on_ship_clicked")
 
 func _enter_tree():
 	print("GRID ENTERED TREE")
@@ -174,6 +176,10 @@ func post_load_block_setup():
 # called by ship
 func on_superShip_moved(super):
 	emit_signal("superShip_moved", super)
+
+
+func on_ship_clicked(ship, block):
+	print("GRID: ship clicked: ", ship)
 
 
 # SAVING AND LOADING ===========================================================

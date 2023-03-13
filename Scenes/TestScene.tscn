@@ -3,10 +3,10 @@
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/TestScene.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/BlockSelectButton.gd" type="Script" id=3]
-[ext_resource path="res://Blocks/PinBlock.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Blocks/LandingBlocks/MotorWheel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Blocks/GunBlock.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ShipBase/GridBase/PinBlock/PinHeadBase.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Blocks/ControlBlock.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Blocks/_oldIO/ControlBlock.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/ShipLoaderTest.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/ShipSaverTest.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/CoordinateLabel.gd" type="Script" id=10]
@@ -14,18 +14,18 @@
 [ext_resource path="res://ControlSystems/IOConnector.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/inputpropagationtest.gd" type="Script" id=13]
 [ext_resource path="res://ControlSystems/ShipSelector.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Blocks/IOInverterBlock.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Blocks/_oldIO/IOInverterBlock.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Blocks/FuelTestBlock.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Scenes/SceneSwitcher.gd" type="Script" id=17]
-[ext_resource path="res://Blocks/PortSplitterBlock.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Blocks/IOPortBlocks/PortSplitterBlock.tscn" type="PackedScene" id=18]
 [ext_resource path="res://ControlSystems/ToolButtonGroup.tres" type="ButtonGroup" id=19]
 [ext_resource path="res://ControlSystems/HoverNotif.tscn" type="PackedScene" id=20]
-[ext_resource path="res://Blocks/WheelPinBody.tscn" type="PackedScene" id=21]
-[ext_resource path="res://Blocks/PortBlockBase.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Blocks/IOPortBlocks/AxisInputblock.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Blocks/IOPortBlocks/VAxisInputblock.tscn" type="PackedScene" id=22]
 [ext_resource path="res://ControlSystems/IOCableTool.tscn" type="PackedScene" id=23]
-[ext_resource path="res://Blocks/PortBlockTester.tscn" type="PackedScene" id=24]
-[ext_resource path="res://Blocks/ThrusterBlockPorts.tscn" type="PackedScene" id=25]
-[ext_resource path="res://Blocks/PortInputBlock.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Blocks/IOPortBlocks/PortBlockTester.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Blocks/Thrusters/ThrusterBlockPorts.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Blocks/IOPortBlocks/PortInputBlock.tscn" type="PackedScene" id=26]
 [ext_resource path="res://UI/ShipCamera.tscn" type="PackedScene" id=27]
 [ext_resource path="res://ControlSystems/FuelCableTool.tscn" type="PackedScene" id=28]
 
@@ -363,6 +363,9 @@ block = ExtResource( 24 )
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer2/BlockSelectButton10"]
 margin_right = 40.0
 margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BlockSelectButton11" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer2"]
 margin_top = 408.0
