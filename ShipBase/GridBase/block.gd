@@ -18,7 +18,12 @@ export(Array, Vector2) var size_grid = [Vector2(0,0)]
 # injected into by editor helper
 
 export var mass = 10
-# TODO this tries to match this with the scene name? Redundant/bad?
+
+# velocity at which impact kablooie
+# probably naiive think about this more later
+export var destruction_velocity = 5
+
+# unique identifier
 export var class_type = "Block"
 export(String) var display_name
 export var tile_id = 0
@@ -77,34 +82,12 @@ func _ready():
 	_set_hitbox_collision_shapes()
 
 
+
 # PUBLIC -----------------------------------------------------------------------
 
 
 
-# removes the @node@ from node name
-# don't ask...
-func _sanitize_name():
-	var chars = name
-	name = chars
-
-
-func _set_hitbox_collision_shapes():
-	
-	# append from export list
-	for path in hitbox_colliders:
-		var node = get_node(path)
-		if node is CollisionShape2D:
-			hitbox_collision_shapes.append(node)
-	
-	
-	# for forward compatibility
-	for node in get_children():
-		if (node is CollisionShape2D) and (node.name == hitbox_string_old):
-			# if not already in array
-			if !hitbox_collision_shapes.has(node):
-				hitbox_collision_shapes.append(node)
-	
-	print("block: hitboxes set: ", hitbox_collision_shapes)
+# -- BLOCK PLACEMENT
 
 
 func set_facing(facing : int):
@@ -122,6 +105,7 @@ func set_facing(facing : int):
 		rotation = PI
 	else:
 		rotation = 3 * PI / 2
+
 
 func rotate_facing_right():
 	set_facing(block_facing + 1)
@@ -145,9 +129,29 @@ func on_removed_from_grid(center_coord, block, grid):
 func post_load_setup():
 	pass
 
-# called when ship is impacted
-func ship_body_entered(body, pos):
+
+# -- INGAME / COLLISION
+
+
+
+# called by ship when this block is impacted
+# currently cannot get pos
+func ship_body_entered(body : CollisionObject2D, pos):
+	
+	# temp collision by relative velocity
+	var relative_vel 
+	
+	if body is StaticBody2D: 
+		relative_vel = shipBody.linear_velocity
+	elif body is KinematicBody2D or body is RigidBody2D:	
+		relative_vel = shipBody.linear_velocity - body.linear_velocity
+	
+	if abs(relative_vel.length()) > destruction_velocity : 
+		print("block exploded at: ", center_grid_coord)
+		grid.remove_block(center_grid_coord)
+	
 	pass
+
 
 
 # -- BLOCK SYSTEMS
@@ -188,4 +192,34 @@ func load_saved_data(dict : Dictionary):
 		print(name)
 		block_systems_manager.load_saved_data(dict["systems"])
 
+
+
+# PRIVATE ----------------------------------------------------------------------
+
+
+
+# removes the @node@ from node name
+# don't ask...
+func _sanitize_name():
+	var chars = name
+	name = chars
+
+
+func _set_hitbox_collision_shapes():
+	
+	# append from export list
+	for path in hitbox_colliders:
+		var node = get_node(path)
+		if node is CollisionShape2D:
+			hitbox_collision_shapes.append(node)
+	
+	
+	# for forward compatibility
+	for node in get_children():
+		if (node is CollisionShape2D) and (node.name == hitbox_string_old):
+			# if not already in array
+			if !hitbox_collision_shapes.has(node):
+				hitbox_collision_shapes.append(node)
+	
+	print("block: hitboxes set: ", hitbox_collision_shapes)
 

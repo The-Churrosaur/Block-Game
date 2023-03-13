@@ -54,6 +54,7 @@ func _on_tilemap_changed():
 #	print(block_path, block)
 	
 	if block == null: return
+	if !block.get("size_grid"): return
 	
 	block.size_grid = get_used_cells()
 	

@@ -403,23 +403,21 @@ func on_force_requested(pos, magnitude, central = false):
 
 func on_body_shape_entered (body_id, body, body_shape, local_shape):
 	
-	# get block coord from tilemap
-	# rotation messes this up, temp disabled
-#	var pos = collision_pos + collision_normal
-#	var coord = tilemap.world_to_map(tilemap.to_local(pos))
-#
-#	# get block from grid
-#	var block = grid.block_dict[coord]
-#
-#	print("ship body entered", pos, coord, block)
-#
-#	# notify block
-#	block.ship_body_entered(body, pos)
-
-	print("SHIPBODY SHAPE ENTERED ", body)
-	print("hit shape: ", local_shape)
-	if collision_shapes.has(local_shape): print(collision_shapes[local_shape])
+#	print("SHIPBODY SHAPE ENTERED ", body)
 	
+	# get block
+	var shape = get_child(local_shape)
+	
+#	print("HIT SHAPE: ", shape)
+	
+	if collision_shapes.has(shape):
+		
+		var block = collision_shapes[shape]
+#		print("HIT SHAPE/BLOCK: ", block)
+		
+		# notify block
+		block.ship_body_entered(body, null)
+
 	pass
 
 
