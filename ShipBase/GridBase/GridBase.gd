@@ -24,6 +24,9 @@ var block_dict = {} # master dictionary of grid
 # hashes all given positions as references to given block
 # this is marginally expensive for saving/loading
 
+# blocks by id: mainly if you need all blocks with no repeats
+var blocks_id = {}
+
 signal block_added(coord, block, grid, update_com)
 signal block_removed(coord, block, grid, update_com) 
 signal superShip_moved(super)
@@ -55,6 +58,10 @@ func get_block(pos : Vector2) -> Node2D:
 
 func add_block(block, center_coord, facing, check_blocked = true, update_com = true):
 	
+	assert(block is Block, "attempting to add not a block!")
+	
+	print("adding block, facing: ", facing, " at: ", center_coord)
+	
 	# add tile to tilemap
 #	tilemap.set_cellv(center_coord, block.tile_id)
 #	tilemap.rotate_tilev(center_coord, facing)
@@ -62,7 +69,29 @@ func add_block(block, center_coord, facing, check_blocked = true, update_com = t
 	# creates array of grid coords from block sizegrid, centered on found coord
 	var coord_ary = []
 	for vec in block.size_grid:
-		coord_ary.append(center_coord + vec)
+		
+		var vec_coord
+		
+		# rotate coords based on facing
+		# (I could do vector math but this is more legible maybe)
+		
+		if facing == Block.block_facing_direction.RIGHT:
+			vec_coord = center_coord + vec
+		
+		elif facing == Block.block_facing_direction.DOWN:
+			vec_coord = center_coord + Vector2(-vec.y, vec.x)
+		
+		elif facing == Block.block_facing_direction.LEFT:
+			vec_coord = center_coord + Vector2(-vec.x, -vec.y)
+		
+		elif facing == Block.block_facing_direction.UP:
+			vec_coord = center_coord + Vector2(vec.y, -vec.x)
+		
+		else:
+			print("??? invalid facing")
+		
+		coord_ary.append(vec_coord)
+		
 		# position + relative vector
 
 	# check if pos blocked
@@ -80,10 +109,13 @@ func add_block(block, center_coord, facing, check_blocked = true, update_com = t
 	position_block(center_coord, facing)
 	
 	# inject info to new block
-	if block is Block:
-		block.on_added_to_grid(center_coord, block, self)
-		block.block_id = new_block_id()
-		# would need reference to connect signal
+	block.on_added_to_grid(center_coord, block, self)
+	
+	# block id and dict
+	var id  = new_block_id()
+	block.block_id = id
+	blocks_id[id] = block
+	# would need reference to connect signal
 	
 	# COM recalcing (also picked up by block systems) 
 	emit_signal("block_added", center_coord, block, self, update_com)
@@ -108,6 +140,7 @@ func new_block_id() -> int:
 
 
 func remove_block(pos : Vector2) -> bool:
+	print("attempting to remove block: ", pos)
 	if block_dict.has(pos):
 		var block = block_dict[pos]
 		
@@ -118,12 +151,15 @@ func remove_block(pos : Vector2) -> bool:
 			return false
 		
 		block_dict.erase(pos)
+		blocks_id.erase(block.block_id)
 		emit_signal("block_removed", pos, block, self, true)
 		block.queue_free()
 		num_blocks -= 1
 		
 		# remove from tilemap
-		tilemap.set_cellv(pos, -1)
+#		tilemap.set_cellv(pos, -1)
+		
+		print("grid: block removed: ", pos)
 		
 		return true
 	else:
@@ -150,10 +186,12 @@ func get_blockFromPoint(point : Vector2):
 
 func position_block(pos : Vector2, facing):
 	if !block_dict.has(pos):
+		print("attempting to position block not in grid")
 		return false
 	else: 
 		var block = block_dict[pos]
 		block.position = pos as Vector2 * grid_size
+		print("positioning block: ", block.position)
 		
 		# covers null case for legacy ships etc.
 		if facing is int:

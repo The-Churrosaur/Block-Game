@@ -154,7 +154,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/character/weapons/grenade.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "GridBase",
 "language": "GDScript",
 "path": "res://ShipBase/GridBase/GridBase.gd"
@@ -424,7 +424,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Blocks/TestBlock.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "TestScene",
 "language": "GDScript",
 "path": "res://Scenes/TestScene.gd"

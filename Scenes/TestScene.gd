@@ -123,20 +123,20 @@ func _process(delta):
 		display_block.position = get_global_mouse_position()
 	
 	if (Input.is_action_just_pressed("ui_right")):
-		block_facing += 1
 		if display_block != null:
-			display_block.set_facing(block_facing)
+			display_block.rotate_facing_right()
 	
 	if (Input.is_action_just_pressed("ui_left")):
-		block_facing -= 1
 		if display_block != null:
-			display_block.set_facing(block_facing)
+			display_block.rotate_facing_left()
 	
 	if (Input.is_action_just_pressed("ui_lclick")):
 		
 		if block_template is PackedScene:
 			var block = block_template.instance()
-			test_grid.add_block_at_point(block, get_global_mouse_position(), block_facing)
+			var facing = 1
+			if display_block != null: facing = display_block.block_facing
+			test_grid.add_block_at_point(block, get_global_mouse_position(), facing)
 	
 	if (Input.is_action_just_pressed("ui_rclick")):
 		

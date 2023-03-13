@@ -26,7 +26,7 @@ func save(ship : Node2D, name : String, directory : String) -> String:
 	# get grid dict
 	var grid = ship.grid
 	if grid == null: return "ERROR"
-	var grid_dict = grid.block_dict
+	var grid_dict = grid.blocks_id
 	
 	print("shipsave saving! " + name + " in: " + directory)
 	

@@ -245,7 +245,7 @@ func add_block_colliders(block):
 	
 	var shapes = []
 	for shape in block.hitbox_collision_shapes:
-		var new_shape = add_shape(shape, shape.global_position)
+		var new_shape = add_shape(shape, shape.global_position, block.rotation)
 #		print("shape placing position: ", position+block.position+shape.position)
 #		print("shape old position: ", shape.global_position)
 		shapes.append(new_shape)
@@ -276,7 +276,7 @@ func remove_block_colliders(block):
 # appends a collisionshape to the ship
 # creates and returns new collisionshape2D as child
 # pos is global position (a little inelegant, think about this TODO)
-func add_shape(col_shape : CollisionShape2D, pos : Vector2) -> CollisionShape2D:
+func add_shape(col_shape : CollisionShape2D, pos : Vector2, block_rot) -> CollisionShape2D:
 	
 #	print("shipbody adding shape: ", col_shape)
 	
@@ -287,6 +287,7 @@ func add_shape(col_shape : CollisionShape2D, pos : Vector2) -> CollisionShape2D:
 	var collision_shape = CollisionShape2D.new()
 	collision_shape.shape = shape_2d
 	collision_shape.position = .to_local(pos)
+	collision_shape.rotation = block_rot
 	
 	add_child(collision_shape)
 	collision_shape.owner = self
@@ -303,7 +304,7 @@ func update_com(block, invert = false): # also updates mass
 	if !(block is Block):
 		return
 	
-	print("BLOCK ADDED: ", block.name)
+	print("BLOCK UPDATING COM: ", block.name)
 	
 	if (invert):
 		block.mass *= -1
@@ -344,7 +345,7 @@ func update_com(block, invert = false): # also updates mass
 	
 	# move colliders along with grid
 	for collider in collision_shapes.keys():
-		print("shifting collider: ", collider)
+#		print("shifting collider: ", collider)
 		collider.position -= com_relative
 	
 	var old_pos = position
@@ -370,6 +371,8 @@ func update_com(block, invert = false): # also updates mass
 
 
 func on_grid_block_removed(coord, block, grid, update_com):
+	
+	print("SHIPBODY REMOVING BLOCK: ", block)
 	
 	# update com in reverse
 	

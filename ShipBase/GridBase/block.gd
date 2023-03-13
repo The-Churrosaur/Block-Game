@@ -16,6 +16,7 @@ export(Array, Vector2) var size_grid = [Vector2(0,0)]
 # ie. a 1x2 spire would be [0,0 , 0,-1] (y values increase going down vvv)
 # I would like this to be a const but it needs to be inherited
 # injected into by editor helper
+# IMPORTANT: relative to 0 rotation/facing, will rotate this
 
 export var mass = 10
 
@@ -97,18 +98,22 @@ func set_facing(facing : int):
 	
 #	print("block facing: ", facing)
 	
-	if facing == 0:
+	if facing == 1:
 		rotation = 0
-	elif facing == 1:
-		rotation = PI/2
 	elif facing == 2:
+		rotation = PI/2
+	elif facing == 3:
 		rotation = PI
 	else:
 		rotation = 3 * PI / 2
 
 
 func rotate_facing_right():
-	set_facing(block_facing + 1)
+	set_facing((block_facing + 1) % block_facing_direction.size())
+
+
+func rotate_facing_left():
+	set_facing((block_facing - 1) % block_facing_direction.size())
 
 
 # TODO give full coordinates for deletion (or should it recreate from local?)
@@ -123,6 +128,7 @@ func on_added_to_grid(center_coord, block, grid):
 
 
 func on_removed_from_grid(center_coord, block, grid):
+	print("block remove called: ", self, " ", class_type)
 	pass
 
 # to convert stored id's into block references etc.
