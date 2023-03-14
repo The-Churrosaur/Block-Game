@@ -1,0 +1,83 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"TestBlock": "res://Blocks/TestBlock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 0,
+"facing": 1,
+"pos": Vector2( -2, -2 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 1,
+"facing": 1,
+"pos": Vector2( -1, -2 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 2,
+"facing": 1,
+"pos": Vector2( -2, -1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 3,
+"facing": 1,
+"pos": Vector2( -1, -1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 4,
+"facing": 1,
+"pos": Vector2( 0, -2 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 5,
+"facing": 1,
+"pos": Vector2( 0, -1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 6,
+"facing": 1,
+"pos": Vector2( 1, -2 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 7,
+"facing": 1,
+"pos": Vector2( 1, -1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 8,
+"facing": 1,
+"pos": Vector2( -1, 0 ),
+"type": "TestBlock"
+} ]
+ship_data = {
+"displacement": Vector2( 36, 85 ),
+"id": "dropper",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 91.0,
+"name": "dropper",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [  ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": 0
+}

@@ -55,12 +55,20 @@ func grid_origin():
 var collision_pos : Vector2
 var collision_normal : Vector2
 
+# -- COLLISION SHAPES
+
 # dictionary of collision shapes: shape->block
 var collision_shapes = {}
 
 # reverse dictionary of collision shapes: block->array of shapes
 # used on block removal, this whole system is kept anonymous from block
 var block_collisions = {}
+
+# connects shape owners on shipbody to collision shapes
+# for onbodyenter
+var collider_shape_owners = {}
+
+# -- SIGNALS
 
 signal on_clicked(shipBody, block)
 signal shipBody_saved(shipBody, name, file)
@@ -292,8 +300,6 @@ func add_shape(col_shape : CollisionShape2D, pos : Vector2, block_rot) -> Collis
 	add_child(collision_shape)
 	collision_shape.owner = self
 	
-#	print("shipbody new shape: ", collision_shape)
-	
 	return collision_shape
 
 
@@ -408,19 +414,22 @@ func on_body_shape_entered (body_id, body, body_shape, local_shape):
 	
 #	print("SHIPBODY SHAPE ENTERED ", body)
 	
-	# get block
-	var shape = get_child(local_shape)
+	# get shape
+	var shape = shape_owner_get_shape(local_shape, 0)
 	
-#	print("HIT SHAPE: ", shape)
+	# get collisionobject2d from shape
+	var collider = shape_owner_get_owner(local_shape)
 	
-	if collision_shapes.has(shape):
+	# get block from dict
+	if collision_shapes.has(collider):
 		
-		var block = collision_shapes[shape]
+		var block = collision_shapes[collider]
 #		print("HIT SHAPE/BLOCK: ", block)
 		
 		# notify block
 		block.ship_body_entered(body, null)
-
+	else:
+		print("shape not found in dict")
 	pass
 
 

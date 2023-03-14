@@ -23,11 +23,6 @@ func _input(event):
 	
 	pass
 
-func ship_body_entered(body, pos):
-	.ship_body_entered(body, pos)
-	print("block hit: ", self)
-	$Sprite.visible = false
-
 func post_load_setup():
 	.post_load_setup()
 	# test load times
