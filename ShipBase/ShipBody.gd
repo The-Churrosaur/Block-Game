@@ -70,7 +70,7 @@ var collider_shape_owners = {}
 
 # -- SIGNALS
 
-signal on_clicked(shipBody, block)
+signal on_clicked(shipBody, block, event)
 signal shipBody_saved(shipBody, name, file)
 signal new_subShip(shipBody, subShip, pinBlock)
 signal ship_com_shifted(old_pos, relative_displacement)
@@ -112,6 +112,8 @@ func _ready():
 	# currently just io
 	io_manager.setup(self)
 	
+	
+	# ??? TODO
 	inertia = 0
 
 
@@ -128,23 +130,64 @@ func _integrate_forces(state):
 		collision_normal = state.get_contact_local_normal(0)
 	pass
 
+func _on_ShipBody_input_event(viewport, event, shape_idx):
+	print("SHIPBODY INPUT EVENT: shape_idx ", shape_idx)
+	
+
+func _print_shape_owners():
+	print("")
+	print("shape owners: ", get_shape_owners())
+	for i in get_shape_owners():
+		var owner_owner = shape_owner_get_owner(i)
+		print(i, ": owner_owner: ", owner_owner)
+		print("----", shape_owner_get_shape(i, 0))
+		if collision_shapes.has(owner_owner):
+			print("----block: ", collision_shapes[owner_owner])
+		else:
+			print("----no block")
+	
+	print("")
+
+
+# collider input callback
+# finds and tells blocks when clicked
+func _input_event(viewport, event, shape_idx):
+#	print("\nSHIPBODY INPUT CALLBACK. shape_idx: ", shape_idx)
+	
+#	_print_shape_owners()
+	
+	# get block from shape owner index, see collision section
+#	print("shape owner shape count: ", shape_owner_get_shape_count(shape_idx))
+	var collider = shape_owner_get_owner(shape_idx)
+#	print("collider: ", collider)
+	if collision_shapes.has(collider):
+		var block = collision_shapes[collider]
+		emit_signal("on_clicked", self, block, event)
+	else:
+		print("SHIPBODY INPUT CALLBACK SHAPE NOT IN COLLISION DICT: ", collider)
+
 
 # TODO breaks when hitbox > grid 
 func _unhandled_input(event):
 	
-	if event.is_action("ui_lclick"):
-		
-		# query the physics server for click
-		var state = get_world_2d().direct_space_state
-		var intersections = state.intersect_point(get_global_mouse_position())
-		for hit in intersections:
-			if hit.collider == self:
-				print("ship: input click ", self)
-				print("at: ", get_global_mouse_position())
-				var clicked_block = grid.get_blockFromPoint(get_global_mouse_position())
-				if clicked_block == null: return
-				emit_signal("on_clicked", self, clicked_block)
-				print("signal emitted")
+	# this works but is a little haphazard, 
+	# currently doing input above
+	
+#	if event.is_action("ui_lclick"):
+#
+#		# query the physics server for click
+#		var state = get_world_2d().direct_space_state
+#		var intersections = state.intersect_point(get_global_mouse_position())
+#		for hit in intersections:
+#			if hit.collider == self:
+#				print("ship: input click ", self)
+#				print("at: ", get_global_mouse_position())
+#				var clicked_block = grid.get_blockFromPoint(get_global_mouse_position())
+#				if clicked_block == null: return
+#				emit_signal("on_clicked", self, clicked_block)
+#				print("signal emitted")
+	
+	pass
 
 
 func is_shipBody() -> bool: # quack quack quack
@@ -278,7 +321,12 @@ func remove_block_colliders(block):
 	
 	# delete
 	for collider in colliders:
+		remove_child(collider)
 		collider.queue_free()
+	
+	# belabored sigh...
+	# call deferred or the physics engine complains
+	call_deferred("rejigger_shapes")
 
 
 # appends a collisionshape to the ship
@@ -302,6 +350,21 @@ func add_shape(col_shape : CollisionShape2D, pos : Vector2, block_rot) -> Collis
 	
 	return collision_shape
 
+
+# unparents and reparents all collision shapes
+# this is slow, and tedious and bad BUT
+# TODO report bug
+# stops rigidbody from returning nonsensical shape owner indexes after deletion
+func rejigger_shapes():
+	
+	print("rejiggering colliders")
+	
+	for collider in collision_shapes.keys():
+		remove_child(collider)
+	for collider in collision_shapes.keys():
+		add_child(collider)
+	
+#	_print_shape_owners()
 
 # moves grid, also updates mass, and updates colliders
 # returns old position
@@ -410,6 +473,7 @@ func on_force_requested(pos, magnitude, central = false):
 	pass
 
 
+# fyi, local_shape returns shapeowner index
 func on_body_shape_entered (body_id, body, body_shape, local_shape):
 	
 #	print("SHIPBODY SHAPE ENTERED ", body)
@@ -417,7 +481,7 @@ func on_body_shape_entered (body_id, body, body_shape, local_shape):
 	# get shape
 	var shape = shape_owner_get_shape(local_shape, 0)
 	
-	# get collisionobject2d from shape
+	# gets collisionobject2d from shapeowner!
 	var collider = shape_owner_get_owner(local_shape)
 	
 	# get block from dict
@@ -430,6 +494,7 @@ func on_body_shape_entered (body_id, body, body_shape, local_shape):
 		block.ship_body_entered(body, null)
 	else:
 		print("shape not found in dict")
+		
 	pass
 
 
@@ -516,3 +581,4 @@ func load_systems_after_blocks():
 	ship_systems.load_systems_data(loaded_data["ship_systems"])
 	
 	for ship in subShips.values(): ship.load_systems_after_blocks() 
+

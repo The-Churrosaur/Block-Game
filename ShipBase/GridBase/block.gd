@@ -20,14 +20,19 @@ export(Array, Vector2) var size_grid = [Vector2(0,0)]
 
 export var mass = 10
 
+export var description = "A block, for building!"
+
 # velocity at which impact kablooie
 # probably naiive think about this more later
-export var destruction_velocity = 5
+export var destruction_velocity = 0.2
 
 # unique identifier
 export var class_type = "Block"
 export(String) var display_name
 export var tile_id = 0
+
+export var popup_path : NodePath = "Popup"
+export var popup_label_path : NodePath = "Popup/Label"
 
 var block_facing : int = block_facing_direction.RIGHT
 
@@ -65,6 +70,12 @@ var center_grid_coord : Vector2 # center coordinate of block
 var shipBody : RigidBody2D
 var block_id : int = 0
 
+
+# -- UI
+
+
+onready var popup : Popup = get_node(popup_path)
+onready var popup_label : Label = get_node(popup_label_path)
 
 
 # overloads default to return specific block type 
@@ -159,6 +170,10 @@ func ship_body_entered(body : CollisionObject2D, pos):
 	pass
 
 
+func ship_clicked(event : InputEvent):
+	if event.is_action_pressed("ui_lclick"):
+		_set_popup()
+
 
 # -- BLOCK SYSTEMS
 
@@ -229,3 +244,9 @@ func _set_hitbox_collision_shapes():
 	
 	print("block: hitboxes set: ", hitbox_collision_shapes)
 
+
+func _set_popup():
+	if popup != null:
+		popup.popup(Rect2(global_position, Vector2(100,100)))
+	if popup_label != null:
+		popup_label.text = description

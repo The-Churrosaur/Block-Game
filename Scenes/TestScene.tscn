@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/TestScene.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/BlockSelectButton.gd" type="Script" id=3]
 [ext_resource path="res://Blocks/LandingBlocks/MotorWheel.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Blocks/GunBlock.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Blocks/Joints/MotorBlock.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ShipBase/GridBase/PinBlock/PinHeadBase.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Blocks/_oldIO/ControlBlock.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/ShipLoaderTest.gd" type="Script" id=8]
@@ -349,6 +349,9 @@ block = ExtResource( 22 )
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer2/BlockSelectButton9"]
 margin_right = 40.0
 margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BlockSelectButton10" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer2"]
 margin_top = 340.0

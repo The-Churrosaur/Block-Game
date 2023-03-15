@@ -1,0 +1,362 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PortSplitterBlock": "res://Blocks/IOPortBlocks/PortSplitterBlock.tscn",
+"TestBlock": "res://Blocks/TestBlock.tscn",
+"ThrusterBlockPorts": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"axis_input_block": "res://Blocks/IOPortBlocks/AxisInputblock.tscn",
+"v_axis_input_block": "res://Blocks/IOPortBlocks/VAxisInputblock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/IOPortBlocks/AxisInputblock.tscn",
+"block_id": 0,
+"facing": 1,
+"pos": Vector2( 0, -1 ),
+"systems": {
+"port_manager": {
+"elements": {
+"left_out": {
+"active": true,
+"text": ""
+},
+"right_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "axis_input_block"
+}, {
+"address": "res://Blocks/IOPortBlocks/VAxisInputblock.tscn",
+"block_id": 1,
+"facing": 1,
+"pos": Vector2( 0, -3 ),
+"systems": {
+"port_manager": {
+"elements": {
+"down_out": {
+"active": true,
+"text": ""
+},
+"up_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "v_axis_input_block"
+}, {
+"address": "res://Blocks/IOPortBlocks/PortSplitterBlock.tscn",
+"block_id": 2,
+"facing": 2,
+"pos": Vector2( 1, -3 ),
+"systems": {
+"port_manager": {
+"elements": {
+"split_in": {
+"active": true,
+"text": ""
+},
+"split_out_1": {
+"active": true,
+"text": ""
+},
+"split_out_two": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortSplitterBlock"
+}, {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 3,
+"facing": 1,
+"pos": Vector2( -1, -1 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 4,
+"facing": 1,
+"pos": Vector2( 2, -1 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 5,
+"facing": 2,
+"pos": Vector2( -2, -2 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 6,
+"facing": 0,
+"pos": Vector2( 3, -2 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 7,
+"facing": 1,
+"pos": Vector2( 1, -2 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 8,
+"facing": 1,
+"pos": Vector2( -2, 0 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 9,
+"facing": 1,
+"pos": Vector2( 3, 0 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 10,
+"facing": 1,
+"pos": Vector2( -3, -3 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 11,
+"facing": 1,
+"pos": Vector2( -3, -2 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 12,
+"facing": 1,
+"pos": Vector2( -3, -1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 13,
+"facing": 1,
+"pos": Vector2( -3, 0 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 14,
+"facing": 1,
+"pos": Vector2( 4, -3 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 15,
+"facing": 1,
+"pos": Vector2( 4, -2 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 16,
+"facing": 1,
+"pos": Vector2( 4, -1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 17,
+"facing": 1,
+"pos": Vector2( 4, 0 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 18,
+"facing": 1,
+"pos": Vector2( -3, 1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 19,
+"facing": 1,
+"pos": Vector2( -2, 1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 20,
+"facing": 1,
+"pos": Vector2( 3, 1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 21,
+"facing": 1,
+"pos": Vector2( 4, 1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 22,
+"facing": 1,
+"pos": Vector2( -1, 1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 23,
+"facing": 1,
+"pos": Vector2( 0, 1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 24,
+"facing": 1,
+"pos": Vector2( 1, 1 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 25,
+"facing": 1,
+"pos": Vector2( 2, 1 ),
+"type": "TestBlock"
+} ]
+ship_data = {
+"displacement": Vector2( -33, 47 ),
+"id": "testhopper5",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 261.0,
+"name": "testhopper5",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 1, -3 ),
+"port": "split_in",
+"ship": "testhopper5"
+},
+"sender_port": {
+"block": Vector2( 0, -3 ),
+"port": "up_out",
+"ship": "testhopper5"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -1, -1 ),
+"port": "fire_thruster",
+"ship": "testhopper5"
+},
+"sender_port": {
+"block": Vector2( 1, -3 ),
+"port": "split_out_1",
+"ship": "testhopper5"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 2, -1 ),
+"port": "fire_thruster",
+"ship": "testhopper5"
+},
+"sender_port": {
+"block": Vector2( 1, -3 ),
+"port": "split_out_two",
+"ship": "testhopper5"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 3, -2 ),
+"port": "fire_thruster",
+"ship": "testhopper5"
+},
+"sender_port": {
+"block": Vector2( 0, -1 ),
+"port": "left_out",
+"ship": "testhopper5"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -2, -2 ),
+"port": "fire_thruster",
+"ship": "testhopper5"
+},
+"sender_port": {
+"block": Vector2( 0, -1 ),
+"port": "right_out",
+"ship": "testhopper5"
+}
+} ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": 0
+}

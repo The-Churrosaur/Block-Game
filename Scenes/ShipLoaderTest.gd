@@ -41,7 +41,7 @@ func on_text_entered(var text):
 	var res = ResourceLoader.load(address)
 	print("ship save loaded: ", address)
 	
-	var ship = loader.load_ship(res, owner, false, Vector2(700,500))
+	var ship = loader.load_ship(res, owner, false, Vector2(700,400))
 	print("SCENE LOADED NEW SHIP")
 	owner.on_new_ship(ship)
 	

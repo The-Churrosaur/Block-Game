@@ -100,7 +100,7 @@ func setup_tools():
 func on_selector_new_ship(ship):
 	select_ship(ship)
 
-func on_ship_clicked(shipBody, block):
+func on_ship_clicked(shipBody, block, event):
 	print("scene: shipclicked")
 	emit_signal("ship_clicked", shipBody, block)
 	

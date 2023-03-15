@@ -216,8 +216,9 @@ func on_superShip_moved(super):
 	emit_signal("superShip_moved", super)
 
 
-func on_ship_clicked(ship, block):
+func on_ship_clicked(ship, block, event):
 	print("GRID: ship clicked: ", ship)
+	block.ship_clicked(event)
 
 
 # SAVING AND LOADING ===========================================================

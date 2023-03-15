@@ -59,4 +59,6 @@ shipBody_path = NodePath("..")
 [node name="BumpDetector" parent="." instance=ExtResource( 10 )]
 ship_path = NodePath("..")
 
+[connection signal="input_event" from="." to="." method="_on_ShipBody_input_event"]
+
 [editable path="GridBase"]

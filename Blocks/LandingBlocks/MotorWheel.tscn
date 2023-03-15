@@ -9,4 +9,4 @@ script = ExtResource( 3 )
 class_type = "MotorWheel"
 display_name = "Wheel Motor"
 default_subShip_resource = ExtResource( 2 )
-braking_impulse = 1000
+damping = false

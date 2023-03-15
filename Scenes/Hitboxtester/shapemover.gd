@@ -57,6 +57,19 @@ func move_shape_to(col_shape : CollisionShape2D,
 				   body : CollisionObject2D, 
 				   pos : Vector2):
 	
+	# TESTING
+	
+	var shape = col_shape.shape
+	var new_shape = RectangleShape2D.new()
+	new_shape.extents = Vector2(10,5)
+	var id = body.create_shape_owner(body)
+	body.shape_owner_add_shape(id, new_shape)
+	
+	return
+	
+	
+	
+	
 	var shape_2d = col_shape.shape
 	
 	# add collisionshape2d as child

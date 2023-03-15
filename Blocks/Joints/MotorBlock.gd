@@ -8,7 +8,8 @@ extends PinBlockBase
 
 
 export var torque_impulse = 10000
-export var braking_impulse = 4000
+export var subship_damp = 10
+export var damping = true
 
 onready var throttle_port : IOPort = $BlockSystems/PortManager/ThrottlePort
 onready var reverse_port : IOPort = $BlockSystems/PortManager/ReversePort
@@ -36,9 +37,10 @@ func _physics_process(delta):
 		if throttle != 0: 
 			subShip.apply_torque_impulse(torque_impulse * throttle)
 		
-		# braking force
-#		var relative_velocity = subShip.angular_velocity - shipBody.angular_velocity
-#		subShip.apply_torque_impulse(relative_velocity * -braking_impulse)
+		if damping:
+			subShip.angular_damp = subship_damp
+		else:
+			subShip.angular_damp = 0
 		
 #		print(subShip.applied_torque)
 
@@ -49,3 +51,7 @@ func _input(event):
 #		test_connect()
 		
 	pass
+
+
+# PUBLIC -----------------------------------------------------------------------
+

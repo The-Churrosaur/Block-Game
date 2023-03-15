@@ -10,8 +10,6 @@ script = ExtResource( 2 )
 class_type = "MotorBlock"
 display_name = "Motor"
 port_manager_path = NodePath("BlockSystems/PortManager")
-default_subShip_resource = null
-braking_impulse = 40000
 
 [node name="ThrottlePort" parent="BlockSystems/PortManager" index="0"]
 position = Vector2( 0, -18.73 )
