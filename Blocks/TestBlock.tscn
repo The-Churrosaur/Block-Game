@@ -11,9 +11,8 @@ extents = Vector2( 32, 32 )
 [node name="TestBlockBase" type="Node2D"]
 script = ExtResource( 2 )
 class_type = "TestBlock"
+display_name = "Test Block"
 tile_id = 2
-popup_path = NodePath("BlockPopup")
-popup_label_path = NodePath("")
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

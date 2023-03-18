@@ -87,6 +87,12 @@ func new_cable(sender_port, receiver_port):
 	# listen for deletion
 	cable.connect("_cable_cut", self, "_on_cable_cut")
 	
+	# check for overlap before adding self to dict
+	var nudge = Vector2.ZERO
+	for cable_other in cables.keys():
+		nudge += _cable_elbow_nudge(cable, cable_other)
+	cable.nudge = nudge
+	
 	cables[cable] = true
 	
 	print("CABLEMANAGER NEW CABLE")
@@ -163,6 +169,59 @@ func _get_address(port : IOPort) -> Dictionary:
 	
 	return dict
 
+
+# -- DRAWING OVERLAPPING
+
+
+# checks and returns any physically overlapping cables
+# compares all cables' ports X and Y 
+
+func _get_overlapping_cables(cable1 : IOCable) -> Array:
+	
+	var overlap = []
+	var offset_width = cable1.offset_width
+	
+	for cable2 in cables.keys():
+		if (
+			_compare_port_overlap(cable1.sender_port, cable2.sender_port, offset_width)
+		 or _compare_port_overlap(cable1.sender_port, cable2.receiver_port, offset_width)
+		 or _compare_port_overlap(cable1.receiver_port, cable2.sender_port, offset_width)
+		 or _compare_port_overlap(cable1.receiver_port, cable2.receiver_port, offset_width)
+		): overlap.append(cable2)
+	
+	return overlap
+
+
+# compares overlap between two ports
+func _compare_port_overlap(port1: IOPort, port2: IOPort, offset_width) -> bool:
+	
+	var x1 = port1.global_position.x
+	var y1 = port1.global_position.y
+	var x2 = port2.global_position.x
+	var y2 = port2.global_position.y
+	
+	if abs(x1 - x2) <= offset_width: return true
+	if abs(y1 - y2) <= offset_width: return true
+	
+	return false
+
+
+func _cable_elbow_nudge(var cable0, var cable1) -> Vector2:
+	
+	var nudge = Vector2.ZERO
+	
+	var tolerance = cable0.offset_width
+	
+	var elbow0 = Vector2(cable0.sender_port.global_position.x, cable0.receiver_port.global_position.y)
+	var elbow1 = Vector2(cable1.sender_port.global_position.x, cable1.receiver_port.global_position.y)
+	
+	var x = abs(elbow0.x - elbow1.x) < tolerance
+	var y = abs(elbow0.y - elbow1.y) < tolerance
+	
+	if x : nudge += Vector2(1,0)
+	if y : nudge += Vector2(0,1)
+	
+	return nudge
 
 # -- CABLE DATA TRANSMISSION
 

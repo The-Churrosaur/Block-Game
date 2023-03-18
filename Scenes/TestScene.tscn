@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/TestScene.gd" type="Script" id=2]
@@ -28,8 +28,13 @@
 [ext_resource path="res://Blocks/IOPortBlocks/PortInputBlock.tscn" type="PackedScene" id=26]
 [ext_resource path="res://UI/ShipCamera.tscn" type="PackedScene" id=27]
 [ext_resource path="res://ControlSystems/FuelCableTool.tscn" type="PackedScene" id=28]
+[ext_resource path="res://Scenes/testgetarea.gd" type="Script" id=29]
+
+[sub_resource type="CircleShape2D" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="CircleShape2D" id=6]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -44,6 +49,16 @@ script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Area2D" type="Area2D" parent="Node2D"]
+script = ExtResource( 29 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
+shape = SubResource( 5 )
+
+[node name="RayCast2D" type="RayCast2D" parent="Node2D/Area2D"]
+enabled = true
+collide_with_areas = true
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2( 1000, 500 )
@@ -175,7 +190,7 @@ margin_bottom = 472.0
 [node name="BlockSelectButton" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer"]
 margin_right = 64.0
 margin_bottom = 64.0
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 5 )
@@ -189,7 +204,7 @@ text = "jiohiuih"
 margin_top = 68.0
 margin_right = 64.0
 margin_bottom = 132.0
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 
@@ -204,7 +219,7 @@ __meta__ = {
 margin_top = 136.0
 margin_right = 64.0
 margin_bottom = 200.0
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 6 )
@@ -221,7 +236,7 @@ margin_top = 204.0
 margin_right = 64.0
 margin_bottom = 268.0
 rect_pivot_offset = Vector2( -29, -208 )
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 4 )
@@ -235,7 +250,7 @@ margin_top = 272.0
 margin_right = 64.0
 margin_bottom = 336.0
 rect_pivot_offset = Vector2( -29, -208 )
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 21 )
@@ -252,7 +267,7 @@ margin_top = 340.0
 margin_right = 64.0
 margin_bottom = 404.0
 rect_pivot_offset = Vector2( -29, -208 )
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 25 )
@@ -270,7 +285,7 @@ margin_bottom = 472.0
 margin_right = 64.0
 margin_bottom = 64.0
 rect_pivot_offset = Vector2( -482.574, -398 )
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -290,7 +305,7 @@ margin_top = 68.0
 margin_right = 64.0
 margin_bottom = 132.0
 rect_pivot_offset = Vector2( -482.574, -398 )
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 7 )
@@ -307,7 +322,7 @@ margin_top = 136.0
 margin_right = 64.0
 margin_bottom = 200.0
 rect_pivot_offset = Vector2( -482.574, -398 )
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -327,7 +342,7 @@ margin_top = 204.0
 margin_right = 64.0
 margin_bottom = 268.0
 rect_pivot_offset = Vector2( 118, -140 )
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 16 )
@@ -341,7 +356,7 @@ margin_top = 272.0
 margin_right = 64.0
 margin_bottom = 336.0
 rect_pivot_offset = Vector2( 118, -140 )
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 22 )
@@ -358,7 +373,7 @@ margin_top = 340.0
 margin_right = 64.0
 margin_bottom = 404.0
 rect_pivot_offset = Vector2( 118, -140 )
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 24 )
@@ -375,7 +390,7 @@ margin_top = 408.0
 margin_right = 64.0
 margin_bottom = 472.0
 rect_pivot_offset = Vector2( 118, -140 )
-button_mask = 2
+button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
 block = ExtResource( 26 )
@@ -387,3 +402,12 @@ margin_bottom = 14.0
 [node name="CameraBase" parent="." instance=ExtResource( 27 )]
 lerp_weight = 0.9
 zoom_time = 0
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 442.312, 292.632 )
+rotation = 0.928126
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 6 )
+
+[connection signal="area_entered" from="Node2D/Area2D" to="Node2D/Area2D" method="_on_Area2D_area_entered"]

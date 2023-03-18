@@ -6,14 +6,21 @@ extends Node2D
 # FIELDS -----------------------------------------------------------------------
 
 
+# distance the elbows move to avoid overlapping lines
+export var offset_width = 10
+
 # to request removal from the manager
 signal _cable_cut(cable)
 
 # visual line
 onready var line = $Line2D
 
-onready var segment_1 = $Area2D/SegmentShape1
-onready var segment_2 = $Area2D/SegmentShape2
+# line overlap detection
+onready var collider_1 = $Area2D/CollisionShape2D
+onready var collider_2 = $Area2D/CollisionShape2D2
+onready var area = $Area2D
+onready var raycast_1 = $Area2D/RayCast2D
+onready var raycast_2 = $Area2D/RayCast2D2
 
 # temp
 onready var button = $Button
@@ -23,6 +30,9 @@ onready var button = $Button
 var sender_port : IOPort
 var receiver_port : IOPort
 
+# how much to nudge the elbow, injected, normalized
+var nudge = Vector2.ZERO
+
 
 # CALLBACKS --------------------------------------------------------------------
 
@@ -31,6 +41,9 @@ func _ready():
 	
 	# connect button
 	button.connect("button_down", self, "_on_button")
+	
+	# why not
+	line.default_color = Color(randf(), randf(), randf())
 
 func _process(delta):
 	
@@ -87,20 +100,42 @@ func _set_lines():
 	line.set_point_position(2, to_local(joint))
 	line.set_point_position(4, to_local(receive_pos))
 	
+	
 	# set segments
 	
+	var shape_1 = SegmentShape2D.new()
+	var shape_2 = SegmentShape2D.new()
+	
+	shape_1.a = area.to_local(send_pos)
+	shape_1.b = area.to_local(joint)
+	shape_2.a = area.to_local(joint)
+	shape_2.b = area.to_local(receive_pos)
+	
+	collider_1.shape = shape_1
+	collider_2.shape = shape_2
+	
+	
+	# set raycasts
+	# using raycasts to detect areas because area/area detection is BROKEN
+	# for dynamically created areas (sigh)
+	
+#	raycast_1.position = to_local(send_pos)
+#	raycast_2.position = to_local(receive_pos)
+#	raycast_1.cast_to(to_local(joint))
+#	raycast_2.cast_to(to_local(joint))
 	
 	
 	# check collisions and set elbows
 	
 	var colliding = _check_collisions()
 	
-	if colliding.empty(): 
-		line.set_point_position(1, to_local(send_pos))
-		line.set_point_position(3, to_local(receive_pos))
+	var nudge_joint = nudge * offset_width
+	var nudge_send = Vector2(nudge_joint.x, 0)
+	var nudge_receive = Vector2(0, nudge_joint.y)
 	
-	else:
-		pass
+	line.set_point_position(2, to_local(joint) + nudge_joint)
+	line.set_point_position(1, to_local(send_pos) + nudge_send)
+	line.set_point_position(3, to_local(receive_pos) + nudge_receive)
 	
 	button.set_global_position(joint) 
 
@@ -110,9 +145,14 @@ func _check_collisions() -> Array:
 	
 	var colliding = []
 	
+	raycast_1.enabled = true
+	raycast_2.enabled = true
+	
+	
+	
+#	print("COLLIDING CABLES! ", colliding)
+	
 	return colliding
-	
-	
 
 
 # for fun

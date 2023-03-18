@@ -9,6 +9,8 @@ extents = Vector2( 32, 32 )
 
 [node name="PortBlockTester" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+description = "Slider outputs from bottom port, top port displays input in text"
+destruction_velocity = 0.2
 class_type = "PortBlockTester"
 display_name = "Port Tester"
 hitbox_colliders = [ NodePath("CollisionShape2D") ]

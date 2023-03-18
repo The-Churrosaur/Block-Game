@@ -10,8 +10,11 @@ extents = Vector2( 32, 64 )
 [node name="VAxisInputBlock" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 size_grid = [ Vector2( 0, 0 ), Vector2( 0, 1 ) ]
+description = "Outputs a signal from the up/down input to ports"
+destruction_velocity = 0.2
 class_type = "v_axis_input_block"
 display_name = "V axis input"
+popup_path = NodePath("")
 hitbox_colliders = [ NodePath("CollisionShape2D") ]
 input_strings = [ "ui_up", "ui_down" ]
 port_paths = [ NodePath("BlockSystems/PortManager/IOPortUp"), NodePath("BlockSystems/PortManager/IOPortDown") ]

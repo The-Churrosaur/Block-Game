@@ -1,0 +1,163 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"PortSplitterBlock": "res://Blocks/IOPortBlocks/PortSplitterBlock.tscn",
+"TestBlock": "res://Blocks/TestBlock.tscn",
+"ThrusterBlockPorts": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"v_axis_input_block": "res://Blocks/IOPortBlocks/VAxisInputblock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 0,
+"facing": 1,
+"pos": Vector2( 0, 0 ),
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 2,
+"facing": 1,
+"pos": Vector2( -2, 0 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 5,
+"facing": 1,
+"pos": Vector2( 2, 0 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/IOPortBlocks/VAxisInputblock.tscn",
+"block_id": 6,
+"facing": 1,
+"pos": Vector2( 0, 2 ),
+"systems": {
+"port_manager": {
+"elements": {
+"down_out": {
+"active": true,
+"text": ""
+},
+"up_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "v_axis_input_block"
+}, {
+"address": "res://Blocks/IOPortBlocks/PortSplitterBlock.tscn",
+"block_id": 7,
+"facing": 1,
+"pos": Vector2( 0, 1 ),
+"systems": {
+"port_manager": {
+"elements": {
+"split_in": {
+"active": true,
+"text": ""
+},
+"split_out_1": {
+"active": true,
+"text": ""
+},
+"split_out_two": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortSplitterBlock"
+} ]
+ship_data = {
+"displacement": Vector2( -1, -37 ),
+"id": "rocket",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 51.0,
+"name": "rocket",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 0, 1 ),
+"port": "split_in",
+"ship": "rocket"
+},
+"sender_port": {
+"block": Vector2( 0, 2 ),
+"port": "up_out",
+"ship": "rocket"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -2, 0 ),
+"port": "fire_thruster",
+"ship": "rocket"
+},
+"sender_port": {
+"block": Vector2( 0, 1 ),
+"port": "split_out_two",
+"ship": "rocket"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 2, 0 ),
+"port": "fire_thruster",
+"ship": "rocket"
+},
+"sender_port": {
+"block": Vector2( 0, 1 ),
+"port": "split_out_1",
+"ship": "rocket"
+}
+} ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": 0
+}

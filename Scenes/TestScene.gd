@@ -130,18 +130,6 @@ func _process(delta):
 		if display_block != null:
 			display_block.rotate_facing_left()
 	
-	if (Input.is_action_just_pressed("ui_lclick")):
-		
-		if block_template is PackedScene:
-			var block = block_template.instance()
-			var facing = 1
-			if display_block != null: facing = display_block.block_facing
-			test_grid.add_block_at_point(block, get_global_mouse_position(), facing)
-	
-	if (Input.is_action_just_pressed("ui_rclick")):
-		
-		test_grid.remove_block_at_point(get_global_mouse_position())
-	
 	if (Input.is_action_just_pressed("ui_cancel")):
 		if display_block is Block:
 			display_block.queue_free()
@@ -150,3 +138,18 @@ func _process(delta):
 	
 #	if (Input.is_action_just_pressed("ui_accept")):
 #		current_ship.linear_velocity += Vector2(10,0)
+
+
+func _unhandled_input(event):
+	
+	if (event.is_action_pressed("ui_lclick")):
+		
+		if block_template is PackedScene:
+			var block = block_template.instance()
+			var facing = 1
+			if display_block != null: facing = display_block.block_facing
+			test_grid.add_block_at_point(block, get_global_mouse_position(), facing)
+	
+	if (event.is_action_pressed("ui_rclick")):
+		
+		test_grid.remove_block_at_point(get_global_mouse_position())

@@ -12,6 +12,11 @@ extends PopupPanel
 # FIELDS ----------------------------------------------------------------------
 
 
+# -- UI
+onready var block_name_label = $MarginContainer/MarginContainer/VBoxContainer/MarginContainer2/LabelTitle
+onready var block_desc_label = $MarginContainer/MarginContainer/VBoxContainer/LabelDesc
+
+
 var block
 
 
@@ -29,8 +34,13 @@ func _process(delta):
 # PUBLIC -----------------------------------------------------------------------
 
 
-func show_popup():
-	pass
+func show_popup(new_block = null):
+	if new_block != null : block = new_block
+	
+	block_name_label.text = block.display_name
+	block_desc_label.text = block.description
+	
+	popup(Rect2(block.global_position, Vector2(100,100)))
 
 
 # PRIVATE ----------------------------------------------------------------------

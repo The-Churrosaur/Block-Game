@@ -67,7 +67,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="LabelTitle" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/MarginContainer2"]
 margin_right = 86.0
 margin_bottom = 14.0
 text = "BLOCK TYPE"
@@ -75,7 +75,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="LabelDesc" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
 margin_top = 18.0
 margin_right = 86.0
 margin_bottom = 117.0

@@ -6,6 +6,7 @@
 
 [node name="MotorWheel" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+description = "For building wheeled vehicles - throttle input at top port, reverse throttle at bottom port"
 class_type = "MotorWheel"
 display_name = "Wheel Motor"
 default_subShip_resource = ExtResource( 2 )

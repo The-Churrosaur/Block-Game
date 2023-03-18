@@ -9,6 +9,8 @@ extents = Vector2( 32, 32 )
 
 [node name="PortSplitterBlock" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+description = "Copies the signal form the input port to all output ports "
+destruction_velocity = 0.2
 class_type = "PortSplitterBlock"
 display_name = "Port Spliiter"
 hitbox_colliders = [ NodePath("CollisionShape2D") ]

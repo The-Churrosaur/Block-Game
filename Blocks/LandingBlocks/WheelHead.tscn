@@ -11,8 +11,9 @@ radius = 64.0
 
 [node name="WheelHeadBase" type="Node2D"]
 script = ExtResource( 2 )
+destruction_velocity = 100.0
+destructable = false
 class_type = "WheelHead"
-folder_address = "LandingBlocks/WheelHead"
 physics_material = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]

@@ -25,14 +25,14 @@ export var description = "A block, for building!"
 # velocity at which impact kablooie
 # probably naiive think about this more later
 export var destruction_velocity = 0.2
+export var destructable = true
 
 # unique identifier
 export var class_type = "Block"
 export(String) var display_name
 export var tile_id = 0
 
-export var popup_path : NodePath = "Popup"
-export var popup_label_path : NodePath = "Popup/Label"
+export var popup_path : NodePath = "BlockPopup"
 
 var block_facing : int = block_facing_direction.RIGHT
 
@@ -75,7 +75,6 @@ var block_id : int = 0
 
 
 onready var popup : Popup = get_node(popup_path)
-onready var popup_label : Label = get_node(popup_label_path)
 
 
 # overloads default to return specific block type 
@@ -154,6 +153,8 @@ func post_load_setup():
 # called by ship when this block is impacted
 # currently cannot get pos
 func ship_body_entered(body : CollisionObject2D, pos):
+	
+	if !destructable: return
 	
 	# temp collision by relative velocity
 	var relative_vel 
@@ -247,6 +248,4 @@ func _set_hitbox_collision_shapes():
 
 func _set_popup():
 	if popup != null:
-		popup.popup(Rect2(global_position, Vector2(100,100)))
-	if popup_label != null:
-		popup_label.text = description
+		popup.show_popup(self)

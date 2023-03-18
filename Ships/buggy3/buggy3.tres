@@ -1,0 +1,211 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"MotorWheel": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"PortSplitterBlock": "res://Blocks/IOPortBlocks/PortSplitterBlock.tscn",
+"axis_input_block": "res://Blocks/IOPortBlocks/AxisInputblock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"block_id": 0,
+"facing": 1,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( -3, 0 ),
+"subShip_id": "wheel_head",
+"subShip_resource_path": "res://Ships/buggy3/SubShips/wheel_head57/wheel_head57.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"default": {
+"active": true,
+"text": ""
+},
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "MotorWheel"
+}, {
+"address": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"block_id": 1,
+"facing": 1,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 1, 0 ),
+"subShip_id": "wheel_head19",
+"subShip_resource_path": "res://Ships/buggy3/SubShips/wheel_head1961/wheel_head1961.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"default": {
+"active": true,
+"text": ""
+},
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "MotorWheel"
+}, {
+"address": "res://Blocks/IOPortBlocks/AxisInputblock.tscn",
+"block_id": 2,
+"facing": 1,
+"pos": Vector2( -1, -1 ),
+"systems": {
+"port_manager": {
+"elements": {
+"left_out": {
+"active": true,
+"text": ""
+},
+"right_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "axis_input_block"
+}, {
+"address": "res://Blocks/IOPortBlocks/PortSplitterBlock.tscn",
+"block_id": 3,
+"facing": 1,
+"pos": Vector2( -1, -2 ),
+"systems": {
+"port_manager": {
+"elements": {
+"split_in": {
+"active": true,
+"text": ""
+},
+"split_out_1": {
+"active": true,
+"text": ""
+},
+"split_out_two": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortSplitterBlock"
+}, {
+"address": "res://Blocks/IOPortBlocks/PortSplitterBlock.tscn",
+"block_id": 4,
+"facing": 1,
+"pos": Vector2( 0, -2 ),
+"systems": {
+"port_manager": {
+"elements": {
+"split_in": {
+"active": true,
+"text": ""
+},
+"split_out_1": {
+"active": true,
+"text": ""
+},
+"split_out_two": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "PortSplitterBlock"
+} ]
+ship_data = {
+"displacement": Vector2( 50, 63 ),
+"id": "buggy3",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 51.0,
+"name": "buggy3",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( -1, -2 ),
+"port": "split_in",
+"ship": "buggy3"
+},
+"sender_port": {
+"block": Vector2( -1, -1 ),
+"port": "left_out",
+"ship": "buggy3"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 0, -2 ),
+"port": "split_in",
+"ship": "buggy3"
+},
+"sender_port": {
+"block": Vector2( -1, -1 ),
+"port": "right_out",
+"ship": "buggy3"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -3, 0 ),
+"port": "throttle",
+"ship": "buggy3"
+},
+"sender_port": {
+"block": Vector2( -1, -2 ),
+"port": "split_out_two",
+"ship": "buggy3"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 1, 0 ),
+"port": "throttle",
+"ship": "buggy3"
+},
+"sender_port": {
+"block": Vector2( -1, -2 ),
+"port": "split_out_1",
+"ship": "buggy3"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -3, 0 ),
+"port": "default",
+"ship": "buggy3"
+},
+"sender_port": {
+"block": Vector2( 0, -2 ),
+"port": "split_out_two",
+"ship": "buggy3"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 1, 0 ),
+"port": "default",
+"ship": "buggy3"
+},
+"sender_port": {
+"block": Vector2( 0, -2 ),
+"port": "split_out_1",
+"ship": "buggy3"
+}
+} ]
+}
+},
+"subShip_counter": 2,
+"subShip_id": 0
+}
