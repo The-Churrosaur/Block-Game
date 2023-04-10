@@ -39,6 +39,9 @@ onready var data = 0.0
 # also used for determing availability
 onready var cable = null
 
+# dict of cables (injected) cable->bool
+onready var cables = {}
+
 # this port's manager (injected by manager)
 var manager= null 
 

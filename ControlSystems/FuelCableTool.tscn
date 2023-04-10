@@ -4,6 +4,7 @@
 
 [node name="FuelCableTool" type="Node2D"]
 script = ExtResource( 1 )
+id = "fuel_cable_tool"
 port_system_id = "fuel_port_manager"
 cable_system_id = "fuel_cable_manager"
 

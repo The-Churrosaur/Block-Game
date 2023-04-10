@@ -1,6 +1,9 @@
 class_name ShipBuilderTool
 extends Node2D
 
+# unique identifier
+export var tool_id = "default_tool"
+
 export var active = false
 
 var scene = null

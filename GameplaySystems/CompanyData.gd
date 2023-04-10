@@ -1,29 +1,25 @@
 
-# wheel block
-# changes subship friction settings etc on ready
-class_name WheelHead
-extends PinHeadBase
+# SINGLETON that holds player information (currency) accross workshop and world
+# hacked in for now - in the future everything (building) will be in-world?
+
+extends Node
 
 
 # FIELDS ----------------------------------------------------------------------
 
 
-export var physics_material : PhysicsMaterial
+export var funds = 100000
 
 
 # CALLBACKS --------------------------------------------------------------------
 
 
 func _ready():
-	._ready()
-	
-	# bad but eh for now
-	yield(get_tree(),"idle_frame")
-	
-	if !shipBody: return
-	
-	print("wheelhead OVERRIDING SHIP MATERIAL")
-	shipBody.physics_material_override = physics_material
+	pass
+
+
+func _process(delta):
+	pass
 
 
 # PUBLIC -----------------------------------------------------------------------

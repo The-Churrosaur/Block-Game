@@ -234,7 +234,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://BlockSystems/IO/IOManager.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "IOPort",
 "language": "GDScript",
 "path": "res://BlockSystems/IOPorts/IOPort.gd"
@@ -369,7 +369,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ShipBase/ShipBody.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "ShipBuilderTool",
 "language": "GDScript",
 "path": "res://ControlSystems/ShipBuilderTool.gd"
@@ -453,6 +453,11 @@ _global_script_classes=[ {
 "class": "ThrusterBlockPorts",
 "language": "GDScript",
 "path": "res://Blocks/Thrusters/ThrusterBlockPorts.gd"
+}, {
+"base": "Node",
+"class": "ToolManager",
+"language": "GDScript",
+"path": "res://ControlSystems/ToolManager.gd"
 }, {
 "base": "Reference",
 "class": "Weapon",
@@ -564,6 +569,7 @@ _global_script_class_icons={
 "ThrusterBlock": "",
 "ThrusterBlockIO": "",
 "ThrusterBlockPorts": "",
+"ToolManager": "",
 "Weapon": "",
 "WheelHead": "",
 "ik_2d": "",
@@ -579,6 +585,7 @@ config/icon="res://icon.png"
 [autoload]
 
 ShipLoader="*res://ShipBase/ShipLoader.tscn"
+CompanyData="*res://GameplaySystems/CompanyData.tscn"
 
 [display]
 

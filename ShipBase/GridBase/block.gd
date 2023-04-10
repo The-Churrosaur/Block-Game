@@ -19,6 +19,7 @@ export(Array, Vector2) var size_grid = [Vector2(0,0)]
 # IMPORTANT: relative to 0 rotation/facing, will rotate this
 
 export var mass = 10
+export var cost = 100
 
 export var description = "A block, for building!"
 
