@@ -1,11 +1,11 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/TestScene.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/BlockSelectButton.gd" type="Script" id=3]
 [ext_resource path="res://Blocks/LandingBlocks/MotorWheel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Blocks/Joints/MotorBlock.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ShipBase/GridBase/PinBlock/PinHeadBase.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Blocks/CargoBlock.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Blocks/_oldIO/ControlBlock.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/ShipLoaderTest.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/ShipSaverTest.gd" type="Script" id=9]
@@ -29,12 +29,13 @@
 [ext_resource path="res://UI/ShipCamera.tscn" type="PackedScene" id=27]
 [ext_resource path="res://ControlSystems/FuelCableTool.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Scenes/testgetarea.gd" type="Script" id=29]
-
-[sub_resource type="CircleShape2D" id=5]
+[ext_resource path="res://Blocks/Joints/MagLock.tscn" type="PackedScene" id=30]
 
 [sub_resource type="CircleShape2D" id=1]
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=2]
+
+[sub_resource type="CircleShape2D" id=3]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -54,7 +55,7 @@ __meta__ = {
 script = ExtResource( 29 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Node2D/Area2D"]
 enabled = true
@@ -67,7 +68,7 @@ collision_mask = 3
 mass = 1000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="FuelCableTool" parent="." instance=ExtResource( 28 )]
 
@@ -199,6 +200,9 @@ block = ExtResource( 5 )
 margin_right = 40.0
 margin_bottom = 14.0
 text = "jiohiuih"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BlockSelectButton2" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer"]
 margin_top = 68.0
@@ -222,7 +226,7 @@ margin_bottom = 200.0
 button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
-block = ExtResource( 6 )
+block = ExtResource( 30 )
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer/BlockSelectButton3"]
 margin_right = 40.0
@@ -262,7 +266,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BlockSelectButton6" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer"]
+[node name="BlockSelectButton7" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer"]
 margin_top = 340.0
 margin_right = 64.0
 margin_bottom = 404.0
@@ -270,7 +274,24 @@ rect_pivot_offset = Vector2( -29, -208 )
 button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 block = ExtResource( 25 )
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer/BlockSelectButton7"]
+margin_right = 64.0
+margin_bottom = 14.0
+
+[node name="BlockSelectButton6" type="TextureButton" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer"]
+margin_top = 408.0
+margin_right = 64.0
+margin_bottom = 472.0
+rect_pivot_offset = Vector2( -29, -208 )
+button_mask = 3
+texture_normal = ExtResource( 1 )
+script = ExtResource( 3 )
+block = ExtResource( 6 )
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer/BlockSelectButton6"]
 margin_right = 40.0
@@ -408,6 +429,6 @@ position = Vector2( 442.312, 292.632 )
 rotation = 0.928126
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 6 )
+shape = SubResource( 3 )
 
 [connection signal="area_entered" from="Node2D/Area2D" to="Node2D/Area2D" method="_on_Area2D_area_entered"]

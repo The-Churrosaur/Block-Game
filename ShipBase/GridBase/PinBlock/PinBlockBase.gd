@@ -5,6 +5,9 @@ extends PortBlockBase
 # saves location of ship resource
 # maybe TODO have the loader initiate loading subships idk
 
+# if false, doesn't spawn a subship
+export var use_subShip_resource = true
+
 export var default_subShip_resource : Resource
 export var default_pinHead_coord = Vector2(0,0)
 
@@ -35,10 +38,11 @@ func _ready():
 
 
 func _physics_process(delta):
-	if (queue_pin):
+	if queue_pin:
 #		print("POSITION", global_position, subShip.position)
-		reposition_subShip(pinHead)
-		pin_subShip()
+		if pinHead:
+			reposition_subShip(pinHead)
+			pin_subShip()
 
 
 func _input(event):
@@ -62,7 +66,7 @@ func on_added_to_grid(center_coord, block, grid):
 	connect("subShip_removed", shipBody, "on_subShip_removed")
 	shipBody.connect("ship_com_shifted", self, "on_ship_com_shifted")
 	
-	setup_load_subship()
+	if use_subShip_resource: setup_load_subship()
 
 func on_removed_from_grid(center_coord, block, grid):
 	.on_removed_from_grid(center_coord, block, grid)
@@ -74,7 +78,7 @@ func on_removed_from_grid(center_coord, block, grid):
 
 func setup_load_subship():
 	
-	# load saved subship from path or default subship
+	# load subship resource from path or default subship
 	if pinHead_coord == null: 
 		pinHead_coord = default_pinHead_coord
 	if subShip_resource_path == null: 
@@ -90,6 +94,8 @@ func setup_load_subship():
 	# listen for subship grid changes
 	pinHead.connect("pin_grid_changed", self, "on_pin_grid_changed")
 
+
+# spawns and sets up subship
 func create_subship_pinhead() -> Node2D: # returns pinhead
 	
 	# ship
@@ -105,6 +111,7 @@ func create_subship_pinhead() -> Node2D: # returns pinhead
 	var pinHead = ship.get_block(pinHead_coord)
 	return pinHead
 
+# attaches new subship
 func attach(pinHead): 
 	
 	print("attaching pinhead")
@@ -198,8 +205,14 @@ func reposition_subShip(pinHead):
 # moves subship to place pinhead where com was
 func shift_subship_pos_to_pinhead(pinHead):
 	
+	# get displacement of pinhead
+	var disp
+	
 	# gets subship(com) -> pinhead in global coords
-	var disp = pinHead.pin_point.global_position - subShip.global_position
+	if pinHead.get("pin_point"):
+		disp = pinHead.pin_point.global_position - subShip.global_position
+	else:
+		disp = pinHead.global_position - subShip.global_position
 	
 	# moves subship inverse of this displacement
 	subShip.position -= disp

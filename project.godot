@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ShipBase/GridBase/Block_Storage.gd"
 }, {
-"base": "IOBlock",
+"base": "PortBlockBase",
 "class": "BodyPinBase",
 "language": "GDScript",
 "path": "res://ShipBase/GridBase/PinBlock/BodyPinBase.gd"
@@ -258,6 +258,11 @@ _global_script_classes=[ {
 "class": "LootSpawner",
 "language": "GDScript",
 "path": "res://Scenes/environment/loot_spawner.gd"
+}, {
+"base": "PinBlockBase",
+"class": "MagLock",
+"language": "GDScript",
+"path": "res://Blocks/Joints/MagLock.gd"
 }, {
 "base": "PinBlockBase",
 "class": "MotorBlock",
@@ -530,6 +535,7 @@ _global_script_class_icons={
 "JointBlock": "",
 "KinematicCharacter": "",
 "LootSpawner": "",
+"MagLock": "",
 "MotorBlock": "",
 "MotorWheel": "",
 "PhysicsPlatform": "",
@@ -590,7 +596,8 @@ CompanyData="*res://GameplaySystems/CompanyData.tscn"
 [display]
 
 window/size/width=1920
-window/size/height=1080
+window/size/height=1200
+window/size/fullscreen=true
 
 [global]
 

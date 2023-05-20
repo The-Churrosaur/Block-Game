@@ -16,10 +16,10 @@
 
 [node name="ShipBody" type="RigidBody2D" groups=[
 "Platform",
+"ShipBody",
 ]]
 input_pickable = true
 collision_layer = 7
-collision_mask = 0
 contacts_reported = 5
 contact_monitor = true
 linear_damp = 0.0

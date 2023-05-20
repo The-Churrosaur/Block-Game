@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Blocks/TestBlock.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Blocks/Joints/MagLock.gd" type="Script" id=2]
+[ext_resource path="res://BlockSystems/IOPorts/PortManager.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 64.0
+
+[node name="MagLockBase" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+description = "grabs other ships"
+class_type = "MagLockBlock"
+display_name = "Magnetic Grabber"
+hitbox_colliders = [ NodePath("CollisionShape2D") ]
+use_subShip_resource = false
+
+[node name="PortManager" parent="BlockSystems" index="0" instance=ExtResource( 3 )]
+
+[node name="PinJoint2D" type="PinJoint2D" parent="." index="4"]
+
+[node name="Button" type="Button" parent="." index="5"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.5
+margin_top = 0.529732
+margin_right = 20.5
+margin_bottom = 20.5297
+text = "Lock"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="6"]
+shape = SubResource( 1 )
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

@@ -50,17 +50,12 @@ func select_ship(ship):
 	elif !(ship is ShipBody):
 		print("ship clicked: no shipbody returned")
 		return
-	
-	# decolor old ship
-	if current_ship:
-		current_ship.modulate = Color(1,1,1,1)
+
 	
 	current_ship = ship
 	print("hooking up ship to testscene: ", ship)
 	test_grid = ship.grid
 	
-	# color new ship
-	current_ship.modulate = Color(1,0.7,0.7,0.7)
 	
 	# look at ship
 	camera.set_target(ship)

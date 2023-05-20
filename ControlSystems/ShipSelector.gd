@@ -1,6 +1,8 @@
 class_name ShipSelector
 extends ShipBuilderTool
 
+var selected_ships = []
+
 signal new_ship_selected(ship)
 
 func _unhandled_input(event):
@@ -9,6 +11,16 @@ func _unhandled_input(event):
 		var ship 
 		ship = select_new_ship(get_global_mouse_position(), scene.current_ship)
 		print("Selector selected new ship: ", ship)
+		
+		if ship == null: return
+		
+		for selected in selected_ships:
+			selected.deselect_ship()
+		selected_ships.clear()
+		
+		selected_ships.append(ship)
+		ship.select_ship()
+		
 		emit_signal("new_ship_selected", ship)
 
 func select_new_ship(pos, old_ship):

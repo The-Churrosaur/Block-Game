@@ -6,13 +6,6 @@
 
 [node name="PortBlockBase" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-size_grid = [ Vector2( 0, 0 ) ]
-mass = 10
-class_type = "Block"
 display_name = ""
-tile_id = 0
-folder_address = ""
-hitbox_colliders = [  ]
-hitbox_string_old = "Hitbox"
 
 [node name="PortManager" parent="BlockSystems" index="0" instance=ExtResource( 3 )]

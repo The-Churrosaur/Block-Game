@@ -53,8 +53,15 @@ func _on_tilemap_changed():
 	block = get_node_or_null(block_path)
 #	print(block_path, block)
 	
-	if block == null: return
-	if !block.get("size_grid"): return
+	if block == null: 
+		print("size helper: block null")
+		return
+	
+	# this keeps giving false negatives 
+	
+#	if !block.get("size_grid"): 
+#		print("no size grid")
+#		return
 	
 	block.size_grid = get_used_cells()
 	

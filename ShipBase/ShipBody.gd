@@ -15,6 +15,8 @@ export var display_name = "MyShip" # set by player, ingame name
 export var ship_id : String 
 export var default_mass = 0.01
 
+export var selected = false
+
 #onready var ship_save = load("res://ShipBase/ShipSave.gdns").new()
 # TESTING GDSCRIPT
 onready var ship_save = Ship_SaverLoader_GDS.new()
@@ -458,11 +460,37 @@ func get_block(coord : Vector2):
 		 return null
 
 
+# kinda slow, iterates to find closest block to point
+func get_closest_block(global_coord : Vector2):
+	
+	var closest_distance
+	var closest = null
+	
+	for block in grid.block_dict.values():
+		var distance = block.global_position.distance_squared_to(global_coord)
+		if (closest == null) or (distance < closest_distance):
+			closest_distance = distance
+			closest = block
+	
+	return closest
+
+
 func post_load_block_setup():
 	grid.post_load_block_setup()
 
 
 # INGAME LOGIC =================================================================
+
+
+# selected by player
+func select_ship():
+	selected = true
+	modulate = Color(0.7,1,1,1)
+
+
+func deselect_ship():
+	selected = false
+	modulate = Color(1,1,1,1)
 
 
 func on_force_requested(pos, magnitude, central = false):
@@ -473,6 +501,7 @@ func on_force_requested(pos, magnitude, central = false):
 	pass
 
 
+# COLLISIONS
 # fyi, local_shape returns shapeowner index
 func on_body_shape_entered (body_id, body, body_shape, local_shape):
 	
@@ -485,16 +514,26 @@ func on_body_shape_entered (body_id, body, body_shape, local_shape):
 	var collider = shape_owner_get_owner(local_shape)
 	
 	# get block from dict
+	var block = null
 	if collision_shapes.has(collider):
 		
-		var block = collision_shapes[collider]
+		block = collision_shapes[collider]
 #		print("HIT SHAPE/BLOCK: ", block)
 		
 		# notify block
 		block.ship_body_entered(body, null)
 	else:
 		print("shape not found in dict")
+	
+	# call ship collision
+	if body.is_in_group("ShipBody"): body.ship_ship_collision(self, block)
 		
+	pass
+
+
+# called by colliding ship when collision detected
+# a little coupley
+func ship_ship_collision(other_ship, block):
 	pass
 
 

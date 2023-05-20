@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Blocks/TestBlock.tscn" type="PackedScene" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Assets/frame2.png" type="Texture" id=3]
+[ext_resource path="res://Assets/info_box.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[node name="CargoBase" instance=ExtResource( 1 )]
+description = "What could be inside?"
+class_type = "CargoBlock"
+display_name = "Cargo"
+hitbox_colliders = [ NodePath("CollisionShape2D") ]
+
+[node name="Sprite3" type="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 3 )
+
+[node name="Sprite2" type="Sprite" parent="." index="5"]
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="6"]
+shape = SubResource( 1 )
