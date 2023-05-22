@@ -3,7 +3,7 @@
 # injects the tilemap into the block size_grid
 
 class_name BlockSizeHelper
-tool
+#tool
 extends TileMap
 
 
