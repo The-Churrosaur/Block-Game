@@ -25,13 +25,15 @@ export var description = "A block, for building!"
 
 # velocity at which impact kablooie
 # probably naiive think about this more later
-export var destruction_velocity = 0.2
+export var destruction_velocity = 5
 export var destructable = true
 
 # unique identifier
 export var class_type = "Block"
 export(String) var display_name
 export var tile_id = 0
+
+export var enabled = true
 
 export var popup_path : NodePath = "BlockPopup"
 
@@ -147,8 +149,17 @@ func post_load_setup():
 	pass
 
 
+
 # -- INGAME / COLLISION
 
+
+
+func enable_block():
+	enabled = true
+
+
+func disable_block():
+	enabled = false
 
 
 # called by ship when this block is impacted

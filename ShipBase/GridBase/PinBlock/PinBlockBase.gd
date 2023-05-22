@@ -23,6 +23,7 @@ var pinHead = null
 var pinJoint = null
 
 var queue_pin = false
+var queue_repos = false
 
 # communicates up to shipbody
 signal subShip_pinned(subShip, pinBlock, pinHead)
@@ -38,11 +39,11 @@ func _ready():
 
 
 func _physics_process(delta):
-	if queue_pin:
-#		print("POSITION", global_position, subShip.position)
-		if pinHead:
-			reposition_subShip(pinHead)
-			pin_subShip()
+	
+	if pinHead:
+		
+		if queue_repos: reposition_subShip(pinHead)
+		if queue_pin: pin_subShip()
 
 
 func _input(event):
@@ -74,7 +75,7 @@ func on_removed_from_grid(center_coord, block, grid):
 	# TODO are you sure you want to delete this subship?
 	# can return false here
 	
-	emit_signal("subShip_removed", subShip, self, pinHead)
+	if subShip: emit_signal("subShip_removed", subShip, self, pinHead)
 
 func setup_load_subship():
 	
@@ -112,7 +113,7 @@ func create_subship_pinhead() -> Node2D: # returns pinhead
 	return pinHead
 
 # attaches new subship
-func attach(pinHead): 
+func attach(pinHead, repos = true): 
 	
 	print("attaching pinhead")
 	# should be placed on grid before attaching
@@ -143,6 +144,7 @@ func attach(pinHead):
 	
 #	print("***AJDSFKASpre-pin position: ", pinJoint.global_position, global_position)
 	queue_pin = true
+	if repos: queue_repos = true
 #	pin_subShip()
 #	subShip.angular_velocity = 1
 	
@@ -187,11 +189,12 @@ func on_ship_com_shifted(old_pos, relative_displacement):
 
 
 # reattaches to pinHead position (for shifting subship)
-func reattach(pinHead):
+func reattach(pinHead, repos = true):
 	
 	print("reattaching...")
 	
 	queue_pin = true
+	if repos: queue_repos = true
 
 
 func reposition_subShip(pinHead): 

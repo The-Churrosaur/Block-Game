@@ -10,6 +10,7 @@ extents = Vector2( 32, 32 )
 
 [node name="CargoBase" instance=ExtResource( 1 )]
 description = "What could be inside?"
+destruction_velocity = 5
 class_type = "CargoBlock"
 display_name = "Cargo"
 hitbox_colliders = [ NodePath("CollisionShape2D") ]

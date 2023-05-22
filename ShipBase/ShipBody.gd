@@ -505,6 +505,8 @@ func on_force_requested(pos, magnitude, central = false):
 # fyi, local_shape returns shapeowner index
 func on_body_shape_entered (body_id, body, body_shape, local_shape):
 	
+	if body == self: return
+	
 #	print("SHIPBODY SHAPE ENTERED ", body)
 	
 	# get shape

@@ -8,7 +8,6 @@
 
 [node name="TestBlockBase" type="Node2D"]
 script = ExtResource( 2 )
-destruction_velocity = 10.0
 block_systems_manager_path = NodePath("BlockSystems")
 
 [node name="Sprite" type="Sprite" parent="."]

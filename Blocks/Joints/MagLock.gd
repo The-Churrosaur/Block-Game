@@ -11,6 +11,7 @@ extends PinBlockBase
 # FIELDS ----------------------------------------------------------------------
 
 
+export var lock_enabled  = true
 
 
 # CALLBACKS --------------------------------------------------------------------
@@ -35,12 +36,13 @@ func set_subShip(ship : RigidBody2D, block : Block):
 	pinHead = block
 	subShip = ship
 	
-	attach(pinHead)
+	attach(pinHead, false)
 
 
 # drop it (temp)
 func drop_subShip():
 	pinJoint.queue_free()
+	_disable_lock()
 
 
 # override collision
@@ -48,14 +50,26 @@ func ship_body_entered(body, pos):
 	.ship_body_entered(body, pos)
 	
 	if body.is_in_group("ShipBody"):
-		var colliding_block = body.get_closest_block(global_position)
-		set_subShip(body, colliding_block)
+		_try_lock_subShip(body, pos)
 
 
 # PRIVATE ----------------------------------------------------------------------
 
 
+func _disable_lock():
+	lock_enabled = false
 
+
+func _enable_lock():
+	lock_enabled = true
+
+
+func _try_lock_subShip(ship, pos):
+	
+	if !lock_enabled: return
+	
+	var colliding_block = ship.get_closest_block(global_position)
+	set_subShip(ship, colliding_block)
 
 
 # -- SUBSECTION
