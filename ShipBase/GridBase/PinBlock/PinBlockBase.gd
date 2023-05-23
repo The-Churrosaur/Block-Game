@@ -40,7 +40,9 @@ func _ready():
 
 func _physics_process(delta):
 	
-	if pinHead:
+	if pinHead != null:
+		
+#		print("MAGLOCK HAS PINHEAD: ", pinHead, pinHead.name)
 		
 		if queue_repos: reposition_subShip(pinHead)
 		if queue_pin: pin_subShip()
@@ -67,6 +69,8 @@ func on_added_to_grid(center_coord, block, grid):
 	connect("subShip_removed", shipBody, "on_subShip_removed")
 	shipBody.connect("ship_com_shifted", self, "on_ship_com_shifted")
 	
+	
+	print("PINBLOCK ADDED TO GRID: USE SUBSHIP? ", use_subShip_resource)
 	if use_subShip_resource: setup_load_subship()
 
 func on_removed_from_grid(center_coord, block, grid):
@@ -177,10 +181,36 @@ func pin_subShip():
 	print("subship physics pinned")
 
 
+# cleanly detach pinhead
+func detach():
+	
+	if !subShip: 
+		print("PINBLOCK no subship to detach")
+		return
+	
+	print("PINBLOCK DETACHING")
+	
+	# physicially detatch
+	pinJoint.queue_free()
+	
+	# clear subship references
+	emit_signal("subShip_removed", subShip, self, pinHead)
+	
+	# clear from self
+	subShip = null
+	pinHead = null
+	pinHead_coord = null
+
+
 # pinhead reattaching ----------------------------------------------------------
 
 
-func on_pin_grid_changed(pinHead):
+func on_pin_grid_changed(pinHead, block):
+	
+	if block == pinHead: 
+		print("PINBLOCK pinhead deleted! detaching")
+		detach()
+	
 	reattach(pinHead)
 
 

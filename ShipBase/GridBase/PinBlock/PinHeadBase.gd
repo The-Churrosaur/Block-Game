@@ -2,7 +2,7 @@ class_name PinHeadBase
 extends Block
 
 # notifies pinblock
-signal pin_grid_changed(pinHead)
+signal pin_grid_changed(pinHead, changed_block)
 
 export var pin_point_path : NodePath = "PinPoint"
 
@@ -17,4 +17,4 @@ func on_added_to_grid(center_coord, block, grid):
 	grid.connect("block_removed", self, "on_grid_changed")
 
 func on_grid_changed(coord, block, grid, update_com):
-	emit_signal("pin_grid_changed", self)
+	emit_signal("pin_grid_changed", self, block)

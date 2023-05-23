@@ -4,14 +4,19 @@
 [ext_resource path="res://Blocks/Joints/MagLock.gd" type="Script" id=2]
 [ext_resource path="res://BlockSystems/IOPorts/PortManager.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=2]
 radius = 64.0
 
 [node name="MagLockBase" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+description = "When enabled, will attach to ships that it collides with"
+class_type = "MagLockBlock"
+display_name = "Magnetic grabber"
+hitbox_colliders = [ NodePath("CollisionShape2D") ]
+use_subShip_resource = false
 
 [node name="PortManager" parent="BlockSystems" index="0" instance=ExtResource( 3 )]
 
@@ -29,12 +34,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="6"]
-shape = SubResource( 2 )
+[node name="hitbox" type="CollisionShape2D" parent="." index="6"]
+shape = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="." index="7"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
