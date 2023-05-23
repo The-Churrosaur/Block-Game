@@ -29,6 +29,7 @@ var blocks_id = {}
 
 signal block_added(coord, block, grid, update_com)
 signal block_removed(coord, block, grid, update_com) 
+signal grid_empty(grid)
 signal superShip_moved(super)
 # be wary of holding the reference to a dying block
 
@@ -160,6 +161,10 @@ func remove_block(pos : Vector2) -> bool:
 #		tilemap.set_cellv(pos, -1)
 		
 		print("grid: block removed: ", pos)
+		
+		if num_blocks <= 0:
+			print("GRID EMPTY")
+			emit_signal("grid_empty", self)
 		
 		return true
 	else:

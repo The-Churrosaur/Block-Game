@@ -3,10 +3,18 @@
 # TODO, do things with an assigned shipID instead of by name maybe?
 # please please
 
-# TODO this class is a mess
+# TODO this class is a visual mess
+
 
 class_name ShipBody
 extends RigidBody2D
+
+
+
+# FIELDS =======================================================================
+
+
+export var editor_mode = false
 
 export var save_directory = "res://Ships/"
 export var display_name = "MyShip" # set by player, ingame name
@@ -76,6 +84,7 @@ signal on_clicked(shipBody, block, event)
 signal shipBody_saved(shipBody, name, file)
 signal new_subShip(shipBody, subShip, pinBlock)
 signal ship_com_shifted(old_pos, relative_displacement)
+signal ship_destroyed(shipBody)
 
 var superShip = null
 var is_subShip = false
@@ -94,13 +103,19 @@ var loaded_data : Dictionary
 
 
 
+# CALLBACKS ====================================================================
+
+
+
 func _ready():
 	
 	print("NEW SHIP READY")
 	
 	# just in case
 	if grid != null:
-		connect_to_grid(grid)
+		grid.connect("block_added", self, "on_grid_block_added")
+		grid.connect("block_removed", self, "on_grid_block_removed")
+		grid.connect("grid_empty", self, "on_grid_empty")
 	
 	input_pickable = true
 	
@@ -117,11 +132,6 @@ func _ready():
 	
 	# ??? TODO
 	inertia = 0
-
-
-func connect_to_grid(grid):
-	grid.connect("block_added", self, "on_grid_block_added")
-	grid.connect("block_removed", self, "on_grid_block_removed")
 
 
 func _integrate_forces(state):
@@ -196,7 +206,7 @@ func is_shipBody() -> bool: # quack quack quack
 	return true
 
 
-# SUBSHIPS AND ROOT SHIP =======================================================
+# -- SUBSHIPS AND ROOT SHIP 
 
 
 func get_rootShip() -> ShipBody:
@@ -482,6 +492,12 @@ func post_load_block_setup():
 # INGAME LOGIC =================================================================
 
 
+func destroy_self():
+	print("SHIP SELF-DESTRUCTING")
+	emit_signal("ship_destroyed", self)
+	queue_free()
+
+
 # selected by player
 func select_ship():
 	selected = true
@@ -537,6 +553,11 @@ func on_body_shape_entered (body_id, body, body_shape, local_shape):
 # a little coupley
 func ship_ship_collision(other_ship, block):
 	pass
+
+
+# by grid
+func on_grid_empty(grid):
+	if !editor_mode: destroy_self()
 
 
 # SAVING AND LOADING ===========================================================

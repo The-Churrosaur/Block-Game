@@ -69,7 +69,7 @@ func zoom_to(target_zoom, time = zoom_time):
 
 
 func _follow_target(delta):
-	if target == null : return
+	if !is_instance_valid(target) : return
 	global_position = lerp(global_position, target.global_position, 
 							lerp_weight * delta)
 

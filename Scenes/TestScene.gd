@@ -67,6 +67,7 @@ func on_new_ship(ship : RigidBody2D, select = true):
 	ship.connect("on_clicked", self, "on_ship_clicked")
 	ship.connect("new_subShip", self, "on_new_subShip")
 	ship.input_pickable = true
+	ship.editor_mode = true
 	
 #	ship.mode = RigidBody2D.MODE_KINEMATIC
 	
