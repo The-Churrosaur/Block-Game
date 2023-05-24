@@ -46,4 +46,6 @@ func on_text_entered(var text):
 	owner.on_new_ship(ship)
 	
 	print("grid position: ", ship.grid.position)
+	
+	release_focus()
 

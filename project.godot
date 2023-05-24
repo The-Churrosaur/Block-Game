@@ -404,6 +404,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ControlSystems/ShipSelector.gd"
 }, {
+"base": "Node2D",
+"class": "ShipSpawner",
+"language": "GDScript",
+"path": "res://GameplaySystems/ShipSpawner.gd"
+}, {
 "base": "Reference",
 "class": "ShipStorage",
 "language": "GDScript",
@@ -564,6 +569,7 @@ _global_script_class_icons={
 "ShipLoadSave": "",
 "ShipSaveResource": "",
 "ShipSelector": "",
+"ShipSpawner": "",
 "ShipStorage": "",
 "ShipSystem": "",
 "ShipSystemsManager": "",

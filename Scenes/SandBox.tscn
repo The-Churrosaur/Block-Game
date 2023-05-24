@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/ShipLoaderTest.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://UI/ShipCamera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/SceneSwitcher.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Background.png" type="Texture" id=6]
+[ext_resource path="res://GameplaySystems/ShipSpawner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Ships/cargo_crate/cargo_crate.tres" type="Resource" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 2823.0
@@ -301,5 +303,9 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 6 )
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="ShipSpawnerBase" parent="." instance=ExtResource( 7 )]
+position = Vector2( 767.718, 606.462 )
+ship_resource = ExtResource( 8 )
 
 [editable path="CameraBase"]
