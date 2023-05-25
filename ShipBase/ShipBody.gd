@@ -55,6 +55,10 @@ onready var io_manager = $IOManager
 
 onready var ship_systems = $ShipSystems
 
+# for calculating total imparted acceleration
+onready var previous_velocity = linear_velocity
+onready var acceleration = linear_velocity - previous_velocity
+
 # use grid position for ship local coordinates/origin
 var grid_origin setget ,grid_origin
 func grid_origin():
@@ -132,6 +136,17 @@ func _ready():
 	
 	# ??? TODO
 	inertia = 0
+
+
+# CALLBACKS ====================================================================
+
+
+func _physics_process(delta):
+	
+	# calculate acceleration and tell blocks (slow?)
+	acceleration = linear_velocity - previous_velocity
+	for block in grid.block_dict.values():
+		block.accelerate(acceleration)
 
 
 func _integrate_forces(state):

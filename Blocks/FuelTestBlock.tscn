@@ -20,7 +20,7 @@ hitbox_colliders = [ NodePath("CollisionShape2D") ]
 [node name="Sprite" parent="." index="0"]
 scale = Vector2( 3, 3 )
 
-[node name="BlockSystems" parent="." index="3"]
+[node name="BlockSystems" parent="." index="1"]
 block_path = NodePath("..")
 
 [node name="FuelPortManager" parent="BlockSystems" index="1" instance=ExtResource( 1 )]
@@ -43,6 +43,9 @@ max_pressure = 1.0
 position = Vector2( 0, 39.6451 )
 fuel_tank_path = NodePath("..")
 
+[node name="SizeHelper" parent="." index="2"]
+tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0 )
+
 [node name="Node2D" type="Node2D" parent="." index="4"]
 z_index = 2
 
@@ -62,8 +65,5 @@ margin_bottom = 24.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="5"]
 shape = SubResource( 1 )
-
-[node name="SizeHelper" parent="." index="6"]
-tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0 )
 
 [connection signal="text_entered" from="Node2D/VBoxContainer/LineEdit" to="." method="_on_LineEdit_text_entered"]

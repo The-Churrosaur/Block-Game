@@ -23,10 +23,22 @@ export var cost = 100
 
 export var description = "A block, for building!"
 
+
+# -- COLLISION AND DAMAGE
+
+
 # velocity at which impact kablooie
 # probably naiive think about this more later
 export var destruction_velocity = 5
-export var destructable = true
+export var destructable = false
+
+# health
+export var health = 100
+# damage threshold, velocity/physics tick
+export var acceleration_limit = 1
+# damage/tick multiplied by acceleration over limit
+export var acceleration_damage_mult = 1
+
 
 # unique identifier
 export var class_type = "Block"
@@ -37,7 +49,9 @@ export var enabled = true
 
 export var popup_path : NodePath = "BlockPopup"
 
+
 var block_facing : int = block_facing_direction.RIGHT
+
 
 
 # -- COLLISION
@@ -150,7 +164,7 @@ func post_load_setup():
 
 
 
-# -- INGAME / COLLISION
+# -- INGAME / COLLISION / DAMAGE
 
 
 
@@ -160,6 +174,25 @@ func enable_block():
 
 func disable_block():
 	enabled = false
+
+
+func damage_block(damage):
+	
+	health -= damage
+	if health <= 0: grid.remove_block(center_grid_coord)
+	
+	
+
+
+func heal_block(damage):
+	health += damage 
+
+
+# called by the ship, checks and inflicts damage
+func accelerate(acceleration : Vector2):
+	
+	var dif = acceleration.length() - acceleration_limit
+	if dif > 0:	damage_block(acceleration_damage_mult * dif)
 
 
 # called by ship when this block is impacted
@@ -261,3 +294,7 @@ func _set_hitbox_collision_shapes():
 func _set_popup():
 	if popup != null:
 		popup.show_popup(self)
+
+
+func _check_acceleration_damage():
+	pass
