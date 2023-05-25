@@ -64,7 +64,8 @@ func fire():
 		projectile.linear_velocity += block.shipBody.linear_velocity
 	
 	# kick impulse in deviated direction
-	projectile.apply_central_impulse(transform.x.rotated(deviation) * shot_impulse)
+	var direction = global_transform.x.rotated(deviation) 
+	projectile.apply_central_impulse(direction * shot_impulse)
 	
 	# tell projectile its been fired
 	projectile.fire(self)

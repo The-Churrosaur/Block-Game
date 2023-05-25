@@ -401,20 +401,20 @@ func update_com(block, invert = false): # also updates mass
 	# relative COM calculation
 	var com_relative
 	# if mass is zero TODO
-	assert(combined_mass > 0)
-	if combined_mass <= 0:
-		# TODO something here
-		return 
-	else:
-		# relative COM = m2x2 / total
-		var com_x = block.mass * block_vec.x / combined_mass
-		var com_y = block.mass * block_vec.y / combined_mass
-		
-		# round out float errors
-		com_x = round(com_x)
-		com_y = round(com_y)
-		
-		com_relative = Vector2(com_x, com_y)
+#	assert(combined_mass > 0)
+#	if combined_mass <= 0:
+#		# TODO something here
+#		return 
+
+	# relative COM = m2x2 / total
+	var com_x = block.mass * block_vec.x / combined_mass
+	var com_y = block.mass * block_vec.y / combined_mass
+	
+	# round out float errors
+	com_x = round(com_x)
+	com_y = round(com_y)
+	
+	com_relative = Vector2(com_x, com_y)
 	
 #	print("com vec: ", com_relative)
 #	print("old grid pos: ", grid.position, grid.global_position)
