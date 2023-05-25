@@ -22,6 +22,8 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
 [node name="DefaultGunBase" parent="." instance=ExtResource( 2 )]
+position = Vector2( 52.9167, 0 )
+block_path = NodePath("..")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 visible = false

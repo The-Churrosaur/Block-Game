@@ -2,53 +2,81 @@
 class_name GunBase
 extends Node2D
 
-var projectiles = [preload("res://WeaponBase/ProjectileBase.tscn")] # TODO temp
-# if I knew how to type you to projectiles I would
-var projectile_index = 0
 
-var muzzle_pos : Vector2 = Vector2(0,0) # TODO: make this all read from projectile
-var muzzle_velocity = 100 # pixels/second
-var deviation = 0.1 # radians
+
+# FIELDS =======================================================================
+
+
+
+export var block_path : NodePath
+export var muzzle_path : NodePath
+export var add_velocity = true # adds ship's current velocity to projectile
+export var deviate = true
+export var deviation = 0.1 # radians
+export var shot_impulse = 1000
+export var projectile_resource : PackedScene
+# todo - magazines feed projectile resources
+
+onready var block = get_node(block_path)
+
+onready var muzzle_node = get_node(muzzle_path)
+onready var muzzle_pos : Vector2 = muzzle_node.position 
 
 var current_projectile
 
-func fire(specific_projectile : Projectile = null, add_velocity = true, deviate = true):
-	var current_projectile
+
+
+# CALLBACKS ====================================================================
+
+
+
+func _ready():
+	pass
+
+func _process(delta):
+	pass
+
+
+
+# PUBLIC =======================================================================
+
+
+
+func fire():
 	
-	# can fire an already instantiated specific_projectile 
-	if specific_projectile != null:
-		current_projectile = specific_projectile
-	# or instantiate new projectile
-	else:
-		current_projectile = projectiles[projectile_index].instance()
+	var projectile : RigidBody2D = projectile_resource.instance()
 	
-	add_child(current_projectile)
+	# TODO make this a scene-level child
+	add_child(projectile)
 	# quick learning note: 
 	# my understanding is that instanced nodes exist in the aether
 	# until they are adopted as children
 	
-	# convert projectile to kinematic and launch it
-	# then convert back to rigid
-
-	current_projectile.mode = RigidBody2D.MODE_KINEMATIC
+	projectile.position = muzzle_pos
 	
-	current_projectile.position = muzzle_pos
-	
+	# get deviation angle
 	var deviation = 0
 	if deviate:
-		deviation = deviate_projectile(current_projectile)
+		deviation = _get_deviation()
 	
+	# add self velocity
 	if add_velocity:
-		add_velocity_projectile(current_projectile, deviation)
+		projectile.linear_velocity += block.shipBody.linear_velocity
 	
-	current_projectile.mode = RigidBody2D.MODE_RIGID
+	# kick impulse in deviated direction
+	projectile.apply_central_impulse(transform.x.rotated(deviation) * shot_impulse)
 	
-	current_projectile.fire_from(self)
-	self.current_projectile = current_projectile
-	
-	pass
+	# tell projectile its been fired
+	projectile.fire(self)
+	self.current_projectile = projectile
 
-func deviate_projectile(projectile : Projectile):
+
+
+# PRIVATE ======================================================================
+
+
+
+func _get_deviation():
 	
 	# base implementation returns random angle within deviation
 	
@@ -56,15 +84,4 @@ func deviate_projectile(projectile : Projectile):
 	rand.randomize()
 	var rot = rand.randf_range(-deviation, deviation)
 	return rot
-	pass
 
-func add_velocity_projectile(projectile : Projectile, deviation = 0):
-	var vec = transform.x.rotated(deviation + global_rotation)
-	projectile.linear_velocity += vec * muzzle_velocity
-	pass
-
-func _ready():
-	pass
-
-func _process(delta):
-	pass

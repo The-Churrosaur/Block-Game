@@ -2,14 +2,12 @@
 class_name Projectile
 extends RigidBody2D
 
-var muzzle_velocity
-var deviation
 
-# owned by shooter, no touch
+# injected by shooter, no touch
 var shooter = null
 
 # called when the projectile is fired
-func fire_from(gun): # should be typed gunbase, but circular reference
+func fire(gun): 
 	shooter = gun
 
 # teleport rigidbody in integrate_forces
