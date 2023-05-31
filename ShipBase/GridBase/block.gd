@@ -30,7 +30,7 @@ export var description = "A block, for building!"
 # velocity at which impact kablooie
 # probably naiive think about this more later
 export var destruction_velocity = 5
-export var destructable = false
+export var destructable = true
 
 # health
 export var health = 100

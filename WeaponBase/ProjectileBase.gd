@@ -56,6 +56,5 @@ func _on_Timer_timeout():
 
 
 func _on_ProjectileBody_body_entered(body):
-	if body is ShipBody:
-		body
+	print("projectile hit")
 	kill()

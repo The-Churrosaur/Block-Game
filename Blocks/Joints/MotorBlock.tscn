@@ -14,6 +14,7 @@ class_type = "MotorBlock"
 display_name = "Motor"
 port_manager_path = NodePath("BlockSystems/PortManager")
 default_subShip_resource = ExtResource( 6 )
+torque_impulse = 50000
 
 [node name="ThrottlePort" parent="BlockSystems/PortManager" index="0"]
 position = Vector2( 0, -18.73 )

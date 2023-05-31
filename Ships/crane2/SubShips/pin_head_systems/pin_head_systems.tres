@@ -1,0 +1,78 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"MagLockBlock": "res://Blocks/Joints/MagLock.tscn",
+"PinHead": "res://Blocks/Joints/PinHead.tscn",
+"TestBlock": "res://Blocks/TestBlock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/Joints/PinHead.tscn",
+"block_id": 0,
+"facing": 1,
+"pos": Vector2( 0, 0 ),
+"systems": {
+},
+"type": "PinHead"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 1,
+"facing": 1,
+"pos": Vector2( -1, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 2,
+"facing": 1,
+"pos": Vector2( -2, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 3,
+"facing": 1,
+"pos": Vector2( -3, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/Joints/MagLock.tscn",
+"block_id": 5,
+"facing": 2,
+"pinHead_coord": null,
+"pos": Vector2( -4, 0 ),
+"subShip_id": null,
+"subShip_resource_path": null,
+"systems": {
+"port_manager": {
+"elements": {
+}
+}
+},
+"type": "MagLockBlock"
+} ]
+ship_data = {
+"displacement": Vector2( 126, 0 ),
+"id": "pin_head_systems",
+"io_connections": {
+},
+"is_subShip": true,
+"mass": 51.0,
+"name": "pin_head_systems",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [  ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": "03"
+}

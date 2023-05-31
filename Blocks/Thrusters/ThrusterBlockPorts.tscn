@@ -18,7 +18,7 @@ extents = Vector2( 32, 32 )
 
 [node name="ThrusterBase" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
-destruction_velocity = 5
+size_grid = [ Vector2( 0, 0 ) ]
 class_type = "ThrusterBlockPorts"
 hitbox_colliders = [ NodePath("CollisionShape2D") ]
 magnitude = 100
@@ -41,6 +41,9 @@ position = Vector2( 0, -33.9411 )
 port_id = "fuel_in"
 is_input = true
 is_output = true
+
+[node name="SizeHelper" parent="." index="2"]
+tile_data = PoolIntArray( 0, 0, 0 )
 
 [node name="FlameSprite" type="Sprite" parent="." index="4"]
 visible = false
