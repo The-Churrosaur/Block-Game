@@ -70,6 +70,13 @@ func _ready():
 	visible = false
 
 
+func _process(delta):
+	
+	# colored ports
+	var red = data / 100
+	modulate = Color(red, 0.5, 0.5, 1)
+
+
 # PUBLIC -----------------------------------------------------------------------
 
 

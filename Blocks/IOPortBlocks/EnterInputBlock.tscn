@@ -9,9 +9,9 @@ extents = Vector2( 32, 32 )
 
 [node name="EnterInputBlock" instance=ExtResource( 1 )]
 size_grid = [ Vector2( 0, 0 ) ]
-destruction_velocity = 5
+description = "Outputs a signal when space is pressed"
 class_type = "EnterInputBlock"
-display_name = "Space Input"
+display_name = "[Space] Input"
 hitbox_colliders = [ NodePath("CollisionShape2D") ]
 input_strings = [ "ui_accept" ]
 port_paths = [ NodePath("BlockSystems/PortManager/IOPort") ]

@@ -81,16 +81,3 @@ margin_right = 86.0
 margin_bottom = 117.0
 text = "Block description lorem ipsum etc tet siareijafjdsaio "
 autowrap = true
-
-[node name="Button" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 121.0
-margin_right = 86.0
-margin_bottom = 141.0
-
-[node name="Button2" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 145.0
-margin_right = 86.0
-margin_bottom = 165.0
-__meta__ = {
-"_edit_use_anchors_": false
-}

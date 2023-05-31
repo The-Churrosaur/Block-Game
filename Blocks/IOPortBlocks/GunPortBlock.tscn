@@ -14,8 +14,7 @@ extents = Vector2( 32, 32 )
 [node name="GunPortBlock" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 size_grid = [ Vector2( 0, 0 ) ]
-description = "A gun! for shooting!"
-destruction_velocity = 5
+description = "A gun! for shooting! Fires when given an input signal"
 class_type = "GunPortBlock"
 display_name = "Gun Block"
 hitbox_colliders = [ NodePath("CollisionShape2D") ]

@@ -16,7 +16,7 @@ extents = Vector2( 64, 32 )
 [node name="AxisInputBlock" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 size_grid = [ Vector2( 0, 0 ), Vector2( 1, 0 ) ]
-description = "Outputs a signal from the left/right input to each port"
+description = "Outputs a signal from left/right inputs to left/right ports"
 class_type = "axis_input_block"
 display_name = "Horizontal Input"
 hitbox_colliders = [ NodePath("CollisionShape2D") ]

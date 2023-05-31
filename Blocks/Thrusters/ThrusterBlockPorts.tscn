@@ -19,7 +19,9 @@ extents = Vector2( 32, 32 )
 [node name="ThrusterBase" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
 size_grid = [ Vector2( 0, 0 ) ]
+description = "Fires when given an input signal"
 class_type = "ThrusterBlockPorts"
+display_name = "Thruster"
 hitbox_colliders = [ NodePath("CollisionShape2D") ]
 magnitude = 100
 flame_sprite = NodePath("FlameSprite")
@@ -35,6 +37,7 @@ port_display_name = "FIRE"
 is_input = true
 
 [node name="FuelPortManager" parent="BlockSystems" index="1" instance=ExtResource( 6 )]
+visible = false
 
 [node name="FuelPort" parent="BlockSystems/FuelPortManager" index="0" instance=ExtResource( 7 )]
 position = Vector2( 0, -33.9411 )
