@@ -1,5 +1,10 @@
 extends LineEdit
 
+
+export var spawn_owner_path : NodePath
+
+onready var spawn_owner = get_node(spawn_owner_path)
+
 var loader
 
 func _ready():
@@ -41,7 +46,7 @@ func on_text_entered(var text):
 	var res = ResourceLoader.load(address)
 	print("ship save loaded: ", address)
 	
-	var ship = loader.load_ship(res, owner, false, Vector2(650,200))
+	var ship = loader.load_ship(res, spawn_owner, false, Vector2(650,200))
 	print("SCENE LOADED NEW SHIP")
 	owner.on_new_ship(ship)
 	

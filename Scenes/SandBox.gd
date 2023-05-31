@@ -6,7 +6,7 @@ var current_ship
 
 func on_new_ship(ship):
 	
-	if current_ship: current_ship.deselect_ship()
+	if is_instance_valid(current_ship): current_ship.deselect_ship()
 	
 	current_ship = ship
 	ship.select_ship()

@@ -105,7 +105,8 @@ func create_subship_pinhead() -> Node2D: # returns pinhead
 	
 	# ship
 	# TODO place in tree through level singleton
-	var ship = ship_loader.load_ship(subShip_resource, get_tree().root, false)
+	# PLACING UNDER ROOT CAUSES THE PERSISTENCE
+	var ship = ship_loader.load_ship(subShip_resource, get_tree().current_scene, false)
 	
 	# setup
 	subShip_id = ship.ship_id
@@ -115,6 +116,7 @@ func create_subship_pinhead() -> Node2D: # returns pinhead
 	# pinhead
 	var pinHead = ship.get_block(pinHead_coord)
 	return pinHead
+
 
 # attaches new subship
 func attach(pinHead, repos = true): 

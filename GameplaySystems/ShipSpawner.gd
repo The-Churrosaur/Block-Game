@@ -19,7 +19,7 @@ onready var ship_loader = get_node("/root/ShipLoader")
 
 
 func _ready():
-	spawn()
+	call_deferred("spawn")
 
 
 func _process(delta):

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/sunless.mp3-ce77846ed81d6a89d53a60b7d29f088a.mp3str"
+
+[deps]
+
+source_file="res://Assets/sunless.mp3"
+dest_files=[ "res://.import/sunless.mp3-ce77846ed81d6a89d53a60b7d29f088a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
