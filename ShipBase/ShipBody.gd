@@ -145,8 +145,8 @@ func _physics_process(delta):
 	
 	# calculate acceleration and tell blocks (slow?)
 	acceleration = linear_velocity - previous_velocity
-	for block in grid.block_dict.values():
-		block.accelerate(acceleration)
+#	for block in grid.block_dict.values():
+#		block.accelerate(acceleration)
 
 
 func _integrate_forces(state):

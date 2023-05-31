@@ -1,0 +1,118 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"MotorWheel": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"axis_input_block": "res://Blocks/IOPortBlocks/AxisInputblock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/IOPortBlocks/AxisInputblock.tscn",
+"block_id": 0,
+"facing": 1,
+"pos": Vector2( -2, -1 ),
+"systems": {
+"port_manager": {
+"elements": {
+"left_out": {
+"active": true,
+"text": ""
+},
+"right_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "axis_input_block"
+}, {
+"address": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"block_id": 1,
+"facing": 1,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( -4, 1 ),
+"subShip_id": "wheel_head",
+"subShip_resource_path": "res://Ships/crashtestmobile/SubShips/wheel_head/wheel_head.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"default": {
+"active": true,
+"text": ""
+},
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "MotorWheel"
+}, {
+"address": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"block_id": 2,
+"facing": 1,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 1, 1 ),
+"subShip_id": "wheel_head",
+"subShip_resource_path": "res://Ships/crashtestmobile/SubShips/wheel_head21/wheel_head21.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"default": {
+"active": true,
+"text": ""
+},
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "MotorWheel"
+} ]
+ship_data = {
+"displacement": Vector2( 103, -21 ),
+"id": "crashtestmobile",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 31.0,
+"name": "crashtestmobile",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( -4, 1 ),
+"port": "throttle",
+"ship": "crashtestmobile"
+},
+"sender_port": {
+"block": Vector2( -2, -1 ),
+"port": "left_out",
+"ship": "crashtestmobile"
+}
+}, {
+"receiver_port": {
+"block": Vector2( -4, 1 ),
+"port": "default",
+"ship": "crashtestmobile"
+},
+"sender_port": {
+"block": Vector2( -2, -1 ),
+"port": "right_out",
+"ship": "crashtestmobile"
+}
+} ]
+}
+},
+"subShip_counter": 2,
+"subShip_id": 0
+}

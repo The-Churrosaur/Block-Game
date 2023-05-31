@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/TestScene.gd" type="Script" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Blocks/LandingBlocks/MotorWheel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Blocks/Joints/MotorBlock.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Blocks/CargoBlock.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Blocks/_oldIO/ControlBlock.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/ShipLoaderTest.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/ShipSaverTest.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/CoordinateLabel.gd" type="Script" id=10]
@@ -329,7 +328,7 @@ rect_pivot_offset = Vector2( -482.574, -398 )
 button_mask = 3
 texture_normal = ExtResource( 1 )
 script = ExtResource( 3 )
-block = ExtResource( 7 )
+block = ExtResource( 6 )
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer/BlockColumns/VBoxContainer2/BlockSelectButton5"]
 margin_right = 40.0
