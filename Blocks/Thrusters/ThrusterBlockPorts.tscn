@@ -18,6 +18,7 @@ extents = Vector2( 32, 32 )
 
 [node name="ThrusterBase" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
+destruction_velocity = 5
 class_type = "ThrusterBlockPorts"
 hitbox_colliders = [ NodePath("CollisionShape2D") ]
 magnitude = 100

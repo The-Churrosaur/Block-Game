@@ -1,0 +1,201 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"EnterInputBlock": "res://Blocks/IOPortBlocks/EnterInputBlock.tscn",
+"MotorBlock": "res://Blocks/Joints/MotorBlock.tscn",
+"TestBlock": "res://Blocks/TestBlock.tscn",
+"v_axis_input_block": "res://Blocks/IOPortBlocks/VAxisInputblock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 0,
+"facing": 1,
+"pos": Vector2( -2, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 1,
+"facing": 1,
+"pos": Vector2( -1, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 2,
+"facing": 1,
+"pos": Vector2( 0, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 3,
+"facing": 1,
+"pos": Vector2( 1, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 4,
+"facing": 1,
+"pos": Vector2( -1, -1 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 5,
+"facing": 1,
+"pos": Vector2( 0, -1 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 6,
+"facing": 1,
+"pos": Vector2( -1, -2 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 7,
+"facing": 1,
+"pos": Vector2( 0, -2 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 8,
+"facing": 1,
+"pos": Vector2( -1, -3 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 9,
+"facing": 1,
+"pos": Vector2( 0, -3 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 10,
+"facing": 1,
+"pos": Vector2( 0, -4 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/Joints/MotorBlock.tscn",
+"block_id": 11,
+"facing": 1,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 0, -5 ),
+"subShip_id": "pin_head_systems",
+"subShip_resource_path": "res://Ships/turretelevated/SubShips/pin_head_systems/pin_head_systems.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"default": {
+"active": true,
+"text": ""
+},
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "MotorBlock"
+}, {
+"address": "res://Blocks/IOPortBlocks/VAxisInputblock.tscn",
+"block_id": 12,
+"facing": 1,
+"pos": Vector2( -1, -5 ),
+"systems": {
+"port_manager": {
+"elements": {
+"down_out": {
+"active": true,
+"text": ""
+},
+"up_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "v_axis_input_block"
+}, {
+"address": "res://Blocks/IOPortBlocks/EnterInputBlock.tscn",
+"block_id": 13,
+"facing": 1,
+"pos": Vector2( -2, -5 ),
+"systems": {
+"port_manager": {
+"elements": {
+"key_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "EnterInputBlock"
+} ]
+ship_data = {
+"displacement": Vector2( 37, 141 ),
+"id": "turretelevated",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 141.0,
+"name": "turretelevated",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 0, -5 ),
+"port": "throttle",
+"ship": "turretelevated"
+},
+"sender_port": {
+"block": Vector2( -1, -5 ),
+"port": "up_out",
+"ship": "turretelevated"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 0, -5 ),
+"port": "default",
+"ship": "turretelevated"
+},
+"sender_port": {
+"block": Vector2( -1, -5 ),
+"port": "down_out",
+"ship": "turretelevated"
+}
+} ]
+}
+},
+"subShip_counter": 1,
+"subShip_id": 0
+}

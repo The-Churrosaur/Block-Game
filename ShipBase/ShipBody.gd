@@ -417,7 +417,8 @@ func update_com(block, invert = false): # also updates mass
 	var com_relative
 	# if mass is zero TODO
 #	assert(combined_mass > 0)
-#	if combined_mass <= 0:
+	if combined_mass <= 0:
+		return
 #		# TODO something here
 #		return 
 
@@ -576,6 +577,10 @@ func on_grid_empty(grid):
 
 
 # SAVING AND LOADING ===========================================================
+
+
+func save_root(id, dir = save_directory):
+	get_rootShip().save(id, dir)
 
 
 func save(id, dir = save_directory):

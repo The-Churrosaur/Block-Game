@@ -9,6 +9,7 @@
 [node name="BlockBase" type="Node2D"]
 script = ExtResource( 2 )
 size_grid = [ Vector2( 0, 0 ), Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( 1, 1 ) ]
+destruction_velocity = 1
 display_name = "Base Block!"
 block_systems_manager_path = NodePath("BlockSystems")
 

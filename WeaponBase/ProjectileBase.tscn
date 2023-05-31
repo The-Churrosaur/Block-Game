@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://WeaponBase/ProjectileBase.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://smokesprite.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
-[node name="ProjectileBody" type="RigidBody2D"]
+[node name="ProjectileBody" type="RigidBody2D" groups=[
+"Bullet",
+]]
 collision_layer = 4
 collision_mask = 4
 script = ExtResource( 1 )
@@ -16,3 +19,17 @@ shape = SubResource( 1 )
 [node name="icon" type="Sprite" parent="."]
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 3 )
+color = Color( 1, 0.560784, 0, 1 )
+energy = 2.63
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PoolVector2Array( 0, 0, 0, 0 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_ProjectileBody_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -35,6 +35,9 @@ port_id = "down_out"
 port_display_name = "DOWN"
 is_output = true
 
+[node name="SizeHelper" parent="." index="2"]
+tile_data = PoolIntArray( 0, 0, 0, 65536, 0, 0 )
+
 [node name="Node2D" type="Node2D" parent="." index="3"]
 position = Vector2( 0, 32 )
 z_index = 2
@@ -59,9 +62,6 @@ text = "^
 INPUT
 V"
 align = 1
-
-[node name="SizeHelper" parent="." index="4"]
-tile_data = PoolIntArray( 0, 0, 0, 65536, 0, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="5"]
 position = Vector2( 0, 32 )

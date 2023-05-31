@@ -65,7 +65,7 @@ export (Array, NodePath) var hitbox_colliders
 
 # keeping this for forwards compatibility I guess
 # (legacy: populates hitbox array by name)
-export var hitbox_string_old = "Hitbox"
+var hitbox_string_old = "Hitbox" # formerly export
 
 var saved_name
 
@@ -199,6 +199,10 @@ func accelerate(acceleration : Vector2):
 # currently cannot get pos
 func ship_body_entered(body : CollisionObject2D, pos):
 	
+	# COUPLY AND BAD TODO REPLACE
+	if body.is_in_group("Bullet"):
+		damage_block(body.damage)
+	
 	if !destructable: return
 	
 	# temp collision by relative velocity
@@ -252,12 +256,14 @@ func get_save_data() -> Dictionary :
 
 # called by loader returns saved dict
 # called after block is initialized
+# TODO OCS this and separate it from block?
+
 func load_saved_data(dict : Dictionary):
 	
 	# pass data back to systems manager
 	if block_systems_manager != null:
-		print(name)
-		block_systems_manager.load_saved_data(dict["systems"])
+		if dict.has("systems"): # catches empty systems as well
+			block_systems_manager.load_saved_data(dict["systems"])
 
 
 

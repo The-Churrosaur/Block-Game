@@ -15,6 +15,8 @@ export var deviate = true
 export var deviation = 0.1 # radians
 export var shot_impulse = 1000
 export var projectile_resource : PackedScene
+export var semi_auto = true
+export var gun_loaded = true # one in the chamber?
 # todo - magazines feed projectile resources
 
 onready var block = get_node(block_path)
@@ -40,6 +42,19 @@ func _process(delta):
 
 # PUBLIC =======================================================================
 
+
+# runs loader simulation (encapsulate?)
+# for now just semi-auto
+
+func pull_trigger():
+	
+	if gun_loaded: 
+		fire()
+		gun_loaded = false
+
+
+func release_trigger():
+	gun_loaded = true
 
 
 func fire():

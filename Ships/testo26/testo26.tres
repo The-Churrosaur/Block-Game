@@ -1,0 +1,69 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"MotorBlock": "res://Blocks/Joints/MotorBlock.tscn",
+"TestBlock": "res://Blocks/TestBlock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/Joints/MotorBlock.tscn",
+"block_id": 0,
+"facing": 1,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( -2, 0 ),
+"subShip_id": "pin_head_systems",
+"subShip_resource_path": "res://Ships/testo26/SubShips/pin_head_systems/pin_head_systems.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"default": {
+"active": true,
+"text": ""
+},
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "MotorBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 1,
+"facing": 1,
+"pos": Vector2( -3, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 2,
+"facing": 1,
+"pos": Vector2( -4, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+} ]
+ship_data = {
+"displacement": Vector2( 186, 0 ),
+"id": "testo26",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 31.0,
+"name": "testo26",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [  ]
+}
+},
+"subShip_counter": 1,
+"subShip_id": 0
+}

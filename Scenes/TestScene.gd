@@ -59,6 +59,8 @@ func select_ship(ship):
 	
 	# look at ship
 	camera.set_target(ship)
+	
+	ship.select_ship()
 
 func on_new_ship(ship : RigidBody2D, select = true):
 	

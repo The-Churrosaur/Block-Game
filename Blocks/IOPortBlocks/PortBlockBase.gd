@@ -33,6 +33,9 @@ func _process(delta):
 
 
 # tell manager to cut all cables on removal
+# TODO this should be in the system manager 
+# make this class redundant so we don't force inheritance
+
 func on_removed_from_grid(center_grid_coord, block, grid):
 	.on_removed_from_grid(center_grid_coord, block, grid)
 	
