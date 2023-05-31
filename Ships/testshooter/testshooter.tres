@@ -1,0 +1,137 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"TestBlock": "res://Blocks/TestBlock.tscn",
+"ThrusterBlockPorts": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"axis_input_block": "res://Blocks/IOPortBlocks/AxisInputblock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 2,
+"facing": 1,
+"pos": Vector2( -2, 1 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/Thrusters/ThrusterBlockPorts.tscn",
+"block_id": 3,
+"facing": 1,
+"pos": Vector2( 1, 1 ),
+"systems": {
+"fuel_port_manager": {
+"elements": {
+"fuel_in": {
+"active": true,
+"text": ""
+}
+}
+},
+"port_manager": {
+"elements": {
+"fire_thruster": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "ThrusterBlockPorts"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 4,
+"facing": 1,
+"pos": Vector2( -2, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 5,
+"facing": 1,
+"pos": Vector2( 1, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/IOPortBlocks/AxisInputblock.tscn",
+"block_id": 6,
+"facing": 1,
+"pos": Vector2( -1, 0 ),
+"systems": {
+"port_manager": {
+"elements": {
+"left_out": {
+"active": true,
+"text": ""
+},
+"right_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "axis_input_block"
+} ]
+ship_data = {
+"displacement": Vector2( 37, -25 ),
+"id": "testshooter",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 51.0,
+"name": "testshooter",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( -2, 1 ),
+"port": "fire_thruster",
+"ship": "testshooter"
+},
+"sender_port": {
+"block": Vector2( -1, 0 ),
+"port": "left_out",
+"ship": "testshooter"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 1, 1 ),
+"port": "fire_thruster",
+"ship": "testshooter"
+},
+"sender_port": {
+"block": Vector2( -1, 0 ),
+"port": "right_out",
+"ship": "testshooter"
+}
+} ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": 0
+}

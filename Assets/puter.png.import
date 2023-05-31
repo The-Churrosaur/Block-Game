@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/LaserTurret.png-6029dbc3acb096d9c911d28a69be4e09.stex"
+path="res://.import/puter.png-1e9c112aea600107c0b518d3ea673d00.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/LaserTurret.png"
-dest_files=[ "res://.import/LaserTurret.png-6029dbc3acb096d9c911d28a69be4e09.stex" ]
+source_file="res://Assets/puter.png"
+dest_files=[ "res://.import/puter.png-1e9c112aea600107c0b518d3ea673d00.stex" ]
 
 [params]
 
