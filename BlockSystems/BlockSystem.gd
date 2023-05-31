@@ -98,6 +98,8 @@ func load_saved_data(dict : Dictionary):
 		var elements_data = dict["elements"]
 		for id in elements_data:
 			
+			print("blocksystem elements: ", id)
+			
 			var element = elements[id]
 			if element.has_method("load_saved_data"):
 				elements[id].load_saved_data(elements_data[id])

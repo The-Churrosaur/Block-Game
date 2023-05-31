@@ -11,16 +11,18 @@
 script = ExtResource( 2 )
 description = "For building machines - input throttle at top port, reverse throttle at bottom port"
 class_type = "MotorBlock"
-display_name = "Motor"
+display_name = "Rotator"
 port_manager_path = NodePath("BlockSystems/PortManager")
 default_subShip_resource = ExtResource( 6 )
 torque_impulse = 50000
 
 [node name="ThrottlePort" parent="BlockSystems/PortManager" index="0"]
 position = Vector2( 0, -18.73 )
+port_display_name = "FORWARDS"
 
 [node name="ReversePort" parent="BlockSystems/PortManager" index="1" instance=ExtResource( 3 )]
 position = Vector2( 0, 16.0543 )
+port_display_name = "REVERSE"
 is_input = true
 
 [node name="SizeHelper" parent="." index="4" instance=ExtResource( 4 )]

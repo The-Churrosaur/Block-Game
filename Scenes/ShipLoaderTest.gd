@@ -46,6 +46,11 @@ func on_text_entered(var text):
 	var res = ResourceLoader.load(address)
 	print("ship save loaded: ", address)
 	
+	if !res: 
+		print("invalid load path")
+		clear()
+		return
+	
 	var ship = loader.load_ship(res, spawn_owner, false, Vector2(650,200))
 	print("SCENE LOADED NEW SHIP")
 	owner.on_new_ship(ship)
