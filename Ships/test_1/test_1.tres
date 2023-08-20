@@ -1,0 +1,159 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"MotorWheel": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"TestBlock": "res://Blocks/TestBlock.tscn",
+"axis_input_block": "res://Blocks/IOPortBlocks/AxisInputblock.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 0,
+"facing": 1,
+"pos": Vector2( 0, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 1,
+"facing": 1,
+"pos": Vector2( -1, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 2,
+"facing": 1,
+"pos": Vector2( 1, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 3,
+"facing": 1,
+"pos": Vector2( 2, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/TestBlock.tscn",
+"block_id": 4,
+"facing": 1,
+"pos": Vector2( -2, 0 ),
+"systems": {
+},
+"type": "TestBlock"
+}, {
+"address": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"block_id": 5,
+"facing": 1,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( -2, 1 ),
+"subShip_id": "wheel_head",
+"subShip_resource_path": "res://Ships/test_1/SubShips/wheel_head/wheel_head.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"reverse": {
+"active": true,
+"text": ""
+},
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "MotorWheel"
+}, {
+"address": "res://Blocks/LandingBlocks/MotorWheel.tscn",
+"block_id": 6,
+"facing": 1,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 2, 1 ),
+"subShip_id": "wheel_head1003",
+"subShip_resource_path": "res://Ships/test_1/SubShips/wheel_head1003/wheel_head1003.tres",
+"systems": {
+"port_manager": {
+"elements": {
+"reverse": {
+"active": true,
+"text": ""
+},
+"throttle": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "MotorWheel"
+}, {
+"address": "res://Blocks/IOPortBlocks/AxisInputblock.tscn",
+"block_id": 7,
+"facing": 1,
+"pos": Vector2( 0, 1 ),
+"systems": {
+"port_manager": {
+"elements": {
+"left_out": {
+"active": true,
+"text": ""
+},
+"right_out": {
+"active": true,
+"text": ""
+}
+}
+}
+},
+"type": "axis_input_block"
+} ]
+ship_data = {
+"displacement": Vector2( 0, -24 ),
+"id": "test",
+"io_connections": {
+},
+"is_subShip": false,
+"mass": 81.0,
+"name": "test",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [ {
+"receiver_port": {
+"block": Vector2( 2, 1 ),
+"port": "throttle",
+"ship": "test"
+},
+"sender_port": {
+"block": Vector2( 0, 1 ),
+"port": "right_out",
+"ship": "test"
+}
+}, {
+"receiver_port": {
+"block": Vector2( 2, 1 ),
+"port": "reverse",
+"ship": "test"
+},
+"sender_port": {
+"block": Vector2( 0, 1 ),
+"port": "left_out",
+"ship": "test"
+}
+} ]
+}
+},
+"subShip_counter": 2,
+"subShip_id": 0
+}

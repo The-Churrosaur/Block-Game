@@ -10,11 +10,8 @@ description = "For building wheeled vehicles - throttle input at top port, rever
 class_type = "MotorWheel"
 display_name = "Wheel Motor"
 default_subShip_resource = ExtResource( 2 )
+torque_impulse = 10000
 damping = false
-
-[node name="ThrottlePort" parent="BlockSystems/PortManager" index="0"]
-port_display_name = "FORWARDS"
 
 [node name="ReversePort" parent="BlockSystems/PortManager" index="1"]
 port_id = "reverse"
-port_display_name = "REVERSE"

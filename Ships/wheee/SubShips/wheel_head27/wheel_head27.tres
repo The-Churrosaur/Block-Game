@@ -1,0 +1,37 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave_Resource.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+block_types = {
+"WheelHead": "res://Blocks/LandingBlocks/WheelHead.tscn"
+}
+blocks = [ {
+"address": "res://Blocks/LandingBlocks/WheelHead.tscn",
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( 0, 0 ),
+"systems": {
+},
+"type": "WheelHead"
+} ]
+ship_data = {
+"displacement": Vector2( 0, 0 ),
+"id": "wheel_head27",
+"io_connections": {
+},
+"is_subShip": true,
+"mass": 11.0,
+"name": "wheel_head27",
+"ship_systems": {
+"fuel_cable_manager": {
+"cables": [  ]
+},
+"io_cable_manager": {
+"cables": [  ]
+}
+},
+"subShip_counter": 0,
+"subShip_id": "01"
+}
