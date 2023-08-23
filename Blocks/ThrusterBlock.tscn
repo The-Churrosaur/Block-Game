@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Blocks/ThrusterBlock.gd" type="Script" id=1]
+[ext_resource path="res://Assets/LaserTurret.png" type="Texture" id=2]
+[ext_resource path="res://ShipBase/GridBase/Block_Storage.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[node name="ThrusterBlockBase" type="Node2D"]
+script = ExtResource( 1 )
+class_type = "ThrusterBlock"
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 4.71239
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Block_Storage" parent="." instance=ExtResource( 3 )]

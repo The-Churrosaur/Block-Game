@@ -1,0 +1,87 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ShipBase/ShipSave.gdns" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+blocksFilepath = "res://Blocks/"
+blockTypes = {
+"GunBlock": true,
+"PinBlock": true,
+"TestBlock": true
+}
+blocks = [ {
+"block_id": 0,
+"facing": 0,
+"pos": Vector2( -2, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 1,
+"facing": 0,
+"pos": Vector2( -1, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 2,
+"facing": 0,
+"pos": Vector2( -2, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 3,
+"facing": 0,
+"pos": Vector2( -1, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 4,
+"facing": 0,
+"pos": Vector2( 0, -5 ),
+"type": "TestBlock"
+}, {
+"block_id": 5,
+"facing": 0,
+"pos": Vector2( 0, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 6,
+"facing": 0,
+"pos": Vector2( 0, -4 ),
+"type": "TestBlock"
+}, {
+"block_id": 7,
+"facing": 0,
+"pos": Vector2( -1, -3 ),
+"type": "TestBlock"
+}, {
+"block_id": 8,
+"facing": 0,
+"pos": Vector2( 1, -5 ),
+"type": "GunBlock"
+}, {
+"block_id": 9,
+"facing": 0,
+"pos": Vector2( 1, -4 ),
+"type": "GunBlock"
+}, {
+"block_id": 10,
+"facing": 0,
+"pos": Vector2( 1, -3 ),
+"type": "GunBlock"
+}, {
+"block_id": 11,
+"facing": 0,
+"pos": Vector2( 0, -6 ),
+"type": "GunBlock"
+}, {
+"block_id": 12,
+"facing": 0,
+"pos": Vector2( -1, -6 ),
+"type": "GunBlock"
+}, {
+"block_id": 13,
+"facing": 0,
+"pinHead_coord": Vector2( 0, 0 ),
+"pos": Vector2( 2, -5 ),
+"subShip_name": "ShipBody",
+"subShip_resource_path": "res://Ships/ShipBody_1/SubShips/ShipBody_subship0_ShipBody_1/ShipBody_subship0_ShipBody_1.tres",
+"type": "PinBlock"
+} ]
+gridDisplacement = Vector2( 13, 284 )

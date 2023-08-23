@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://ShipBase/ShipBody.gd" type="Script" id=2]
+[ext_resource path="res://ShipBase/ShipInfo.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ShipBase/ShipBase_Storage.tscn" type="PackedScene" id=6]
+
+[node name="offset_pintest" type="RigidBody2D"]
+position = Vector2( 1131.28, 549.977 )
+input_pickable = true
+collision_mask = 2
+mass = 200.0
+gravity_scale = 0.0
+linear_damp = 0.0
+angular_damp = 0.0
+script = ExtResource( 2 )
+given_name = "offset_pintest"
+
+[node name="ShipInfo" parent="." instance=ExtResource( 4 )]
+
+[node name="ShipBase_Storage" parent="." instance=ExtResource( 6 )]
+data_saved = true
+
+[node name="COM Sprite" type="Sprite" parent="."]
+rotation = 0.785398
+texture = ExtResource( 1 )

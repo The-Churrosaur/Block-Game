@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ShipBase/GridBase/Block_Storage.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Blocks/PinHead.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[node name="PinHeadBase" type="Node2D"]
+script = ExtResource( 2 )
+class_type = "PinHead"
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+scale = Vector2( 1, 0.2 )
+texture = ExtResource( 3 )
+
+[node name="Sprite3" type="Sprite" parent="."]
+scale = Vector2( 0.2, 1 )
+texture = ExtResource( 3 )
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="Block_Storage" parent="." instance=ExtResource( 1 )]
